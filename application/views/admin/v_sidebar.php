@@ -17,11 +17,11 @@
 
             <li id="sidebar-dashboard" class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li id="sidebar-menu"><a href="#"><i class="fa  fa-th-list"></i> Menu</a></li>
+            <li id="sidebar-aset"><a href="#"><i class="fa  fa-th-list"></i> Aset</a></li>
 
             <li id="sidebar-article"><a href="#"><i class="fa fa-file-text"></i> Article</a></li>
 
-            <li id="sidebar-admin"><a href="#"><i class="fa fa-user"></i> Admin</a></li>
+            <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> User</a></li>
 
             <li id="sidebar-gallery"><a href="#"><i class="fa fa-photo"></i> Gallery</a></li>
 

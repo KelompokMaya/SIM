@@ -36,24 +36,24 @@
 
 // LOAD TABLE MENU
 
-$('#sidebar-menu').click(function(event) {
+$('#sidebar-aset').click(function(event) {
 	$('#main-content').html();
 	$('#preloader').css('display','block');
-	$.get(base_url+"Admin/Menu", function(data) {
+	$.get(base_url+"Admin/Aset", function(data) {
 		$('#preloader').css('display','none');
 		$('#main-content').html(data);
-    setCookie("sidebar", "menu", 0.5);
+    setCookie("sidebar", "aset", 0.5);
 		dataTable();
 	});
 });
 
-$('#sidebar-admin').click(function(event) {
-	$('#main-content').html();
+$('#sidebar-user').click(function(event) {
+	$('#main-content').html('');
 	$('#preloader').css('display','block');
 	$.get(base_url+"Admin/Admin", function(data) {
 		$('#preloader').css('display','none');
 		$('#main-content').html(data);
-    setCookie("sidebar", "admin", 0.5);
+    setCookie("sidebar", "user", 0.5);
 		dataTable();
 	});
 });

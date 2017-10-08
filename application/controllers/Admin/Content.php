@@ -15,6 +15,7 @@ class Content extends CI_Controller {
 	
 	public function index(){
 		$data['currUser']=$this->session->userdata('fullname');
+		
 
 		$this->load->view('admin/v_metadata');
 		$this->load->view('admin/v_header');

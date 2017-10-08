@@ -20,10 +20,10 @@
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Table Admin</h3>
-            <button onclick="addAdmin();" class="btn btn-primary btn-flat pull-right" type="button">
+            <h3 class="box-title">Table User</h3>
+            <button onclick="addUser();" class="btn btn-primary btn-flat pull-right" type="button">
                 <i class="fa fa-plus"></i>
-                  <span> Add Admin</span>
+                  <span> Add User</span>
             </button>
         </div>
         <!-- /.box-header -->
@@ -35,25 +35,30 @@
                         <th>Username</th>
                         <th>Fullname</th>
                         <th>Email</th>
-                        <th>Information</th>
+                        <th>Phone</th>
+                        <th>Lokasi</th>
+                        <th>Aktif</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php $i=1; ?>
-                <?php foreach ($admin->result() as $row): ?>
+                <?php foreach ($user->result() as $row): ?>
                     <tr>
                         <td><?php echo $i; $i++; ?></td>
                         <td><?php echo $row->username; ?></td>
                         <td><?php echo $row->fullname; ?></td>
                         <td><?php echo $row->email; ?></td>
-                        <td><?php echo $row->information; ?></td>
+                        <td><?php echo  $row->phone; ?></td>
+                        <td><?php echo $row->lokasi; ?></td>
+                        <td><?php echo $row->aktif; ?></td>
+                         
                         <td>
                           <div class="btn-group">
-                            <button onclick="editAdmin(<?php echo $row->id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
+                            <button onclick="editUser(<?php echo $row->id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
                                 <i class="fa fa-pencil"></i>
                             </button>
-                            <button onclick="deleteAdmin(<?php echo $row->id; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Delete">
+                            <button onclick="deleteUser(<?php echo $row->id; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Delete">
                                 <i class="fa fa-trash"></i>
                             </button>
                           </div>
@@ -67,7 +72,9 @@
                         <th>Username</th>
                         <th>Fullname</th>
                         <th>Email</th>
-                        <th>Information</th>
+                        <th>Phone</th>
+                        <th>Lokasi</th>
+                        <th>Aktif</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -77,8 +84,8 @@
     </div>
 </div>
 
-<!-- modal add menu!-->
-<div class="modal fade" id="modalAdd-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- modal add user!-->
+<div class="modal fade" id="modalAdd-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
@@ -86,10 +93,10 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"id="myModalLabel">Add Admin</h4>
+            <h4 class="modal-title" id="myModalLabel">Add User</h4>
           </div>
           <div class="modal-body">
-            <form role="form" method="post" action="" id="form-create-admin">
+            <form role="form" method="post" action="" id="form-create-user">
 
                 <div class="form-group">
                   <label>Username</label>
@@ -110,17 +117,22 @@
                   <label>Password</label>
                   <input name="password" id="password" type="email" class="form-control" required="required" placeholder="Enter ...">
                 </div>
-
                 <div class="form-group">
-                  <label>Information</label>
-                  <textarea name="infromation" id="infromation" type="text" rows="5" class="form-control" required="required" placeholder="Enter ..."></textarea>
+                  <label>phone</label>
+                  <input name="phone" id="phone" type="text" class="form-control"  placeholder="Enter ...">
+                </div>
+                <div class="form-group">
+                  <label>Lokasi</label>
+                  <input name="lokasi" id="lokasi" type="text" class="form-control"  placeholder="Enter ...">
                 </div>
 
+
+                
           </div>
           <div class="modal-footer">
             <div class="btn-group">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-admin">Save changes</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-user">Save changes</button>
             </div>
           </div>
           </form>
@@ -133,8 +145,8 @@
   </div>
 </div>
 
-<!-- modal edit menu!-->
-<div class="modal fade" id="modalEdit-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- modal edit user!-->
+<div class="modal fade" id="modalEdit-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
@@ -142,10 +154,10 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"id="myModalLabel">Edit Admin</h4>
+            <h4 class="modal-title" id="myModalLabel">Edit User</h4>
           </div>
           <div class="modal-body">
-            <form role="form" method="post" action="" id="form-edit-admin">
+            <form role="form" method="post" action="" id="form-edit-user">
 
                 <div class="form-group">
                   <label>Username</label>
@@ -168,8 +180,21 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Information</label>
-                  <textarea name="infromation" id="edit-infromation" type="text" rows="5" class="form-control" required="required" placeholder="Enter ..."></textarea>
+                  <label>Phone</label>
+                  <input name="phone" id="edit-phone" type="text" class="form-control"  placeholder="Enter ...">
+                </div>
+
+                <div class="form-group">
+                  <label>Lokasi</label>
+                  <input name="lokasi" id="edit-lokasi" type="text" class="form-control"  placeholder="Enter ...">
+                </div>
+                
+                <div class="form-group">
+                  <label>Aktif</label>
+                  <select class="form-control" name="aktif" id="edit-aktif" >
+                    <option value="ya">ya</option>
+                    <option value="tidak">tidak</option>
+                  </select>
                 </div>
 
                 <input hidden="hidden" name="id" id="edit-id"></input>
@@ -178,7 +203,7 @@
           <div class="modal-footer">
             <div class="btn-group">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" data-loading-text="Loading..." id="btn-edit-admin">Save changes</button>
+              <button type="button" class="btn btn-success" data-loading-text="Loading..." id="btn-edit-user">Save changes</button>
             </div>
           </div>
           </form>
@@ -192,7 +217,7 @@
 </div>
 
 <!--modal delete menu!-->
-<div id="modalDelete-admin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div id="modalDelete-user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
@@ -200,12 +225,12 @@
             <h4 class="modal-title" id="myModalLabel">Delete Admin</h4>
          </div>
          <div class="modal-body">
-            Are you sure want to delete this admin?
+            Apakah anda ingin menghapus user ini?
          </div>
          <div class="modal-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
-            <button id="btn-delete-admin" type="button" class="btn btn-danger btn-flat">Yes</button>
+            <button id="btn-delete-user" type="button" class="btn btn-danger btn-flat">Yes</button>
           </div>
         </div>
       </div>
@@ -214,23 +239,25 @@
 
 <script type="text/javascript">
 
-    $('#modalDelete-admin').appendTo('body');
-    $('#modalAdd-admin').appendTo('body');
-    $('#modalEdit-admin').appendTo('body');
+    $('#modalDelete-user').appendTo('body');
+    $('#modalAdd-user').appendTo('body');
+    $('#modalEdit-user').appendTo('body');
 
-    function addAdmin() {
-    	$('#modalAdd-admin').modal();
-    	$('#btn-add-admin').one('click',function(event) {
-            var username = $('#modalAdd-admin').find('#username').val();
-            var fullname = $('#modalAdd-admin').find('#fullname').val();
-            var email = $('#modalAdd-admin').find('#email').val();
-            var password = $('#modalAdd-admin').find('#password').val();
-            var infromation = $('#modalAdd-admin').find('#infromation').val();
-    		$('#modalAdd-admin').modal('hide');
+    function addUser() {
+    	$('#modalAdd-user').modal();
+    	$('#btn-add-user').one('click',function(event) {
+            var username = $('#modalAdd-user').find('#username').val();
+            var fullname = $('#modalAdd-user').find('#fullname').val();
+            var email = $('#modalAdd-user').find('#email').val();
+            var password = $('#modalAdd-user').find('#password').val();
+            var phone = $('#modalAdd-user').find('#phone').val();
+            var lokasi = $('#modalAdd-user').find('#lokasi').val();
+            
+    		$('#modalAdd-user').modal('hide');
     		$('#preloader').css('display','block');
     		$('#main-content').html();
-    		$.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, infromation: infromation}, function(data) {
-                $('#form-create-admin').trigger("reset");
+    		$.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, phone:phone, lokasi:lokasi}, function(data) {
+                $('#form-create-user').trigger("reset");
     			$('#preloader').css('display','none');
     			$('#main-content').html(data);
     			dataTable();
@@ -238,26 +265,31 @@
     	});
     }
 
-    function editAdmin(id) {
-        $.get(base_url+"Admin/Admin/select/"+id, function(admin) {
-            var admin=jQuery.parseJSON(admin+"");
-            $('#modalEdit-admin').modal();
-            $('#edit-id').val(admin.id);
-            $('#edit-username').val(admin.username);
-            $('#edit-fullname').val(admin.fullname);
-            $('#edit-email').val(admin.email);
+    function editUser(id) {
+        $.get(base_url+"Admin/Admin/select/"+id, function(user) {
+            var user=jQuery.parseJSON(user+"");
+            $('#modalEdit-user').modal();
+            $('#edit-id').val(user.id);
+            $('#edit-username').val(user.username);
+            $('#edit-fullname').val(user.fullname);
+            $('#edit-email').val(user.email);
+            $('#edit-phone').val(user.phone);
+            $('#edit-lokasi').val(user.lokasi);
+            $('#edit-aktif').val(user.aktif)
             //$('#edit-password').val(admin.password);
-            $('#edit-infromation').val(admin.information);
-        	$('#btn-edit-admin').click(function(event) {
+            ;
+        	$('#btn-edit-user').click(function(event) {
                 var username = $('#edit-username').val();
                 var fullname = $('#edit-fullname').val();
                 var email = $('#edit-email').val();
-                var password = $('#edit-password').val();
-                var infromation = $('#edit-infromation').val();
+                //var password = $('#edit-password').val();
+                var phone = $('#edit-phone').val();
+                var lokasi = $('#edit-lokasi').val();
+                var aktif = $('#edit-aktif').val();
                 var id = $('#edit-id').val();
-                $.post(base_url+"Admin/Admin/update", {id:id, username: username, fullname: fullname, email: email, /*password: password,*/ infromation: infromation}, function(data, textStatus, xhr) {
-                    $('#modalEdit-admin').modal('hide');
-                    $('#form-edit-admin').trigger("reset");
+                $.post(base_url+"Admin/Admin/update", {id:id, username: username, fullname: fullname, email: email, /*password: password,*/ phone:phone, lokasi:lokasi, aktif:aktif}, function(data, textStatus, xhr) {
+                    $('#modalEdit-user').modal('hide');
+                    $('#form-edit-user').trigger("reset");
                     $('#preloader').css('display','none');
                     $('#main-content').html(data);
                     dataTable();
@@ -267,10 +299,10 @@
         });
     }
 
-    function deleteAdmin(id) {
-    	$('#modalDelete-admin').modal();
-    	$('#btn-delete-admin').click(function(event) {
-    		$('#modalDelete-admin').modal('hide');
+    function deleteUser(id) {
+    	$('#modalDelete-user').modal();
+    	$('#btn-delete-user').click(function(event) {
+    		$('#modalDelete-user').modal('hide');
     		$('#preloader').css('display','block');
     		$('#main-content').html();
     		$.get(base_url+"Admin/Admin/delete/"+id, function(data) {

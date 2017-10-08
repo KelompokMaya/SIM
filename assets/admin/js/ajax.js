@@ -60,7 +60,7 @@ function getCookie(cname) {
 $('.sidebar-menu > li').click(function(event) {
 	$('.sidebar-menu > li').removeClass('active');
 	$(this).addClass('active');
-	$('.content-header h1').html($(this).find('a').text()+'<small>Control panel</small>');
+	$('.content-header h1').html($(this).find('a').text());
 	if(parseInt($('body').css('width'))<768) $('a.sidebar-toggle').click();
 });
 

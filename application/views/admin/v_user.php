@@ -20,15 +20,16 @@
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Table User</h3>
+            <h3 class="box-title">Data User</h3>
             <button onclick="addUser();" class="btn btn-primary btn-flat pull-right" type="button">
                 <i class="fa fa-plus"></i>
-                  <span> Add User</span>
+                  <span> Tambah User</span>
             </button>
+            
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive" id="list-table-menu">
-            <table id="" class="table table2 table-bordered table-hover">
+            <table id="" class="table table1 table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -93,7 +94,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Add User</h4>
+            <h4 class="modal-title" id="myModalLabel">Tambah User</h4>
           </div>
           <div class="modal-body">
             <form role="form" method="post" action="" id="form-create-user">
@@ -125,14 +126,11 @@
                   <label>Lokasi</label>
                   <input name="lokasi" id="lokasi" type="text" class="form-control"  placeholder="Enter ...">
                 </div>
-
-
-                
-          </div>
+         
           <div class="modal-footer">
             <div class="btn-group">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-user">Save changes</button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-user">Simpan</button>
             </div>
           </div>
           </form>
@@ -202,8 +200,8 @@
           </div>
           <div class="modal-footer">
             <div class="btn-group">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" data-loading-text="Loading..." id="btn-edit-user">Save changes</button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
+              <button type="button" class="btn btn-success" data-loading-text="Loading..." id="btn-edit-user">Simpan</button>
             </div>
           </div>
           </form>
@@ -222,15 +220,15 @@
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Delete Admin</h4>
+            <h4 class="modal-title" id="myModalLabel">Hapus User</h4>
          </div>
          <div class="modal-body">
             Apakah anda ingin menghapus user ini?
          </div>
          <div class="modal-footer">
           <div class="btn-group">
-            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
-            <button id="btn-delete-user" type="button" class="btn btn-danger btn-flat">Yes</button>
+            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Tidak</button>
+            <button id="btn-delete-user" type="button" class="btn btn-danger btn-flat">Ya</button>
           </div>
         </div>
       </div>

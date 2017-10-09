@@ -3,16 +3,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_aset extends CI_Model {
 
-	public function insert($title, $body) {
-		$slug=$this->slugify($title);
-		$this->db->select('COUNT(id) as count');
-		$this->db->where('slug', $slug);
-		$count=$this->db->get('article')->row()->count;
-		$slug=$count>0?$slug.'-'.$count: $slug;
-
-		$object=array('title'=>$title, 'slug'=>$slug, 'body'=>$body, 'author'=>1);
-		$this->db->insert('article', $object);
-
-		return;
+	public function select($id){
+		$this->db->select('*');
+		$this->db->where('id',$id);
+		return $this->db->get('tb_aset');
 	}
+
+	public function create($nama, $manufaktur, $status ,$fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model, $trakhirdiperbaiki){
+
+		$data = array(
+			'nama' => $nama,
+			'manufaktur' => $manufaktur,
+			'status' => $status,
+			'fakultas_id' => $fakultas_id,
+			'jurusan_id' => $jurusan_id,
+			'lokasi_id'=> $lokasi_id,
+			'noseri'=> $noseri,
+			'tipe'=> $tipe,
+			'model'=> $model,
+			'trakhir_diperbaiki'=> $trakhirdiperbaiki
+
+		);
+
+		$this->db->insert('tb_aset', $data);
+		//print_r($this->input->post());	
+	}
+
+
+	public function select_all(){
+		$this->db->select('*');
+		//$this->db->where('aktif', 'ya');
+		return $this->db->get('tb_aset');
+	}
+		
 }

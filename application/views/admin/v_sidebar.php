@@ -19,7 +19,7 @@
 
             <li id="sidebar-aset"><a href="#"><i class="fa  fa-th-list"></i> Aset</a></li>
 
-            <li id="sidebar-article"><a href="#"><i class="fa fa-file-text"></i> Article</a></li>
+            <li id="sidebar-lokasi"><a href="#"><i class="fa fa-file-text"></i> Lokasi Aset</a></li>
 
             <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> User</a></li>
 

@@ -75,13 +75,14 @@ $('#sidebar-dashboard').click(function(event) {
 	});
 });
 
-$('#sidebar-article').click(function(event) {
+$('#sidebar-lokasi').click(function(event) {
 	$('#main-content').html('');
 	$('#preloader').css('display','block');
-	$.get(base_url+"Admin/Article/select_all", function(data) {
+	$.get(base_url+"Admin/Lokasi", function(data) {
 		$('#preloader').css('display','none');
 		$('#main-content').html(data);
-		setCookie("sidebar", "article", 0.5);
+		setCookie("sidebar", "lokasi", 0.5);
+		dataTable();
 	});
 });
 

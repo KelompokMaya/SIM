@@ -273,9 +273,9 @@
             $('#edit-email').val(user.email);
             $('#edit-phone').val(user.phone);
             $('#edit-lokasi').val(user.lokasi);
-            $('#edit-aktif').val(user.aktif)
+            $('#edit-aktif').val(user.aktif);
             //$('#edit-password').val(admin.password);
-            ;
+            
         	$('#btn-edit-user').click(function(event) {
                 var username = $('#edit-username').val();
                 var fullname = $('#edit-fullname').val();

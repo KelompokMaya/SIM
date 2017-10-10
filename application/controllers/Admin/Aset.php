@@ -22,8 +22,9 @@ class Aset extends CI_Controller {
 	}
 
 	public function select($id){
-		$aset=$this->M_Aset->select($id)->row();
+		$aset=$this->M_aset->select($id)->row();
 		echo json_encode($aset);
+
 	}
 
 	public function create(){
@@ -42,11 +43,45 @@ class Aset extends CI_Controller {
 		$this->M_aset->create($nama, $manufaktur, $status, $fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model, $trakhirdiperbaiki);
 		$this->index();
 	}
+	
+	public function update(){
+		$id = $this->input->post('id');
+		$nama = $this->input->post('nama');
+		$manufaktur = $this->input->post('manufaktur');
+		$status = $this->input->post('status');
+		/*$fakultas_id = $this->input->post('fakultas_id');
+		$jurusan_id = $this->input->post('jurusan_id');
+		$lokasi_id = $this->input->post('lokasi_id');
+		*/$noseri = $this->input->post('noseri');
+		$tipe = $this->input->post('tipe');
+		$model = $this->input->post('model');
+		$trakhirdiperbaiki = $this->input->post('trakhirdiperbaiki');
+		
+		
+		$this->M_aset->update($id,$nama, $manufaktur, $status, /*$fakultas_id, $jurusan_id, $lokasi_id,*/ $noseri, $tipe, $model, $trakhirdiperbaiki);
+		$this->index();
+	}
+	public function updateLokasi(){
+		$id = $this->input->post('id');
+		$fakultas_id = $this->input->post('fakultas_id');
+		$jurusan_id = $this->input->post('jurusan_id');
+		$lokasi_id = $this->input->post('lokasi_id');
+		
+		
+		
+		$this->M_aset->updateLokasi($id,$fakultas_id, $jurusan_id, $lokasi_id);
+		$this->index();
+	}
 
 	public function delete($id){
 		$this->db->where('id', $id);
 		$this->db->delete('tb_aset');
 		$this->index();
+	}
+
+	public function currLokasi($id){
+		$lokasi=$this->M_aset->currLokasi($id)->row();
+		echo json_encode($lokasi);
 	}
 }
 	

@@ -21,7 +21,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Data Lokasi</h3>
-            <button onclick="hapusLokasi();" class="btn btn-danger btn-flat pull-right" type="button">
+            <button onclick="deleteLokasi();" class="btn btn-danger btn-flat pull-right" type="button">
                 <i class="fa fa-trash"></i>
                   <span> Hapus Lokasi</span>
             </button>
@@ -98,6 +98,108 @@
 
 <!-- modal add lokasi!-->
 <div class="modal fade" id="modalAdd-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="example-modal">
+    <div class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Tambah Lokasi</h4>
+          </div>
+          <div class="modal-body">
+           <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Fakultas</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Jurusan</a></li>
+              <li><a href="#tab_3" data-toggle="tab">Lokasi</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                <form role="form" method="post" action="" id="form-create-fakultas">
+                      <div class="form-group">
+                        <label>Fakultas</label>
+                        <input name="fakultas_id" id="fakultas_id" type="text" class="form-control"  placeholder="Enter ...">
+                      </div>
+                      <div class="modal-footer">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-fakultas">Simpan</button>
+                        </div>
+                      </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                <form role="form" method="post" action="" id="form-create-jurusan">
+                      <div class="form-group">
+                        <label>Fakultas</label>
+                        <select name="fakultas_id" id="fakultas_id" class="form-control article-option" >
+                                    <option value="0"> ----- Pilih Fakultas -------</option>  
+                                    <?php foreach ($fakultas->result() as $option): ?>
+                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
+                                    <?php endforeach; ?>
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>Jurusan</label>
+                        <input name="jurusan_id" id="jurusan_id1" type="text" class="form-control" required="required" placeholder="Enter ...">
+                      </div>
+                      <div class="modal-footer">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-jurusan">Simpan</button>
+                        </div>
+                      </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_3">
+                <form role="form" method="post" action="" id="form-create-lokasi">
+                      <div class="form-group">
+                        <label>Fakultas</label>
+                        <select name="fakultas_id" id="fakultas_id1" class="form-control article-option" onChange="tampilJurusan()">
+                                    <option value="0"> ----- Pilih Fakultas -------</option>  
+                                    <?php foreach ($fakultas->result() as $option): ?>
+                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
+                                    <?php endforeach; ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Jurusan</label>
+                        <select name="jurusan_id" id="jurusan_id" class="form-control article-option" >
+                                <option value="0"> ----- Pilih Jurusan -------</option>     
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Lokasi</label>
+                        <input name="lokasi_id" id="lokasi_id" type="text" class="form-control"  placeholder="Enter ...">
+                      </div>
+                      <div class="modal-footer">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-lokasi">Simpan</button>
+                        </div>
+                      </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+</div>
+
+
+<!-- modal delete lokasi!-->
+<div class="modal fade" id="modalDelete-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
@@ -222,6 +324,8 @@
 
 <script type="text/javascript">
 
+
+    $('#modalDelete-lokasi').appendTo('body');
     $('#modalDelete-user').appendTo('body');
     $('#modalAdd-user').appendTo('body');
     $('#modalEdit-user').appendTo('body');
@@ -272,6 +376,20 @@
       });
     }
 
+    function deleteLokasi(id) {
+      $('#modalDelete-lokasi').modal();
+      $('#btn-delete-user').click(function(event) {
+        $('#modalDelete-user').modal('hide');
+        $('#preloader').css('display','block');
+        $('#main-content').html();
+        $.get(base_url+"Admin/Admin/delete/"+id, function(data) {
+          $('#preloader').css('display','none');
+          $('#main-content').html(data);
+          dataTable();
+        });
+      });
+
+    }
     function editUser(id) {
         $.get(base_url+"Admin/Admin/select/"+id, function(user) {
             var user=jQuery.parseJSON(user+"");

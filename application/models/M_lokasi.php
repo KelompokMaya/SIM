@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_lokasi extends CI_Model {
 
-	public function select_fakultas(){
+	public function selectAll_fakultas(){
 		$this->db->select('*');
 		//$this->db->where('aktif', 'ya');
 		$sql_fakultas= $this->db->get('tb_fakultas');
@@ -13,6 +13,19 @@ class M_lokasi extends CI_Model {
 		} 
 		
 	}
+	public function select_fakultas($kampus_id){
+		$this->db->select('*');
+		$this->db->where('kampus_id', $kampus_id);
+		$sql_fakultas= $this->db->get('tb_fakultas');
+		if($sql_fakultas->num_rows()>0){
+			return $sql_fakultas;
+		} else{
+			$result=0;
+			return $result;
+		}
+        
+	}
+
 	public function select_jurusan($fakultas_id){
 		$this->db->select('*');
 		$this->db->where('fakultas_id', $fakultas_id);

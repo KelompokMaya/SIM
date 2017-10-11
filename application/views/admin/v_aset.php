@@ -28,11 +28,17 @@
                         <div class="form-group">
                           <label>lokasi </label>
                           <div class="form-group">
+                            <label>Kampus</label>
+                              <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                          </div>
+                          <div class="form-group">
                            <select name="fakultas_id" id="fakultas_id" class="form-control article-option" onChange="tampilJurusan()" >
                                     <option > ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
+                                   
                           </select>
                           </div>
                           <div class="form-group">
@@ -60,6 +66,14 @@
                         <div class="form-group">
                           <label>Model</label>
                           <input name="model" id="model" type="text" class="form-control"  placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>No Inventory</label>
+                          <input name="noinventory" id="noinventory" type="text" class="form-control"  placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Tanggal dipasang</label>
+                          <input name="tgldipasang" id="tgldipasang" type="date" class="form-control"  placeholder="Enter ...">
                         </div>
                         <div class="form-group">
                           <label>Trakhir diperbaiki</label>
@@ -104,6 +118,14 @@
                               <option value="aktif" >Aktif</option>
                               <option value="tidak aktif" >Tidak Aktif</option>
                           </select>  
+                        </div>
+                         <div class="form-group">
+                          <label>No Inventory</label>
+                          <input name="noinventory" id="edit-noinventory" type="text" class="form-control"  placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Tanggal dipasang</label>
+                          <input name="tgldipasang" id="edit-tgldipasang" type="date" class="form-control"  placeholder="Enter ...">
                         </div>
                         
                 </div>
@@ -154,12 +176,14 @@
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Manufaktur</th>
-                        <th>Nomor Seri</th>
+                        <th>No Seri</th>
                         <th>Tipe</th>
                         <th>Model</th>
+                        <th>No Inventory</th>
+                        <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
                         <th>lokasi</th>
-                        <th>Aksi</th>
+                        <th style="width: 55px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -173,6 +197,8 @@
                         <td><?php echo  $row->noseri; ?></td>
                         <td><?php echo $row->tipe; ?></td>
                         <td><?php echo $row->model; ?></td>
+                         <td><?php echo $row->noinventory; ?></td>
+                          <td><?php echo $row->tgldipasang; ?></td>
                         <td><?php echo $row->trakhir_diperbaiki; ?></td>
                         <td style="text-align: center;">
                                 <button onclick="lokasiAset(<?php echo $row->id; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
@@ -195,9 +221,11 @@
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Manufaktur</th>
-                        <th>Nomor Seri</th>
+                        <th>No Seri</th>
                         <th>Tipe</th>
                         <th>Model</th>
+                         <th>No Inventory</th>
+                        <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
                         <th>lokasi</th>
                         <th>Aksi</th>
@@ -270,9 +298,7 @@
                           <div class="form-group">
                            <select name="fakultas_id" id="editfakultas_id" class="form-control article-option" onChange="editTampilJurusan()" >
                                     <option > ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
+                                    
                           </select>
                           </div>
                           <div class="form-group">
@@ -315,22 +341,27 @@
             
         }
         
-        $('#btn-add-aset').one('click',function(event) {
+        
+    }
+  $('#btn-add-aset').one('click',function(event) {
            $('#preloader').css('display','block');
            $('#editor-wrapper').css('display', 'none');
             
             var nama = $('#add-aset').find('#nama').val();
             var manufaktur = $('#add-aset').find('#manufaktur').val();
             var status = $('#add-aset').find('#status').val();
+            var kampus_id = $('#add-aset').find('#kampus_id').val();
             var fakultas_id = $('#add-aset').find('#fakultas_id').val();
             var jurusan_id = $('#add-aset').find('#jurusan_id').val();
             var lokasi_id = $('#add-aset').find('#lokasi_id').val();
             var noseri = $('#add-aset').find('#noseri').val();
             var tipe = $('#add-aset').find('#tipe').val();
             var model = $('#add-aset').find('#model').val();
+            var noinventory = $('#add-aset').find('#noinventory').val();
+            var tgldipasang = $('#add-aset').find('#tgldipasang').val();
             var trakhirdiperbaiki = $('#add-aset').find('#trakhirdiperbaiki').val();
            
-            $.post(base_url+"Admin/Aset/create/", {nama: nama, manufaktur: manufaktur, status: status, fakultas_id: fakultas_id, jurusan_id: jurusan_id, lokasi_id: lokasi_id, noseri: noseri, tipe: tipe, model: model,trakhirdiperbaiki:trakhirdiperbaiki }, function(data) {
+            $.post(base_url+"Admin/Aset/create/", {nama: nama, manufaktur: manufaktur, status: status,kampus_id:kampus_id, fakultas_id: fakultas_id, jurusan_id: jurusan_id, lokasi_id: lokasi_id, noseri: noseri, tipe: tipe, model: model,noinventory:noinventory,tgldipasang:tgldipasang,trakhirdiperbaiki:trakhirdiperbaiki }, function(data) {
                 $('#form-create-aset').trigger("reset");
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
@@ -338,11 +369,10 @@
                 //console.log(data);
             }); 
         });
-    }
 
     
 
-     function deleteAset(id) {
+  function deleteAset(id) {
       $('#modalDelete-aset').modal();
       $('#btn-delete-aset').click(function(event) {
         $('#modalDelete-aset').modal('hide');
@@ -374,6 +404,8 @@
             $('#edit-noseri').val(aset.noseri);
             $('#edit-tipe').val(aset.tipe);
             $('#edit-model').val(aset.model);
+            $('#edit-noinventory').val(aset.noinventory);
+            $('#edit-tgldipasang').val(aset.tgldipasang);
             $('#edit-trakhirdiperbaiki').val(aset.trakhir_diperbaiki);
             $('#btn-edit-aset').one('click',function(event) {
             $('#preloader').css('display','block');
@@ -386,6 +418,8 @@
             var noseri = $('#edit-aset').find('#edit-noseri').val();
             var tipe = $('#edit-aset').find('#edit-tipe').val();
             var model = $('#edit-aset').find('#edit-model').val();
+            var noinventory = $('#edit-aset').find('#edit-noinventory').val();
+            var tgldipasang = $('#edit-aset').find('#edit-tgldipasang').val();
             var trakhirdiperbaiki = $('#edit-aset').find('#edit-trakhirdiperbaiki').val();
              
 
@@ -403,7 +437,7 @@
               */
 
                 
-               $.post(base_url+"Admin/Aset/update/", {id:id, nama: nama, manufaktur: manufaktur, status: status,  noseri: noseri, tipe: tipe, model: model,trakhirdiperbaiki:trakhirdiperbaiki }, function(data, textStatus, xhr) {
+               $.post(base_url+"Admin/Aset/update/", {id:id, nama: nama, manufaktur: manufaktur, status: status,  noseri: noseri, tipe: tipe, model: model,noinventory:noinventory, tgldipasang:tgldipasang, trakhirdiperbaiki:trakhirdiperbaiki }, function(data, textStatus, xhr) {
                     
                     $('#form-edit-aset').trigger("reset");
                     $('#preloader').css('display','none');
@@ -467,6 +501,25 @@
 
 
     //dropdown lokasi
+  function tampilFakultas()
+     {
+       kampus_id = document.getElementById("kampus_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
+         success: function(response){
+         $("#fakultas_id").html(response);
+         $("#jurusan_id").html('');
+         $("#lokasi_id").html('');
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+
   function tampilJurusan()
      {
        fakultas_id = document.getElementById("fakultas_id").value;

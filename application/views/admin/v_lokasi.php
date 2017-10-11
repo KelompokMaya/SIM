@@ -118,6 +118,14 @@
               <div class="tab-pane active" id="tab_1">
                 <form role="form" method="post" action="" id="form-create-fakultas">
                       <div class="form-group">
+                         <div class="form-group">
+                            <label>Kampus</label>
+                              <select name="kampus_id" id="kampus_id" class="form-control article-option" >
+                                             <option value="0"> ----- Pilih Kampus -------</option>  
+                                             <option value="1"> Kampus Bukit </option> 
+                                             <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                         </div>
                         <label>Fakultas</label>
                         <input name="fakultas_id" id="fakultas_id" type="text" class="form-control"  placeholder="Enter ...">
                       </div>
@@ -133,18 +141,23 @@
               <div class="tab-pane" id="tab_2">
                 <form role="form" method="post" action="" id="form-create-jurusan">
                       <div class="form-group">
+                            <label>Kampus</label>
+                              <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                      </div>
+                      <div class="form-group">
                         <label>Fakultas</label>
-                        <select name="fakultas_id" id="fakultas_id" class="form-control article-option" >
+                        <select name="fakultas_id" id="fakultas_id1" class="form-control article-option" >
                                     <option value="0"> ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
+                                   
                         </select>
                       </div>
-                      
                       <div class="form-group">
                         <label>Jurusan</label>
-                        <input name="jurusan_id" id="jurusan_id1" type="text" class="form-control" required="required" placeholder="Enter ...">
+                        <input name="jurusan_id" id="jurusan_id" type="text" class="form-control" required="required" placeholder="Enter ...">
                       </div>
                       <div class="modal-footer">
                         <div class="btn-group">
@@ -158,17 +171,25 @@
               <div class="tab-pane" id="tab_3">
                 <form role="form" method="post" action="" id="form-create-lokasi">
                       <div class="form-group">
-                        <label>Fakultas</label>
-                        <select name="fakultas_id" id="fakultas_id1" class="form-control article-option" onChange="tampilJurusan()">
-                                    <option value="0"> ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
-                        </select>
+                            <label>Kampus</label>
+                              <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas2()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                      </div>
+                      <div class="form-group">
+                            <label>Fakultas</label>
+                              <select name="fakultas_id" id="fakultas_id2" class="form-control article-option" onChange="tampilJurusan()">
+                                          <option value="0"> ----- Pilih Fakultas -------</option>  
+                                          <?php foreach ($fakultas->result() as $option): ?>
+                                          <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
+                                          <?php endforeach; ?>
+                              </select>
                       </div>
                       <div class="form-group">
                         <label>Jurusan</label>
-                        <select name="jurusan_id" id="jurusan_id" class="form-control article-option" >
+                        <select name="jurusan_id" id="jurusan_id1" class="form-control article-option" >
                                 <option value="0"> ----- Pilih Jurusan -------</option>     
                         </select>
                       </div>
@@ -198,106 +219,7 @@
 </div>
 
 
-<!-- modal delete lokasi!-->
-<div class="modal fade" id="modalDelete-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="example-modal">
-    <div class="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Tambah Lokasi</h4>
-          </div>
-          <div class="modal-body">
-           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Fakultas</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Jurusan</a></li>
-              <li><a href="#tab_3" data-toggle="tab">Lokasi</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-                <form role="form" method="post" action="" id="form-create-fakultas">
-                      <div class="form-group">
-                        <label>Fakultas</label>
-                        <input name="fakultas_id" id="fakultas_id" type="text" class="form-control" required="required" placeholder="Enter ...">
-                      </div>
-                      <div class="modal-footer">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-fakultas">Simpan</button>
-                        </div>
-                      </div>
-                </form>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
-                <form role="form" method="post" action="" id="form-create-jurusan">
-                      <div class="form-group">
-                        <label>Fakultas</label>
-                        <select name="fakultas_id" id="fakultas_id" class="form-control article-option" >
-                                    <option value="0"> ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
-                        </select>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>Jurusan</label>
-                        <input name="jurusan_id" id="jurusan_id1" type="text" class="form-control" required="required" placeholder="Enter ...">
-                      </div>
-                      <div class="modal-footer">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-jurusan">Simpan</button>
-                        </div>
-                      </div>
-                </form>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_3">
-                <form role="form" method="post" action="" id="form-create-lokasi">
-                      <div class="form-group">
-                        <label>Fakultas</label>
-                        <select name="fakultas_id" id="fakultas_id1" class="form-control article-option" onChange="tampilJurusan()">
-                                    <option value="0"> ----- Pilih Fakultas -------</option>  
-                                    <?php foreach ($fakultas->result() as $option): ?>
-                                    <option value="<?php echo $option->id; ?>" > <?php echo $option->nama_fakultas; ?></option>    
-                                    <?php endforeach; ?>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>Jurusan</label>
-                        <select name="jurusan_id" id="jurusan_id" class="form-control article-option" >
-                                <option value="0"> ----- Pilih Jurusan -------</option>     
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>Lokasi</label>
-                        <input name="lokasi_id" id="lokasi_id" type="text" class="form-control"  placeholder="Enter ...">
-                      </div>
-                      <div class="modal-footer">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-lokasi">Simpan</button>
-                        </div>
-                      </div>
-                </form>
-              </div>
-              <!-- /.tab-pane -->
-            </div>
-            <!-- /.tab-content -->
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-  </div>
-</div>
+
 
 
 
@@ -334,11 +256,12 @@
       $('#modalAdd-lokasi').modal();
       $('#btn-add-fakultas').one('click',function(event) {
             var fakultas = $('#tab_1').find('#fakultas_id').val();
+            var kampus = $('#tab_1').find('#kampus_id').val();
             
         $('#modalAdd-lokasi').modal('hide');
         $('#preloader').css('display','block');
         $('#main-content').html();
-        $.post(base_url+"Admin/Lokasi/create_fakultas/", {fakultas:fakultas}, function(data) {
+        $.post(base_url+"Admin/Lokasi/create_fakultas/", {fakultas:fakultas,kampus:kampus}, function(data) {
                 $('#form-create-fakultas').trigger("reset");
           $('#preloader').css('display','none');
           $('#main-content').html(data);
@@ -346,13 +269,14 @@
         });
       });
       $('#btn-add-jurusan').one('click',function(event) {
-            var fakultas = $('#tab_2').find('#fakultas_id').val();
-            var jurusan = $('#tab_2').find('#jurusan_id1').val();
+            var kampus = $('#tab_2').find('#kampus_id').val();
+            var fakultas = $('#tab_2').find('#fakultas_id1').val();
+            var jurusan = $('#tab_2').find('#jurusan_id').val();
             
         $('#modalAdd-lokasi').modal('hide');
         $('#preloader').css('display','block');
         $('#main-content').html();
-        $.post(base_url+"Admin/Lokasi/create_jurusan/", {fakultas: fakultas, jurusan: jurusan}, function(data) {
+        $.post(base_url+"Admin/Lokasi/create_jurusan/", {kampus:kampus,fakultas: fakultas, jurusan: jurusan}, function(data) {
                 $('#form-create-jurusan').trigger("reset");
           $('#preloader').css('display','none');
           $('#main-content').html(data);
@@ -360,14 +284,15 @@
         });
       });
       $('#btn-add-lokasi').one('click',function(event) {
-            var fakultas = $('#tab_3').find('#fakultas_id1').val();
-            var jurusan = $('#tab_3').find('#jurusan_id').val();
+            var kampus = $('#tab_3').find('#kampus_id').val();
+            var fakultas = $('#tab_3').find('#fakultas_id2').val();
+            var jurusan = $('#tab_3').find('#jurusan_id1').val();
             var lokasi = $('#tab_3').find('#lokasi_id').val();
             
         $('#modalAdd-lokasi').modal('hide');
         $('#preloader').css('display','block');
         $('#main-content').html();
-        $.post(base_url+"Admin/Lokasi/create_lokasi/", {fakultas: fakultas, jurusan: jurusan, lokasi:lokasi}, function(data) {
+        $.post(base_url+"Admin/Lokasi/create_lokasi/", {kampus:kampus,fakultas: fakultas, jurusan: jurusan, lokasi:lokasi}, function(data) {
                 $('#form-create-fakultas').trigger("reset");
           $('#preloader').css('display','none');
           $('#main-content').html(data);
@@ -442,19 +367,54 @@
 
 
      //dropdown lokasi
-  function tampilJurusan()
+     function tampilFakultas()
      {
-       fakultas_id = document.getElementById("fakultas_id1").value;
+       kampus_id = $('#tab_2').find('#kampus_id').val();
+       
 
       //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
        $.ajax({
-         url:"<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"",
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
          success: function(response){
-         $("#jurusan_id").html(response);
+         $("#fakultas_id1").html(response);
          },
          dataType:"html"
        });
 
        return false;
      }
+     function tampilFakultas2()
+     {
+       kampus_id = $('#tab_3').find('#kampus_id').val();
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
+         success: function(response){
+         $("#fakultas_id2").html(response);
+
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+  function tampilJurusan()
+     {
+        fakultas_id = $('#tab_3').find('#fakultas_id2').val();
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"",
+         success: function(response){
+         $("#jurusan_id1").html(response);
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+  
 </script>

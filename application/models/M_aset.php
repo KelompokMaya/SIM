@@ -29,18 +29,21 @@ class M_aset extends CI_Model {
 		
 	}
 
-	public function create($nama, $manufaktur, $status ,$fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model, $trakhirdiperbaiki){
+	public function create($nama, $manufaktur, $status,$kampus_id, $fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model,$noinventory,$tgldipasang, $trakhirdiperbaiki){
 
 		$data = array(
 			'nama' => $nama,
 			'manufaktur' => $manufaktur,
 			'status' => $status,
+			'kampus_id' => $kampus_id,
 			'fakultas_id' => $fakultas_id,
 			'jurusan_id' => $jurusan_id,
 			'lokasi_id'=> $lokasi_id,
 			'noseri'=> $noseri,
 			'tipe'=> $tipe,
 			'model'=> $model,
+			'noinventory'=> $noinventory,
+			'tgldipasang'=> $tgldipasang,
 			'trakhir_diperbaiki'=> $trakhirdiperbaiki
 
 		);
@@ -49,7 +52,7 @@ class M_aset extends CI_Model {
 		//print_r($this->input->post());	
 	}
 
-	public function update($id, $nama, $manufaktur, $status ,/*$fakultas_id, $jurusan_id, $lokasi_id,*/ $noseri, $tipe, $model, $trakhirdiperbaiki){
+	public function update($id, $nama, $manufaktur, $status ,/*$fakultas_id, $jurusan_id, $lokasi_id,*/ $noseri, $tipe, $model,$noinventory,$tgldipasang, $trakhirdiperbaiki){
 
 		$data = array(
 			'nama' => $nama,
@@ -61,6 +64,8 @@ class M_aset extends CI_Model {
 			'noseri'=> $noseri,
 			'tipe'=> $tipe,
 			'model'=> $model,
+			'noinventory'=> $noinventory,
+			'tgldipasang'=> $tgldipasang,
 			'trakhir_diperbaiki'=> $trakhirdiperbaiki
 
 		);

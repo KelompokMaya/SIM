@@ -16,6 +16,58 @@
       background: transparent !important;
     }
 </style>
+<div id="cari-Aset" class="col-xs-12" style="display: none;">
+    <div class="box  box-success">
+        <div class="box-header">
+          <h3 class="box-title">Cari Aset</h3>
+          
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body" id="add-aset">
+            <div class="form-group">
+               <form role="form" method="post" action="" id="form-create-aset">
+                <div class="col-xs-3">
+                      <div class="form-group">
+                              <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                        </div>                             
+                </div>
+                <div class="col-xs-3">
+                      <div class="form-group">
+                               <select name="fakultas_id" id="fakultas_id" class="form-control article-option" onChange="tampilJurusan()" >
+                                        <option > ----- Pilih Fakultas -------</option>  
+                                       
+                              </select>
+                        </div>
+                </div>
+                <div class="col-xs-3">                       
+                          <div class="form-group">
+                               <select  name="jurusan_id" id="jurusan_id" class="form-control " onChange="tampilLokasi()">
+                                        <option > ----- Pilih Jurusan -------</option>  
+                              </select>
+                          </div>
+                </div>
+                <div class="col-xs-3"> 
+                          <div class="form-group">
+                               <select name="lokasi_id" id="lokasi_id" class="form-control" >
+                                        <option > ----- Pilih Lokasi -------</option>  
+                              </select>
+                          </div> 
+                <div class="btn-group pull-right">
+                            <button id="btn-cancel" class="btn btn-default btn-flat">Batal</button>
+                            <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-cari-aset">Cari</button>                  
+                        </div>      
+                </div>
+
+              </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
 
 <div class="col-xs-12">
     <div class="box">
@@ -29,14 +81,14 @@
                 <i class="fa fa-plus"></i>
                   <span> Tambah Lokasi</span>
             </button>
-            <button onclick="cariLokasi();" class="btn btn-primary btn-flat pull-right" type="button">
+            <button onclick="CariAset();" class="btn btn-primary btn-flat pull-right" type="button">
                 <i class="fa fa-search"></i>
                   <span>Cari Aset</span>
             </button>
             
         </div>
         <!-- /.box-header -->
-        <div class="box-body table-responsive" id="list-table-menu">
+        <div class="box-body table-responsive" id="list-table-menu" style="display: none;">
             <table id="" class="table table2 table-bordered table-hover">
                 <thead>
                     <tr>
@@ -97,7 +149,7 @@
 
 
 <!-- modal add lokasi!-->
-<div class="modal fade" id="modalAdd-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalAdd-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
@@ -121,7 +173,7 @@
                          <div class="form-group">
                             <label>Kampus</label>
                               <select name="kampus_id" id="kampus_id" class="form-control article-option" >
-                                             <option value="0"> ----- Pilih Kampus -------</option>  
+                                            
                                              <option value="1"> Kampus Bukit </option> 
                                              <option value="2"> Kampus Sudirman </option>    
                               </select>
@@ -132,7 +184,7 @@
                       <div class="modal-footer">
                         <div class="btn-group">
                           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-fakultas">Simpan</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." onclick="addLokasiFakultas();">Simpan</button>
                         </div>
                       </div>
                 </form>
@@ -162,7 +214,7 @@
                       <div class="modal-footer">
                         <div class="btn-group">
                           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-jurusan">Simpan</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." onclick="addLokasiJurusan();">Simpan</button>
                         </div>
                       </div>
                 </form>
@@ -188,19 +240,19 @@
                               </select>
                       </div>
                       <div class="form-group">
-                        <label>Jurusan</label>
-                        <select name="jurusan_id" id="jurusan_id1" class="form-control article-option" >
-                                <option value="0"> ----- Pilih Jurusan -------</option>     
-                        </select>
+                              <label>Jurusan</label>
+                                <select name="jurusan_id" id="jurusan_id1" class="form-control article-option" >
+                                        <option value="0"> ----- Pilih Jurusan -------</option>     
+                                </select>
                       </div>
                       <div class="form-group">
-                        <label>Lokasi</label>
-                        <input name="lokasi_id" id="lokasi_id" type="text" class="form-control"  placeholder="Enter ...">
+                              <label>Lokasi</label>
+                                <input name="lokasi_id" id="lokasi_id" type="text" class="form-control"  placeholder="Enter ...">
                       </div>
                       <div class="modal-footer">
                         <div class="btn-group">
                           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." id="btn-add-lokasi">Simpan</button>
+                          <button type="button" class="btn btn-primary" data-loading-text="Loading..." onclick="addLokasiLokasi();">Simpan</button>
                         </div>
                       </div>
                 </form>
@@ -219,42 +271,103 @@
 </div>
 
 
+<!-- modal Delete lokasi!-->
+<div class="modal fade" id="modalDelete-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  data-backdrop="static" data-keyboard="false">
+  <div class="example-modal">
+    <div class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Hapus Lokasi</h4>
+          </div>
+          <div class="modal-body">
+              <form role="form" method="post" action="" id="form-delete-lokasi">
+                      <div class="form-group">
+                            <label>Kampus</label>
+                              <select name="kampus_id" id="deletekampus_id" class="form-control article-option" onChange="hapusTampilFakultas()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                      </div>
+                      <div class="form-group">
+                            <label>Fakultas</label>
+                              <select name="fakultas_id" id="deletefakultas_id" class="form-control article-option" onChange="hapustampilJurusan()">
+                                          <option value="0"> ----- Pilih Fakultas -------</option>  
+                                          
+                              </select>
+                      </div>
+                      <div class="form-group">
+                              <label>Jurusan</label>
+                                <select name="jurusan_id" id="deletejurusan_id" class="form-control article-option" onChange="hapustampilLokasi()" >
+                                        <option value="0"> ----- Pilih Jurusan -------</option>     
+                                </select>
+                      </div>
+                      <div class="form-group">
+                              <label>Lokasi</label>
+                                <select name="jurusan_id" id="deletelokasi_id" class="form-control article-option" >
+                                        <option value="0"> ----- Pilih Lokasi -------</option>     
+                                </select>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                          <button type="button" class="btn btn-danger" data-loading-text="Loading..." id="btn-delete-lokasi">Hapus</button>
+                        </div>
+                      </div>
+                </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+</div>
 
-
-
-
-<!--modal delete menu!-->
-<div id="modalDelete-user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- modal warning hapus -->
+<div id="modalwarning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Hapus User</h4>
+            <h4 class="modal-title" id="myModalLabel">Hapus LOkasi</h4>
          </div>
          <div class="modal-body">
-            Apakah anda ingin menghapus user ini?
+             Anda tidak bisa menghapus lokasi kampus
          </div>
          <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Tidak</button>
-            <button id="btn-delete-user" type="button" class="btn btn-danger btn-flat">Ya</button>
-          </div>
-        </div>
+            <div class="btn-group">
+               <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">ok</button>
+               
+            </div>
+         </div>
       </div>
    </div>
 </div>
+
+
 
 <script type="text/javascript">
 
 
     $('#modalDelete-lokasi').appendTo('body');
-    $('#modalDelete-user').appendTo('body');
-    $('#modalAdd-user').appendTo('body');
-    $('#modalEdit-user').appendTo('body');
+    $('#modalwarning').appendTo('body');
+    $('#modalDelete').appendTo('body');
+    $('#modalAdd-lokasi').appendTo('body');
+
+
+    function CariAset() {
+      $('#cari-Aset').css('display','block');  
+    }
 
     function addLokasi() {
-      $('#modalAdd-lokasi').modal();
-      $('#btn-add-fakultas').one('click',function(event) {
+      $('#modalAdd-lokasi').modal();     
+    }
+
+    function addLokasiFakultas()  {
             var fakultas = $('#tab_1').find('#fakultas_id').val();
             var kampus = $('#tab_1').find('#kampus_id').val();
             
@@ -267,8 +380,8 @@
           $('#main-content').html(data);
           dataTable();
         });
-      });
-      $('#btn-add-jurusan').one('click',function(event) {
+      };
+      function addLokasiJurusan()  {
             var kampus = $('#tab_2').find('#kampus_id').val();
             var fakultas = $('#tab_2').find('#fakultas_id1').val();
             var jurusan = $('#tab_2').find('#jurusan_id').val();
@@ -282,8 +395,8 @@
           $('#main-content').html(data);
           dataTable();
         });
-      });
-      $('#btn-add-lokasi').one('click',function(event) {
+      };
+      function addLokasiLokasi()  {
             var kampus = $('#tab_3').find('#kampus_id').val();
             var fakultas = $('#tab_3').find('#fakultas_id2').val();
             var jurusan = $('#tab_3').find('#jurusan_id1').val();
@@ -293,76 +406,41 @@
         $('#preloader').css('display','block');
         $('#main-content').html();
         $.post(base_url+"Admin/Lokasi/create_lokasi/", {kampus:kampus,fakultas: fakultas, jurusan: jurusan, lokasi:lokasi}, function(data) {
-                $('#form-create-fakultas').trigger("reset");
+          $('#form-create-lokasi').trigger("reset");
           $('#preloader').css('display','none');
           $('#main-content').html(data);
           dataTable();
         });
-      });
-    }
+      };
+    
 
-    function deleteLokasi(id) {
+    function deleteLokasi() {
       $('#modalDelete-lokasi').modal();
-      $('#btn-delete-user').click(function(event) {
-        $('#modalDelete-user').modal('hide');
+      $('#btn-delete-lokasi').click(function(event) {
+        $('#modalDelete-lokasi').modal('hide');
         $('#preloader').css('display','block');
         $('#main-content').html();
-        $.get(base_url+"Admin/Admin/delete/"+id, function(data) {
-          $('#preloader').css('display','none');
-          $('#main-content').html(data);
-          dataTable();
-        });
+            var fakultas = $('#form-delete-lokasi').find('#deletefakultas_id').val();
+            var jurusan = $('#form-delete-lokasi').find('#deletejurusan_id').val();
+            var lokasi = $('#form-delete-lokasi').find('#deletelokasi_id').val();
+            if (fakultas=='0') {
+              $('#modalwarning').modal();
+               $('#preloader').css('display','none');
+            }
+            else{
+               $.post(base_url+"Admin/Lokasi/deleteLokasi/", {fakultas: fakultas, jurusan: jurusan, lokasi:lokasi}, function(data) {
+                $('#form-delete-lokasi').trigger("reset");
+                $('#preloader').css('display','none');
+                $('#main-content').html(data);
+                dataTable();
+              });
+
+            }
+       
       });
 
     }
-    function editUser(id) {
-        $.get(base_url+"Admin/Admin/select/"+id, function(user) {
-            var user=jQuery.parseJSON(user+"");
-            $('#modalEdit-user').modal();
-            $('#edit-id').val(user.id);
-            $('#edit-username').val(user.username);
-            $('#edit-fullname').val(user.fullname);
-            $('#edit-email').val(user.email);
-            $('#edit-phone').val(user.phone);
-            $('#edit-lokasi').val(user.lokasi);
-            $('#edit-aktif').val(user.aktif)
-            //$('#edit-password').val(admin.password);
-            ;
-          $('#btn-edit-user').click(function(event) {
-                var username = $('#edit-username').val();
-                var fullname = $('#edit-fullname').val();
-                var email = $('#edit-email').val();
-                //var password = $('#edit-password').val();
-                var phone = $('#edit-phone').val();
-                var lokasi = $('#edit-lokasi').val();
-                var aktif = $('#edit-aktif').val();
-                var id = $('#edit-id').val();
-                $.post(base_url+"Admin/Admin/update", {id:id, username: username, fullname: fullname, email: email, /*password: password,*/ phone:phone, lokasi:lokasi, aktif:aktif}, function(data, textStatus, xhr) {
-                    $('#modalEdit-user').modal('hide');
-                    $('#form-edit-user').trigger("reset");
-                    $('#preloader').css('display','none');
-                    $('#main-content').html(data);
-                    dataTable();
-                });
-
-            });
-        });
-    }
-
-    function deleteUser(id) {
-      $('#modalDelete-user').modal();
-      $('#btn-delete-user').click(function(event) {
-        $('#modalDelete-user').modal('hide');
-        $('#preloader').css('display','block');
-        $('#main-content').html();
-        $.get(base_url+"Admin/Admin/delete/"+id, function(data) {
-          $('#preloader').css('display','none');
-          $('#main-content').html(data);
-          dataTable();
-        });
-      });
-
-    }
+    
 
 
 
@@ -383,6 +461,7 @@
 
        return false;
      }
+
      function tampilFakultas2()
      {
        kampus_id = $('#tab_3').find('#kampus_id').val();
@@ -400,6 +479,7 @@
 
        return false;
      }
+
   function tampilJurusan()
      {
         fakultas_id = $('#tab_3').find('#fakultas_id2').val();
@@ -417,4 +497,65 @@
        return false;
      }
   
+  function hapusTampilFakultas()
+     {
+       kampus_id = document.getElementById("deletekampus_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
+         success: function(response){
+         $("#deletefakultas_id").html(response);
+         $("#deletejurusan_id").html('');
+         $("#deletelokasi_id").html('');
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+
+  function hapustampilJurusan()
+    {
+      fakultas_id = document.getElementById("deletefakultas_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"",
+         success: function(response){
+         $("#deletejurusan_id").html(response);
+         $("#deletelokasi_id").html('');
+         },
+         dataType:"html"
+       });
+
+       return false;
+    }
+
+    function hapustampilLokasi()
+    {
+      jurusan_id = document.getElementById("deletejurusan_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_lokasi/"+jurusan_id+"",
+         success: function(response){
+         $("#deletelokasi_id").html(response);
+         
+         },
+         dataType:"html"
+       });
+
+       return false;
+    }
+
+    $(document).on('click', '#btn-cancel', function(event) {
+        event.preventDefault();
+        $('#cari-Aset').css('display', 'none');
+       
+        
+    });
 </script>

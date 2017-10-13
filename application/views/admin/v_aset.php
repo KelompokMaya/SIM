@@ -28,7 +28,7 @@
                         <div class="form-group">
                           <label>lokasi </label>
                           <div class="form-group">
-                            <label>Kampus</label>
+                            
                               <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas()" >
                                             <option value="0"> ----- Pilih Kampus -------</option>  
                                             <option value="1"> Kampus Bukit </option> 
@@ -183,7 +183,7 @@
                         <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
                         <th>lokasi</th>
-                        <th style="width: 55px">Aksi</th>
+                        <th style="width: 60px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -260,7 +260,7 @@
    </div>
 </div>
 
-<!-- modal lihat lokasi -->
+<!-- modal lihat lokasi dan ubah lokasi -->
 <div id="modalLokasi-aset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -271,6 +271,10 @@
 
          <div class="modal-body">
              <div class="form-group">
+              <label>Kampus </label>
+                <div class="form-group">
+                  <input name="curr_kampus" id="curr_kampus" type="text" class="form-control "  disabled> 
+                </div>
               <label>Fakultas </label>
                 <div class="form-group">
                   <input name="curr_fakultas" id="curr_fakultas" type="text" class="form-control "  disabled> 
@@ -295,6 +299,14 @@
           <div class="form-group">
               <form role="form" method="post" action="" style="display: none;" id="ubah-lokasi">
                           <label>lokasi Baru </label>
+                           <div class="form-group">
+                            
+                              <select name="kampus_id" id="editkampus_id" class="form-control article-option" onChange="editTampilFakultas()" >
+                                            <option value="0"> ----- Pilih Kampus -------</option>  
+                                            <option value="1"> Kampus Bukit </option> 
+                                            <option value="2"> Kampus Sudirman </option>    
+                              </select>
+                          </div>
                           <div class="form-group">
                            <select name="fakultas_id" id="editfakultas_id" class="form-control article-option" onChange="editTampilJurusan()" >
                                     <option > ----- Pilih Fakultas -------</option>  
@@ -456,7 +468,7 @@
             $('#modalLokasi-aset').modal();
             $.get(base_url+"Admin/Aset/currLokasi/"+id, function(lokasi) {
             var lokasi=jQuery.parseJSON(lokasi+"");
-            
+              $('#curr_kampus').val(lokasi.nama_kampus);
               $('#curr_fakultas').val(lokasi.nama_fakultas);
               $('#curr_jurusan').val(lokasi.nama_jurusan);
               $('#curr_lokasi').val(lokasi.nama_lokasi);
@@ -545,6 +557,22 @@
          url:"<?php echo base_url();?>Admin/Lokasi/select_lokasi/"+jurusan_id+"",
          success: function(response){
          $("#lokasi_id").html(response);
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+
+  function editTampilFakultas()
+     {
+       kampus_id = document.getElementById("editkampus_id").value;
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
+         success: function(response){
+         $("#editfakultas_id").html(response);
+         $("#editjurusan_id").html('');
+         $("#editlokasi_id").html('');
          },
          dataType:"html"
        });

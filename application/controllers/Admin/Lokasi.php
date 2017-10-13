@@ -37,7 +37,7 @@ class Lokasi extends CI_Controller {
 		$jurusan = $this->input->post('jurusan');
 
 		$data = array(
-			'kampus_id' => $fakultas,
+			'kampus_id' => $kampus,
 			'fakultas_id' => $fakultas,
 			'nama_jurusan'=> $jurusan
 		);
@@ -60,6 +60,38 @@ class Lokasi extends CI_Controller {
 		$this->db->insert('tb_lokasi', $data);
 		$this->index();
 	}
+
+	public function deleteLokasi(){
+		
+		$fakultas = $this->input->post('fakultas');
+		$jurusan = $this->input->post('jurusan');
+		$lokasi = $this->input->post('lokasi');
+
+		if ($jurusan=='0'|| $jurusan=='') {
+		$this->db->where('fakultas_id', $fakultas);
+		$this->db->delete('tb_lokasi');
+
+		$this->db->where('fakultas_id', $fakultas);
+		$this->db->delete('tb_jurusan');
+
+		$this->db->where('id', $fakultas);
+		$this->db->delete('tb_fakultas');
+		$this->index(); 
+		}
+		elseif ($lokasi=='0' || $lokasi=='') {
+		$this->db->where('jurusan_id', $jurusan);
+		$this->db->delete('tb_lokasi');
+
+		$this->db->where('id', $jurusan);
+		$this->db->delete('tb_jurusan');
+		$this->index();
+		
+		}else{
+		$this->db->where('id', $lokasi);
+		$this->db->delete('tb_lokasi');
+		$this->index(); 
+		}
+	} 
 
 
 	//dropdown lokasi

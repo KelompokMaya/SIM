@@ -15,6 +15,7 @@ class Lokasi extends CI_Controller {
 	
 	public function index(){
 		$data['fakultas']=$this->M_lokasi->selectAll_fakultas();
+		$data['cari']=$this->M_lokasi->selectAll();
 		
 		$this->load->view('admin/v_lokasi',$data);
 
@@ -63,6 +64,7 @@ class Lokasi extends CI_Controller {
 
 	public function deleteLokasi(){
 		
+
 		$fakultas = $this->input->post('fakultas');
 		$jurusan = $this->input->post('jurusan');
 		$lokasi = $this->input->post('lokasi');
@@ -92,6 +94,34 @@ class Lokasi extends CI_Controller {
 		$this->index(); 
 		}
 	} 
+
+	public function cariLokasi(){
+		$kampus = $this->input->post('kampus');
+		$fakultas = $this->input->post('fakultas');
+		$jurusan = $this->input->post('jurusan');
+		$lokasi = $this->input->post('lokasi');
+		//print_r($this->input->post());exit;
+		
+		$this->db->select('*');
+		if ($kampus=='0') {
+		}
+		elseif ($fakultas=='0') {
+			$this->db->where('kampus_id', $kampus);
+		}
+		elseif ($jurusan=='0' || $jurusan=='') {
+			$this->db->where('fakultas_id', $fakultas);
+		}
+		elseif ($lokasi=='0' || $lokasi=='') {
+			$this->db->where('jurusan_id', $jurusan);
+		}
+		else{
+			$this->db->where('lokasi_id', $lokasi);
+		}
+		
+		$data['cari']=$this->db->get('tb_aset');
+		
+		$this->load->view('admin/v_hasilCari',$data);
+	}
 
 
 	//dropdown lokasi

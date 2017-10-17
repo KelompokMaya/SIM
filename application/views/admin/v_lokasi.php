@@ -23,12 +23,12 @@
           
         </div>
         <!-- /.box-header -->
-        <div class="box-body" id="add-aset">
+        <div class="box-body" id="cari-aset">
             <div class="form-group">
-               <form role="form" method="post" action="" id="form-create-aset">
+               <form role="form" method="post" action="" id="form-cari-aset">
                 <div class="col-xs-3">
                       <div class="form-group">
-                              <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas()" >
+                              <select name="kampus_id" id="cariKampus_id" class="form-control article-option" onChange="cariTampilFakultas()" >
                                             <option value="0"> ----- Pilih Kampus -------</option>  
                                             <option value="1"> Kampus Bukit </option> 
                                             <option value="2"> Kampus Sudirman </option>    
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-xs-3">
                       <div class="form-group">
-                               <select name="fakultas_id" id="fakultas_id" class="form-control article-option" onChange="tampilJurusan()" >
+                               <select name="fakultas_id" id="cariFakultas_id" class="form-control article-option" onChange="cariTampilJurusan()" >
                                         <option > ----- Pilih Fakultas -------</option>  
                                        
                               </select>
@@ -45,14 +45,14 @@
                 </div>
                 <div class="col-xs-3">                       
                           <div class="form-group">
-                               <select  name="jurusan_id" id="jurusan_id" class="form-control " onChange="tampilLokasi()">
+                               <select  name="jurusan_id" id="cariJurusan_id" class="form-control " onChange="cariTampilLokasi()">
                                         <option > ----- Pilih Jurusan -------</option>  
                               </select>
                           </div>
                 </div>
                 <div class="col-xs-3"> 
                           <div class="form-group">
-                               <select name="lokasi_id" id="lokasi_id" class="form-control" >
+                               <select name="lokasi_id" id="cariLokasi_id" class="form-control" >
                                         <option > ----- Pilih Lokasi -------</option>  
                               </select>
                           </div> 
@@ -64,7 +64,7 @@
 
               </form>
             </div>
-           
+      
         </div>
     </div>
 </div>
@@ -87,65 +87,15 @@
             </button>
             
         </div>
-        <!-- /.box-header -->
-        <div class="box-body table-responsive" id="list-table-menu" style="display: none;">
-            <table id="" class="table table2 table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Username</th>
-                        <th>Fullname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Lokasi</th>
-                        <th>Aktif</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <tr>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        <td>qweqwq</td>
-                        
-                         
-                        <td>
-                          <div class="btn-group">
-                            <button onclick="editUser();" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button onclick="deleteUser();" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Delete">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                    </tr>
-              
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Username</th>
-                        <th>Fullname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Lokasi</th>
-                        <th>Aktif</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="box-body table-responsive" id="list-table-aset" style="display: block">
             
-
-        </div>
+                 
+            
+            </div>
+           
+      </div>
     </div>
 </div>
-
 
 
 <!-- modal add lokasi!-->
@@ -221,7 +171,7 @@
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
-                <form role="form" method="post" action="" id="form-create-lokasi">
+                <form role="form" method="post" action="" id="form-create-aset">
                       <div class="form-group">
                             <label>Kampus</label>
                               <select name="kampus_id" id="kampus_id" class="form-control article-option" onChange="tampilFakultas2()" >
@@ -294,14 +244,14 @@
                       </div>
                       <div class="form-group">
                             <label>Fakultas</label>
-                              <select name="fakultas_id" id="deletefakultas_id" class="form-control article-option" onChange="hapustampilJurusan()">
+                              <select name="fakultas_id" id="deletefakultas_id" class="form-control article-option" onChange="hapusTampilJurusan()">
                                           <option value="0"> ----- Pilih Fakultas -------</option>  
                                           
                               </select>
                       </div>
                       <div class="form-group">
                               <label>Jurusan</label>
-                                <select name="jurusan_id" id="deletejurusan_id" class="form-control article-option" onChange="hapustampilLokasi()" >
+                                <select name="jurusan_id" id="deletejurusan_id" class="form-control article-option" onChange="hapusTampilLokasi()" >
                                         <option value="0"> ----- Pilih Jurusan -------</option>     
                                 </select>
                       </div>
@@ -333,10 +283,10 @@
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Hapus LOkasi</h4>
+            <h4 class="modal-title" id="myModalLabel">Hapus Lokasi</h4>
          </div>
          <div class="modal-body">
-             Anda tidak bisa menghapus lokasi kampus
+             Anda tidak bisa menghapus kampus
          </div>
          <div class="modal-footer">
             <div class="btn-group">
@@ -360,8 +310,28 @@
 
 
     function CariAset() {
-      $('#cari-Aset').css('display','block');  
+      $('#cari-Aset').css('display','block');
     }
+
+    $('#btn-cari-aset').click(function(event) {
+        $('#preloader').css('display','block');
+            var kampus = $('#form-cari-aset').find('#cariKampus_id').val();
+            var fakultas = $('#form-cari-aset').find('#cariFakultas_id').val();
+            var jurusan = $('#form-cari-aset').find('#cariJurusan_id').val();
+            var lokasi = $('#form-cari-aset').find('#cariLokasi_id').val();
+             $.post(base_url+"Admin/Lokasi/cariLokasi/", {kampus:kampus,fakultas: fakultas, jurusan: jurusan,lokasi:lokasi}, function(data) {
+                $('#preloader').css('display','none');
+                $('#list-table-aset').html(data);
+                dataTable();
+          
+        });
+
+
+            
+       
+      }); 
+
+    
 
     function addLokasi() {
       $('#modalAdd-lokasi').modal();     
@@ -440,6 +410,8 @@
       });
 
     }
+
+
     
 
 
@@ -516,7 +488,7 @@
        return false;
      }
 
-  function hapustampilJurusan()
+  function hapusTampilJurusan()
     {
       fakultas_id = document.getElementById("deletefakultas_id").value;
        
@@ -534,7 +506,7 @@
        return false;
     }
 
-    function hapustampilLokasi()
+    function hapusTampilLokasi()
     {
       jurusan_id = document.getElementById("deletejurusan_id").value;
        
@@ -552,9 +524,65 @@
        return false;
     }
 
+  function cariTampilFakultas()
+     {
+       kampus_id = document.getElementById("cariKampus_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_fakultas/"+kampus_id+"",
+         success: function(response){
+         $("#cariFakultas_id").html(response);
+         $("#cariJurusan_id").html('');
+         $("#cariLokasi_id").html('');
+         },
+         dataType:"html"
+       });
+
+       return false;
+     }
+
+  function cariTampilJurusan()
+    {
+      fakultas_id = document.getElementById("cariFakultas_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"",
+         success: function(response){
+         $("#cariJurusan_id").html(response);
+         $("#cariLokasi_id").html('');
+         },
+         dataType:"html"
+       });
+
+       return false;
+    }
+
+    function cariTampilLokasi()
+    {
+      jurusan_id = document.getElementById("cariJurusan_id").value;
+       
+
+      //alert("<?php echo base_url();?>Admin/Lokasi/select_jurusan/"+fakultas_id+"");
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/Lokasi/select_lokasi/"+jurusan_id+"",
+         success: function(response){
+         $("#cariLokasi_id").html(response);
+         
+         },
+         dataType:"html"
+       });
+
+       return false;
+    }
+
     $(document).on('click', '#btn-cancel', function(event) {
         event.preventDefault();
         $('#cari-Aset').css('display', 'none');
+        $('#form-cari-aset').trigger("reset");
        
         
     });

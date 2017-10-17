@@ -13,6 +13,12 @@ class M_lokasi extends CI_Model {
 		} 
 		
 	}
+	public function selectAll(){
+		$this->db->select('*');
+		//$this->db->where('aktif', 'ya');
+		return $this->db->get('tb_aset');
+		
+	}
 	public function select_fakultas($kampus_id){
 		$this->db->select('*');
 		$this->db->where('kampus_id', $kampus_id);
@@ -48,6 +54,12 @@ class M_lokasi extends CI_Model {
 			$result=0;
 			return $result;
 		}
+	}
+
+	public function cariKampus($kampus_id){
+		$this->db->select('*');
+		$this->db->where('kampus_id', $kampus_id);
+		return $this->db->get('tb_aset');
 	}
 
 }

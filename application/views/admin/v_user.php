@@ -54,7 +54,7 @@
                         <td><?php echo $row->lokasi; ?></td>
                         <td><?php echo $row->aktif; ?></td>
                          
-                        <td>
+                        <td style="text-align: center;">
                           <div class="btn-group">
                             <button onclick="editUser(<?php echo $row->id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
                                 <i class="fa fa-pencil"></i>
@@ -243,7 +243,10 @@
 
     function addUser() {
     	$('#modalAdd-user').modal();
-    	$('#btn-add-user').one('click',function(event) {
+    	
+    }
+    
+    $('#btn-add-user').one('click',function(event) {
             var username = $('#modalAdd-user').find('#username').val();
             var fullname = $('#modalAdd-user').find('#fullname').val();
             var email = $('#modalAdd-user').find('#email').val();
@@ -251,17 +254,16 @@
             var phone = $('#modalAdd-user').find('#phone').val();
             var lokasi = $('#modalAdd-user').find('#lokasi').val();
             
-    		$('#modalAdd-user').modal('hide');
-    		$('#preloader').css('display','block');
-    		$('#main-content').html();
-    		$.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, phone:phone, lokasi:lokasi}, function(data) {
+        $('#modalAdd-user').modal('hide');
+        $('#preloader').css('display','block');
+        $('#main-content').html();
+        $.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, phone:phone, lokasi:lokasi}, function(data) {
                 $('#form-create-user').trigger("reset");
-    			$('#preloader').css('display','none');
-    			$('#main-content').html(data);
-    			dataTable();
-    		});
-    	});
-    }
+          $('#preloader').css('display','none');
+          $('#main-content').html(data);
+          dataTable();
+        });
+      });
 
     function editUser(id) {
         $.get(base_url+"Admin/Admin/select/"+id, function(user) {

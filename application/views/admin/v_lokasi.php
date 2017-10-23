@@ -72,7 +72,6 @@
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Data Lokasi</h3>
             <button onclick="deleteLokasi();" class="btn btn-danger btn-flat pull-right" type="button">
                 <i class="fa fa-trash"></i>
                   <span> Hapus Lokasi</span>

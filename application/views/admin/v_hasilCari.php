@@ -12,7 +12,6 @@
                         <th>No Inventory</th>
                         <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
-                        <th style="width: 60px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,14 +28,6 @@
                          <td><?php echo $row->noinventory; ?></td>
                           <td><?php echo $row->tgldipasang; ?></td>
                         <td><?php echo $row->trakhir_diperbaiki; ?></td>
-                        <td>
-                            <div class="btn-group">
-                                 <button onclick="editAset(<?php echo $row->id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
-                                <i class="fa fa-pencil"></i></button>
-                                <button onclick="deleteAset(<?php echo $row->id; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
-                                <i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -52,7 +43,7 @@
                          <th>No Inventory</th>
                         <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
-                        <th>Aksi</th>
+                        
                     </tr>
                 </tfoot>
             </table>

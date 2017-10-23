@@ -201,14 +201,14 @@
                           <td><?php echo $row->tgldipasang; ?></td>
                         <td><?php echo $row->trakhir_diperbaiki; ?></td>
                         <td style="text-align: center;">
-                                <button onclick="lokasiAset(<?php echo $row->id; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
+                                <button onclick="lokasiAset(<?php echo $row->id_aset; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
                                 <i class="fa fa-search"></i></button>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <div class="btn-group">
-                                 <button onclick="editAset(<?php echo $row->id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
+                                 <button onclick="editAset(<?php echo $row->id_aset; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
                                 <i class="fa fa-pencil"></i></button>
-                                <button onclick="deleteAset(<?php echo $row->id; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
+                                <button onclick="deleteAset(<?php echo $row->id_aset; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
                                 <i class="fa fa-trash"></i></button>
                             </div>
                         </td>
@@ -271,22 +271,24 @@
 
          <div class="modal-body">
              <div class="form-group">
-              <label>Kampus </label>
-                <div class="form-group">
-                  <input name="curr_kampus" id="curr_kampus" type="text" class="form-control "  disabled> 
-                </div>
-              <label>Fakultas </label>
-                <div class="form-group">
-                  <input name="curr_fakultas" id="curr_fakultas" type="text" class="form-control "  disabled> 
-                </div>
-              <label>Jurusan </label>
-                <div class="form-group">
-                  <input name="curr_jurusan" id="curr_jurusan" type="text" class="form-control "  disabled> 
-              </div>
-              <label>Lokasi </label>
-                <div class="form-group">
-                  <input name="curr_lokasi" id="curr_lokasi" type="text" class="form-control "  disabled>
-              </div>
+                <form role="form" method="post" action="" id="lokasi-awal">
+                  <label>Kampus </label>
+                    <div class="form-group">
+                      <input name="curr_kampus" id="curr_kampus" type="text" class="form-control "  disabled> 
+                    </div>
+                  <label>Fakultas </label>
+                    <div class="form-group">
+                      <input name="curr_fakultas" id="curr_fakultas" type="text" class="form-control "  disabled> 
+                    </div>
+                  <label>Jurusan </label>
+                    <div class="form-group">
+                      <input name="curr_jurusan" id="curr_jurusan" type="text" class="form-control "  disabled> 
+                  </div>
+                  <label>Lokasi </label>
+                    <div class="form-group">
+                      <input name="curr_lokasi" id="curr_lokasi" type="text" class="form-control "  disabled>
+                  </div>
+                </form>
               </div>
          </div>
          <div class="modal-footer">
@@ -308,22 +310,25 @@
                               </select>
                           </div>
                           <div class="form-group">
-                           <select name="fakultas_id" id="editfakultas_id" class="form-control article-option" onChange="editTampilJurusan()" >
-                                    <option > ----- Pilih Fakultas -------</option>  
-                                    
-                          </select>
+                               <select name="fakultas_id" id="editfakultas_id" class="form-control article-option" onChange="editTampilJurusan()" >
+                                        <option > ----- Pilih Fakultas -------</option>  
+                                        
+                              </select>
                           </div>
                           <div class="form-group">
-                           <select  name="jurusan_id" id="editjurusan_id" class="form-control " onChange="editTampilLokasi()">
-                                    <option value="0" >----- Pilih Jurusan -------</option>  
-                          </select>
+                               <select  name="jurusan_id" id="editjurusan_id" class="form-control " onChange="editTampilLokasi()">
+                                        <option value="0" >----- Pilih Jurusan -------</option>  
+                              </select>
                           </div>
                           <div class="form-group">
-                           <select name="lokasi_id" id="editlokasi_id" class="form-control" >
-                                    <option value="0" >----- Pilih Lokasi -------</option>  
-                          </select>
-                          </div>  
-                          <input hidden="hidden" name="id" id="edit_id">
+                               <select name="lokasi_id" id="editlokasi_id" class="form-control" >
+                                        <option value="0" >----- Pilih Lokasi -------</option>  
+                               </select>
+                          </div> 
+                          <div class="form-group">
+                               <input type="date" id="tanggal_pindah" class="form-control">
+                          </div> 
+                               <input hidden="hidden" name="id" id="edit_id">
                           <div class="modal-footer">
                               <div class="btn-group">
                                  <button id="btn-simpan-lokasi-aset" type="button" class="btn btn-success btn-flat ">Simpan</button>
@@ -409,7 +414,7 @@
       $.get(base_url+"Admin/Aset/select/"+id, function(aset) {
             var aset=jQuery.parseJSON(aset+"");
             
-           $('#edit-id').val(aset.id);
+           $('#edit-id').val(aset.id_aset);
             $('#edit-nama').val(aset.nama);
             $('#edit-manufaktur').val(aset.manufaktur);
             $('#edit-status').val(aset.status);
@@ -472,29 +477,50 @@
               $('#curr_fakultas').val(lokasi.nama_fakultas);
               $('#curr_jurusan').val(lokasi.nama_jurusan);
               $('#curr_lokasi').val(lokasi.nama_lokasi);
-              $('#btn-ubah-lokasi-aset').click(function(event) {
-                      $('#ubah-lokasi').css('display','block');
+                $('#btn-ubah-lokasi-aset').click(function(event) {
+                        $('#ubah-lokasi').css('display','block');
 
-                      $('#btn-simpan-lokasi-aset').click(function(event) {
-                        $('#preloader').css('display','block');
-                        $('#modalLokasi-aset').modal('hide');
-                      var id = $('#ubah-lokasi').find('#edit_id').val();
-                      var fakultas_id = $('#ubah-lokasi').find('#editfakultas_id').val();
-                      var jurusan_id = $('#ubah-lokasi').find('#editjurusan_id').val();
-                      var lokasi_id = $('#ubah-lokasi').find('#editlokasi_id').val();
-                        $.post(base_url+"Admin/Aset/updateLokasi/", {id:id,fakultas_id:fakultas_id,jurusan_id:jurusan_id,lokasi_id:lokasi_id }, function(data, textStatus, xhr) {
                         
-                        $('#ubah-lokasi').trigger("reset");
-                        $('#preloader').css('display','none');
-                        $('#main-content').html(data);
-                        dataTable();
-                        });
-                      }); 
-                      
-              });
+                        
+                }); 
+              
+              
+              //console.log(lokasi.nama);
             });
 
+
     }
+
+
+    $('#btn-simpan-lokasi-aset').click(function(event) {
+       var id            = $('#ubah-lokasi').find('#edit_id').val();
+       $.get(base_url+"Admin/Aset/currLokasi/"+id, function(lokasi) {
+            var lokasi=jQuery.parseJSON(lokasi+"");
+                          $('#preloader').css('display','block');
+                          $('#modalLokasi-aset').modal('hide');
+                        var id            = $('#ubah-lokasi').find('#edit_id').val();
+                        var nama          = lokasi.nama;
+                        var curr_kampus   = lokasi.id_kampus;
+                        var curr_fakultas = lokasi.id_fakultas;
+                        var curr_jurusan  = lokasi.id_jurusan;
+                        var curr_lokasi   = lokasi.id_lokasi;
+                        var kampus_id     = $('#ubah-lokasi').find('#editkampus_id').val();
+                        var fakultas_id   = $('#ubah-lokasi').find('#editfakultas_id').val();
+                        var jurusan_id    = $('#ubah-lokasi').find('#editjurusan_id').val();
+                        var lokasi_id     = $('#ubah-lokasi').find('#editlokasi_id').val();
+                        var tanggal_pindah= $('#ubah-lokasi').find('#tanggal_pindah').val();
+                          $.post(base_url+"Admin/Aset/updateLokasi/", {id:id,nama:nama,curr_kampus:curr_kampus,curr_fakultas:curr_fakultas,curr_jurusan:curr_jurusan,curr_lokasi:curr_lokasi,kampus_id:kampus_id, fakultas_id:fakultas_id,jurusan_id:jurusan_id,lokasi_id:lokasi_id,tanggal_pindah:tanggal_pindah }, function(data, textStatus, xhr) {
+                          
+                          $('#ubah-lokasi').trigger("reset");
+                          $('#preloader').css('display','none');
+                          $('#main-content').html(data);
+                          dataTable();
+                          });
+
+        }); 
+    }); 
+
+    
    
 
 

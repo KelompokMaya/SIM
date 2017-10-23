@@ -87,32 +87,15 @@ $('#sidebar-lokasi').click(function(event) {
 });
 
 
-$('#sidebar-gallery').click(function(event) {
+$('#sidebar-history').click(function(event) {
 	$('#main-content').html('');
 	$('#preloader').css('display','block');
-	$.get(base_url+"Admin/Gallery/select_all", function(data) {
+	$.get(base_url+"Admin/History", function(data) {
 		$('#preloader').css('display','none');
 		$('#main-content').html(data);
-		setCookie("sidebar", "gallery", 0.5);
+		setCookie("sidebar", "history", 0.5);
+		dataTable();
 	});
 });
 
-$('#sidebar-booking').click(function(event) {
-	$('#main-content').html('');
-	$('#preloader').css('display','block');
-	$.get(base_url+"Admin/Booking/select_all", function(data) {
-		$('#preloader').css('display','none');
-		$('#main-content').html(data);
-		setCookie("sidebar", "booking", 0.5);
-	});
-});
 
-$('#sidebar-setting').click(function(event) {
-	$('#main-content').html('');
-	$('#preloader').css('display','block');
-	$.get(base_url+"Admin/Setting/select", function(data) {
-		$('#preloader').css('display','none');
-		$('#main-content').html(data);
-		setCookie("sidebar", "setting", 0.5);
-	});
-});

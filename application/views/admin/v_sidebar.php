@@ -23,11 +23,9 @@
 
             <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> User</a></li>
 
-            <li id="sidebar-gallery"><a href="#"><i class="fa fa-photo"></i> Gallery</a></li>
+            <li id="sidebar-history"><a href="#"><i class="fa fa-history "></i> History Aset</a></li>
 
-            <li id="sidebar-booking"><a href="#"><i class="fa fa-book"></i> Booking</a></li>
-
-            <li id="sidebar-setting"><a href="#"><i class="fa fa-gear"></i> Setting</a></li>
+            
 
 
         </ul>

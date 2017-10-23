@@ -68,13 +68,20 @@ class Aset extends CI_Controller {
 	}
 	public function updateLokasi(){
 		$id = $this->input->post('id');
+		$nama_aset = $this->input->post('nama');
+		$curr_kampus = $this->input->post('curr_kampus');
+		$curr_fakultas = $this->input->post('curr_fakultas');
+		$curr_jurusan = $this->input->post('curr_jurusan');
+		$curr_lokasi= $this->input->post('curr_lokasi');
+		$kampus_id = $this->input->post('kampus_id');
 		$fakultas_id = $this->input->post('fakultas_id');
 		$jurusan_id = $this->input->post('jurusan_id');
 		$lokasi_id = $this->input->post('lokasi_id');
+		$tanggal_pindah = $this->input->post('tanggal_pindah');
 		
 		
 		
-		$this->M_aset->updateLokasi($id,$fakultas_id, $jurusan_id, $lokasi_id);
+		$this->M_aset->updateLokasi($id,$nama_aset,$curr_kampus,$curr_fakultas,$curr_jurusan,$curr_lokasi,$kampus_id,$fakultas_id, $jurusan_id, $lokasi_id,$tanggal_pindah);
 		$this->index();
 	}
 

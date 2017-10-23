@@ -9,7 +9,7 @@ class M_dashboard extends CI_Model {
 
 	}
 	public function jmlAset(){
-		$query = $this->db->query('SELECT COUNT(id) AS num FROM tb_aset');
+		$query = $this->db->query('SELECT COUNT(id_aset) AS num FROM tb_aset');
 		return $query->row()->num;
 
 	}

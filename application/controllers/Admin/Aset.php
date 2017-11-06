@@ -86,7 +86,7 @@ class Aset extends CI_Controller {
 	}
 
 	public function delete($id){
-		$this->db->where('id', $id);
+		$this->db->where('id_aset', $id);
 		$this->db->delete('tb_aset');
 		$this->index();
 	}

@@ -76,7 +76,7 @@ class Lokasi extends CI_Controller {
 		$this->db->where('fakultas_id', $fakultas);
 		$this->db->delete('tb_jurusan');
 
-		$this->db->where('id', $fakultas);
+		$this->db->where('id_fakultas', $fakultas);
 		$this->db->delete('tb_fakultas');
 		$this->index(); 
 		}
@@ -84,12 +84,12 @@ class Lokasi extends CI_Controller {
 		$this->db->where('jurusan_id', $jurusan);
 		$this->db->delete('tb_lokasi');
 
-		$this->db->where('id', $jurusan);
+		$this->db->where('id_jurusan', $jurusan);
 		$this->db->delete('tb_jurusan');
 		$this->index();
 		
 		}else{
-		$this->db->where('id', $lokasi);
+		$this->db->where('id_lokasi', $lokasi);
 		$this->db->delete('tb_lokasi');
 		$this->index(); 
 		}

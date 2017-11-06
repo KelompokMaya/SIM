@@ -22,15 +22,14 @@
         
         <!-- /.box-header -->
         <div class="box-body table-responsive" id="list-table-menu">
-            <table id="" class="table table1 table-bordered table-hover">
+            <table id="" class="table table1 table-bordered table-striped">
                 <thead>
                     <tr style="background:  #3998ad; color: white">
                         <th>No</th>
                         <th>Nama Aset</th>
-                        <th>Detail</th>
-                        <th>Lokasi awal</th>
-                        <th>Lokasi sekarang</th>
-                        <th>tanggal Pindah</th>
+                        <th>Lokasi Sekarang</th>
+                        <th style="text-align: center;">Aksi</th>
+                                              
                     </tr>
                 </thead>
                 <tbody>
@@ -39,16 +38,21 @@
                     <tr>
                         <td><?php echo $i; $i++; ?></td>
                         <td><?php echo $row->nama_aset; ?></td>
-                        <td style="text-align: center;">
+                        <td><?php echo $row->sekarang_kampus; ?> / <?php echo $row->sekarang_fakultas; ?> / <?php echo $row->sekarang_jurusan; ?> / <?php echo $row->sekarang_lokasi; ?></td>
+                        <td>
                           <div class="btn-group">
-                            <button onclick="Detail(<?php echo $row->aset_id; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" >
-                                <i class="fa fa-search-plus "></i>
+                            <button onclick="Detail(<?php echo $row->aset_id; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" >
+                                <i> Detail </i>
+                            </button>
+                          </div>
+                          <div class="btn-group">
+                             <button onclick="DetailPerpindahan(<?php echo $row->aset_id; ?>);" class="btn btn-warning btn-flat" type="button" data-toggle="tooltip" >
+                                <i> Detail Perpindahan</i>
                             </button>
                           </div>
                         </td>
-                        <td><?php echo $row->awal_kampus; ?> / <?php echo $row->awal_fakultas; ?> / <?php echo $row->awal_jurusan; ?> / <?php echo $row->awal_lokasi; ?></td>
-                         <td><?php echo $row->sekarang_kampus; ?> / <?php echo $row->sekarang_fakultas; ?> / <?php echo $row->sekarang_jurusan; ?> / <?php echo $row->sekarang_lokasi; ?></td>
-                        <td><?php echo $row->tanggal_pindah; ?></td>
+                        
+                        
                       
                     </tr>
                 <?php endforeach; ?>
@@ -58,10 +62,9 @@
                      <tr>
                         <th>No</th>
                         <th>Nama Aset</th>
-                        <th>Detail</th>
-                        <th>Lokasi awal</th>
-                        <th>Lokasi sekarang</th>
-                        <th>tanggal Pindah</th>
+                        <th>Lokasi Sekarang</th>
+                        <th>Aksi</th>
+                        
                     </tr>
                 </tfoot>
             </table>
@@ -70,19 +73,18 @@
     </div>
 </div>
 
-<!-- modal add user!-->
+<!-- modal detail aset!-->
 <div class="modal fade" id="modalDetail-aset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
+            
             <h4 class="modal-title" id="myModalLabel">Detail Aset</h4>
           </div>
           <div class="modal-body">
-            <form role="form" method="post" action="" id="form-create-user">
+            <form role="form" method="post" action="" id="form-detail">
 
                 <div class="form-group">
                   <label>Nama</label>
@@ -131,7 +133,7 @@
           
           <div class="modal-footer">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal">OK</button>
+                <button id="btn-ok" type="button" class="btn btn-primary btn-flat" data-dismiss="modal">OK</button>
             </div>
           </div>
           </form>
@@ -143,7 +145,37 @@
     <!-- /.modal -->
   </div>
 </div>
+</div>
 
+<!-- modal detail perpindahan!-->
+<div class="modal fade" id="modalDetail-perpindahan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="example-modal">
+    <div class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title" id="myModalLabel">Detail Perpindahan</h4>
+          </div>
+          <div class="modal-body">
+           
+              <div id="form-detail-perpindahan" class="form-group">
+              </div>
+                
+              <div class="modal-footer">
+                <div class="btn-group">
+                    <button id="btn-ok" type="button" class="btn btn-primary btn-flat" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+</div>
+</div>
 
 
 
@@ -169,7 +201,23 @@
 
     }
 
-   
+    function DetailPerpindahan(id){
+     $('#modalDetail-perpindahan').modal();
+       $.ajax({
+         url:"<?php echo base_url();?>Admin/history/select/"+id+"",
+         success: function(response){
+         $("#form-detail-perpindahan").html(response);
+
+         },
+         dataType:"html"
+       });
+        return false;
+    }
+
+    $(document).on('click', '#btn-ok', function(event) {
+       event.preventDefault();
+        $('#form-detail').trigger("reset");  
+    });
 
     
 

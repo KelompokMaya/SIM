@@ -23,6 +23,8 @@
                           <select name="status" id="status" class="form-control " r">
                               <option value="aktif" >Aktif</option>
                               <option value="tidak aktif" >Tidak Aktif</option>
+                              <option value="backup" >Backup</option>
+                              <option value="Rusak" >Rusak</option>
                           </select>  
                         </div>
                         <div class="form-group">
@@ -117,6 +119,8 @@
                           <select name="status" id="edit-status" class="form-control " r">
                               <option value="aktif" >Aktif</option>
                               <option value="tidak aktif" >Tidak Aktif</option>
+                              <option value="backup" >Backup</option>
+                              <option value="Rusak" >Rusak</option>
                           </select>  
                         </div>
                          <div class="form-group">
@@ -184,7 +188,7 @@
                         <th>Pemasangan</th>
                         <th>Trakhir diperbaiki</th>
                         <th>lokasi</th>
-                        <th style="width: 60px">Aksi</th>
+                        <th style="width: 100px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -205,7 +209,7 @@
                                 <button onclick="lokasiAset(<?php echo $row->id_aset; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
                                 <i class="fa fa-search"></i></button>
                         </td>
-                        <td style="text-align: center;">
+                        <td style=" width: 100px;text-align: center;">
                             <div class="btn-group">
                                  <button onclick="editAset(<?php echo $row->id_aset; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit">
                                 <i class="fa fa-pencil"></i></button>

@@ -106,6 +106,7 @@ class M_aset extends CI_Model {
 
 	public function select_all(){
 		$this->db->select('*');
+		$this->db->order_by('id_aset', 'DESC');
 		//$this->db->where('aktif', 'ya');
 		return $this->db->get('tb_aset');
 	}

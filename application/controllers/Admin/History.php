@@ -17,5 +17,9 @@ class History extends CI_Controller {
 		$data['history']=$this->M_history->select_all();
 		$this->load->view('admin/v_history',$data);
 	}
+	public function select($id){
+		$data['DetailPerpindahan']=$this->M_history->select($id);
+		$this->load->view('admin/v_historyPerpindahan',$data);
+	}
 
 }

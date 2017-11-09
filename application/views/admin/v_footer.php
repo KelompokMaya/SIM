@@ -16,6 +16,7 @@
 <script src="<?php echo base_url('assets/AdminLTE-2.3.11/plugins/slimScroll/jquery.slimscroll.min.js'); ?>" type="text/javascript"></script>
 <!-- FastClick -->
 <script src='<?php echo base_url('assets/AdminLTE-2.3.11/plugins/fastclick/fastclick.min.js'); ?>'></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaxYs3Ln76Tl6kvdu4u44AuDd_VjqhFfA"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.11/dist/js/app.min.js'); ?>" type="text/javascript"></script>
 <!-- Compress Image -->

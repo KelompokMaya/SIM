@@ -24,9 +24,13 @@ class Lokasi extends CI_Controller {
 	public function create_fakultas(){
 		$fakultas = $this->input->post('fakultas');
 		$kampus = $this->input->post('kampus');
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lng');
 		$data = array(
 			'nama_fakultas' => $fakultas,
-			'kampus_id' => $kampus
+			'kampus_id' => $kampus,
+			'lat' => $lat,
+			'lng' => $lng
 		);
 		$this->db->insert('tb_fakultas', $data);
 		$this->index();
@@ -36,11 +40,15 @@ class Lokasi extends CI_Controller {
 		$kampus = $this->input->post('kampus');
 		$fakultas = $this->input->post('fakultas');
 		$jurusan = $this->input->post('jurusan');
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lng');
 
 		$data = array(
 			'kampus_id' => $kampus,
 			'fakultas_id' => $fakultas,
-			'nama_jurusan'=> $jurusan
+			'nama_jurusan'=> $jurusan,
+			'lat' => $lat,
+			'lng' => $lng
 		);
 		$this->db->insert('tb_jurusan', $data);
 		$this->index();
@@ -51,12 +59,17 @@ class Lokasi extends CI_Controller {
 		$fakultas = $this->input->post('fakultas');
 		$jurusan = $this->input->post('jurusan');
 		$lokasi = $this->input->post('lokasi');
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lng');
+
 
 		$data = array(
 			'kampus_id' => $kampus,
 			'fakultas_id' => $fakultas,
 			'jurusan_id'=> $jurusan,
-			'nama_lokasi' => $lokasi
+			'nama_lokasi' => $lokasi,
+			'lat' => $lat,
+			'lng' => $lng
 		);
 		$this->db->insert('tb_lokasi', $data);
 		$this->index();
@@ -107,6 +120,7 @@ class Lokasi extends CI_Controller {
 		}
 		elseif ($fakultas=='0') {
 			$this->db->where('kampus_id', $kampus);
+
 		}
 		elseif ($jurusan=='0' || $jurusan=='') {
 			$this->db->where('fakultas_id', $fakultas);
@@ -145,5 +159,40 @@ class Lokasi extends CI_Controller {
 		if ($data['lokasi']!=0) {
 		$this->load->view('admin/dropdown/v_dropdown_lokasi',$data);
 		}
+	}
+
+
+	//menampilkan maps
+	public function maps(){
+		$kampus = $this->input->post('kampus');
+		$fakultas = $this->input->post('fakultas');
+		$jurusan = $this->input->post('jurusan');
+		$lokasi = $this->input->post('lokasi');
+		//print_r($this->input->post());exit;
+		
+		$this->db->select('lat,lng');
+		if ($kampus=='0') {
+		}
+		elseif ($fakultas=='0') {
+			$this->db->where('id_kampus', $kampus);
+			$data['maps']=$this->db->get('tb_kampus');
+
+			
+		}
+		elseif ($jurusan=='0' || $jurusan=='') {
+			$this->db->where('id_fakultas', $fakultas);
+			$data['maps']=$this->db->get('tb_fakultas');
+		}
+		elseif ($lokasi=='0' || $lokasi=='') {
+			$this->db->where('id_jurusan', $jurusan);
+			$data['maps']=$this->db->get('tb_jurusan');
+		}
+		else{
+			$this->db->where('id_lokasi', $lokasi);
+			$data['maps']=$this->db->get('tb_lokasi');
+		}
+		
+		
+		$this->load->view('admin/v_maps',$data);
 	}
 }

@@ -1,4 +1,5 @@
 <div class="box-body table-responsive">
+    
             <table class="table table1 table-bordered table-striped">
                 <thead>
                     <tr style="background:  #3998ad; color: white">

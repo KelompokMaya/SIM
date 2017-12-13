@@ -114,7 +114,7 @@
 
 
 <!-- modal add lokasi!-->
-<div class="modal fade" id="modalAdd-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="modalAdd-lokasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  data-backdrop="static" data-keyboard="false">
   <div class="example-modal">
     <div class="modal">
       <div class="modal-dialog">
@@ -149,9 +149,9 @@
                         </div>
                         <div class="form-group label-floating ">
                               <label>Latitude</label>
-                              <input class="form-control" onfocus="showMap()" type="text" name="latitude" id="latitude" required="true" />
+                              <input class="form-control" onfocus="showMap()" type="text" name="latitude" id="latitude_fakultas" required="true" />
                               <label>Longitude</label>
-                             <input class="form-control" onfocus="showMap()" type="text" name="longitude_fakultas" id="longitude_fakultas" required="true"/>
+                             <input class="form-control" onfocus="showMap()" type="text" name="longitude" id="longitude_fakultas" required="true"/>
                          </div>
                        
                       </div>
@@ -364,8 +364,8 @@
     $('#modalDelete-lokasi').appendTo('body');
     $('#modalwarning').appendTo('body');
     $('#modalDelete').appendTo('body');
-    $('#modalAdd-lokasi').appendTo('body');
-    $('#modal-map').appendTo('body');
+    //$('#modalAdd-lokasi').appendTo('body');
+    //$('#modal-map').appendTo('body');
 
 
     function CariAset() {

@@ -266,9 +266,10 @@
       });
 
     function editUser(id) {
+      $('#modalEdit-user').modal();
         $.get(base_url+"Admin/Admin/select/"+id, function(user) {
             var user=jQuery.parseJSON(user+"");
-            $('#modalEdit-user').modal();
+            
             $('#edit-id').val(user.id);
             $('#edit-username').val(user.username);
             $('#edit-fullname').val(user.fullname);

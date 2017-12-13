@@ -116,7 +116,7 @@
                         </div>
                         <div class="form-group">
                           <label>Status</label>
-                          <select name="status" id="edit-status" class="form-control " r">
+                          <select name="status" id="edit-status" class="form-control " >
                               <option value="aktif" >Aktif</option>
                               <option value="tidak aktif" >Tidak Aktif</option>
                               <option value="backup" >Backup</option>
@@ -176,7 +176,7 @@
         <div class="box-body table-responsive">
             <table class="table table1 table-bordered table-striped">
                 <thead>
-                    <tr style="background:  #3998ad; color: white">
+                    <tr style="background:  #3998ad; color: white; text-align: center;">
                         <th>No</th>
                         <th>Nama</th>
                         <th>Status</th>
@@ -184,9 +184,9 @@
                         <th>No Seri</th>
                         <th>Tipe</th>
                         <th>Model</th>
-                        <th>No Inventory</th>
+                        <!-- <th>No Inventory</th> -->
                         <th>Pemasangan</th>
-                        <th>Trakhir diperbaiki</th>
+                        <th>Perbaikan</th>
                         <th>lokasi</th>
                         <th style="width: 100px">Aksi</th>
                     </tr>
@@ -202,7 +202,7 @@
                         <td><?php echo  $row->noseri; ?></td>
                         <td><?php echo $row->tipe; ?></td>
                         <td><?php echo $row->model; ?></td>
-                         <td><?php echo $row->noinventory; ?></td>
+                         <!-- <td><?php echo $row->noinventory; ?></td> -->
                           <td><?php echo $row->tgldipasang; ?></td>
                         <td><?php echo $row->trakhir_diperbaiki; ?></td>
                         <td style="text-align: center;">
@@ -229,9 +229,9 @@
                         <th>No Seri</th>
                         <th>Tipe</th>
                         <th>Model</th>
-                         <th>No Inventory</th>
+                        <!--  <th>No Inventory</th> -->
                         <th>Pemasangan</th>
-                        <th>Trakhir diperbaiki</th>
+                        <th>Perbaikan</th>
                         <th>lokasi</th>
                         <th>Aksi</th>
                     </tr>

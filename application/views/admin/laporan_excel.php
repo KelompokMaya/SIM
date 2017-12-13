@@ -17,6 +17,7 @@ header("Expires: 0");
 					<tr style="font-weight: bold; font-size: 16px">
 
   						<th>No</th>
+  						<th>Id Aset</th>
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Manufaktur</th>
@@ -38,6 +39,7 @@ header("Expires: 0");
 
 		<tr align="left">
 		 <td align="center"><?php echo $i ?></td>
+		 <td><?php echo $aset->id_aset ?></td>
 		 <td><?php echo $aset->nama ?></td>
 		 <td><?php echo $aset->status ?></td>
 		 <td><?php echo $aset->manufaktur ?></td>

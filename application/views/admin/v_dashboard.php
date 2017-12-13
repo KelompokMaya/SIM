@@ -1,4 +1,3 @@
-
 <!-- echo $curr_visitor;-->
 <div class="col-md-3 col-sm-6 col-xs-12">
   <div class="info-box">
@@ -48,15 +47,56 @@
       <div class="info-box-content">
         <span class="info-box-text">Total</span>
         <span class="info-box-text">Tiket Selesai</span>
-        <span class="info-box-number">1</span>
+        <span class="info-box-number"></span>
       </div>
     </div>
   </div>
+  <!-- <?php
+        foreach($grafik as $data){
+            $fakultas_id[] = $data->fakultas_id;
+            // $jumAset[] = (float) $data->jumAset;
+        }
+    ?>
+ <?php echo json_encode($fakultas_id);?> -->
+<div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="box box-success">
+     <div class="box-header with-border">
+    <h3 align="center" style="color: white; background-color: lightblue;">Jumlah Aset Berdasarkan Lokasi</h3>
+        <canvas id="jml_aset" style="width: 100%; height: 300px;"></canvas>  
+  </div>
+</div>
+</div>
 
 
 
 
 
 
-<script type="text/javascript">
-</script>
+
+     <script>
+            var ctx = document.getElementById("jml_aset");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+        </script>
+
+
+

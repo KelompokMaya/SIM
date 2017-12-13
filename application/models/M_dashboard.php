@@ -13,5 +13,16 @@ class M_dashboard extends CI_Model {
 		return $query->row()->num;
 
 	}
+	public function grafik(){
+		$query = $this->db->query("SELECT fakultas_id FROM tb_aset HAVING COUNT((fakultas_id) > 1)");
+          
+        if($query->num_rows() > 0){
+            foreach($query->result() as $data){
+                $hasil[] = $data;
+            }
+            return $hasil;
+        }
+
+	}
 
 }

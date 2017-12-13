@@ -82,30 +82,10 @@ class Lokasi extends CI_Controller {
 		$jurusan = $this->input->post('jurusan');
 		$lokasi = $this->input->post('lokasi');
 
-		if ($jurusan=='0'|| $jurusan=='') {
-		$this->db->where('fakultas_id', $fakultas);
-		$this->db->delete('tb_lokasi');
-
-		$this->db->where('fakultas_id', $fakultas);
-		$this->db->delete('tb_jurusan');
-
-		$this->db->where('id_fakultas', $fakultas);
-		$this->db->delete('tb_fakultas');
-		$this->index(); 
-		}
-		elseif ($lokasi=='0' || $lokasi=='') {
-		$this->db->where('jurusan_id', $jurusan);
-		$this->db->delete('tb_lokasi');
-
-		$this->db->where('id_jurusan', $jurusan);
-		$this->db->delete('tb_jurusan');
+		$this->M_lokasi->deletelokasi($fakultas,$jurusan, $lokasi);
 		$this->index();
+
 		
-		}else{
-		$this->db->where('id_lokasi', $lokasi);
-		$this->db->delete('tb_lokasi');
-		$this->index(); 
-		}
 	} 
 
 	public function cariLokasi(){
@@ -114,26 +94,10 @@ class Lokasi extends CI_Controller {
 		$jurusan = $this->input->post('jurusan');
 		$lokasi = $this->input->post('lokasi');
 		//print_r($this->input->post());exit;
-		
-		$this->db->select('*');
-		if ($kampus=='0') {
-		}
-		elseif ($fakultas=='0') {
-			$this->db->where('kampus_id', $kampus);
 
-		}
-		elseif ($jurusan=='0' || $jurusan=='') {
-			$this->db->where('fakultas_id', $fakultas);
-		}
-		elseif ($lokasi=='0' || $lokasi=='') {
-			$this->db->where('jurusan_id', $jurusan);
-		}
-		else{
-			$this->db->where('lokasi_id', $lokasi);
-		}
-		
-		$data['cari']=$this->db->get('tb_aset');
-		
+		//$this->M_lokasi->cariLokasi($kampus,$fakultas,$jurusan, $lokasi);
+		//$this->index();		
+		$data['cari']=$this->M_lokasi->cariLokasi($kampus,$fakultas,$jurusan, $lokasi);
 		$this->load->view('admin/v_hasilCari',$data);
 	}
 
@@ -169,29 +133,7 @@ class Lokasi extends CI_Controller {
 		$jurusan = $this->input->post('jurusan');
 		$lokasi = $this->input->post('lokasi');
 		//print_r($this->input->post());exit;
-		
-		$this->db->select('lat,lng');
-		if ($kampus=='0') {
-		}
-		elseif ($fakultas=='0') {
-			$this->db->where('id_kampus', $kampus);
-			$data['maps']=$this->db->get('tb_kampus');
-
-			
-		}
-		elseif ($jurusan=='0' || $jurusan=='') {
-			$this->db->where('id_fakultas', $fakultas);
-			$data['maps']=$this->db->get('tb_fakultas');
-		}
-		elseif ($lokasi=='0' || $lokasi=='') {
-			$this->db->where('id_jurusan', $jurusan);
-			$data['maps']=$this->db->get('tb_jurusan');
-		}
-		else{
-			$this->db->where('id_lokasi', $lokasi);
-			$data['maps']=$this->db->get('tb_lokasi');
-		}
-		
+		$data['maps']=$this->M_lokasi->maps($kampus,$fakultas,$jurusan, $lokasi);
 		
 		$this->load->view('admin/v_maps',$data);
 	}

@@ -42,8 +42,10 @@ class Aset extends CI_Controller {
 		$tgldipasang = $this->input->post('tgldipasang');
 		$trakhirdiperbaiki = $this->input->post('trakhirdiperbaiki');
 		
+		if ($nama!='') {
+			$this->M_aset->create($nama, $manufaktur, $status,$kampus_id, $fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model,$noinventory,$tgldipasang, $trakhirdiperbaiki);
+		}
 		
-		$this->M_aset->create($nama, $manufaktur, $status,$kampus_id, $fakultas_id, $jurusan_id, $lokasi_id, $noseri, $tipe, $model,$noinventory,$tgldipasang, $trakhirdiperbaiki);
 		$this->index();
 	}
 	

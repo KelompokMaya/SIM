@@ -347,12 +347,32 @@
    </div>
 </div>
 
+<!--modal warning menu!-->
+<div id="modalWarning-user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Gagal Menambahkan Data</h4>
+         </div>
+         <div class="modal-body">
+            Nama Aset Kosong !!!
+         </div>
+         <div class="modal-footer">
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">tutup</button>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>
 
 
 <script type="text/javascript">
 
   
-    
+     $('#modalWarning-user').appendTo('body');
+
     function addAset() {
         if($('#editor-wrapper').css('display')=='none'){
             $('#editor-wrapper').css('display', 'block');
@@ -390,6 +410,9 @@
                 dataTable();
                 //console.log(data);
             }); 
+            if (nama=='') {
+               $('#modalWarning-user').modal();
+            }
         });
 
     

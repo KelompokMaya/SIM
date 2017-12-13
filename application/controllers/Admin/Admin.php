@@ -25,14 +25,15 @@ class Admin extends CI_Controller {
 
 	public function create() {
 		$username = $this->input->post('username');
-		$fullname = $this->input->post('fullname');
 		$pass = $this->input->post('password');
+		$fullname = $this->input->post('fullname');
 		$email = $this->input->post('email');
 		$phone = $this->input->post('phone');
 		$lokasi = $this->input->post('lokasi');
 		$aktif = 'ya';
-		
+		if ($username!='' && $pass!='') {
 		$this->M_admin->create($username, $fullname,$pass, $email,$phone,$lokasi,$aktif);
+		}
 		$this->index();
 	}
 

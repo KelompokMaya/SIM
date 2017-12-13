@@ -58,7 +58,7 @@
         }
     ?>
  <?php echo json_encode($fakultas_id);?> -->
-<div class="col-md-12 col-sm-6 col-xs-12">
+<!-- <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="box box-success">
      <div class="box-header with-border">
     <h3 align="center" style="color: white; background-color: lightblue;">Jumlah Aset Berdasarkan Lokasi</h3>
@@ -71,7 +71,7 @@
 
 
 
-
+ -->
 
      <script>
             var ctx = document.getElementById("jml_aset");

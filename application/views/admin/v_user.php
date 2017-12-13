@@ -17,7 +17,12 @@
     }
 </style>
 
+
+
 <div class="col-xs-12">
+  <div id="alert" class="alert alert-danger" style="display: none;">
+                    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                </div>
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Data User</h3>
@@ -97,26 +102,27 @@
             <h4 class="modal-title" id="myModalLabel">Tambah User</h4>
           </div>
           <div class="modal-body">
+                
             <form role="form" method="post" action="" id="form-create-user">
 
                 <div class="form-group">
                   <label>Username</label>
-                  <input name="username" id="username" type="text" class="form-control" required="required" placeholder="Enter ...">
+                  <input name="username" id="username" type="text" class="form-control"  placeholder="Enter ...">
                 </div>
 
                 <div class="form-group">
                   <label>Fullname</label>
-                  <input name="fullname" id="fullname" type="text" class="form-control" required="required" placeholder="Enter ...">
+                  <input name="fullname" id="fullname" type="text" class="form-control"  placeholder="Enter ...">
                 </div>
 
                 <div class="form-group">
                   <label>Email</label>
-                  <input name="email" id="email" type="email" class="form-control" required="required" placeholder="Enter ...">
+                  <input name="email" id="email" type="email" class="form-control" placeholder="Enter ...">
                 </div>
 
                 <div class="form-group">
                   <label>Password</label>
-                  <input name="password" id="password" type="email" class="form-control" required="required" placeholder="Enter ...">
+                  <input name="password" id="password" type="password" class="form-control" placeholder="Enter ...">
                 </div>
                 <div class="form-group">
                   <label>phone</label>
@@ -235,14 +241,37 @@
    </div>
 </div>
 
+<!--modal warning menu!-->
+<div id="modalWarning-user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Gagal Menambahkan User</h4>
+         </div>
+         <div class="modal-body">
+            Username atau Password Kosong !!!
+         </div>
+         <div class="modal-footer">
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">tutup</button>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>
+
 <script type="text/javascript">
 
+    $('#modalWarning-user').appendTo('body');
     $('#modalDelete-user').appendTo('body');
     $('#modalAdd-user').appendTo('body');
     $('#modalEdit-user').appendTo('body');
+  
 
     function addUser() {
     	$('#modalAdd-user').modal();
+      $('#alert').css('display','none');
     	
     }
     
@@ -252,17 +281,22 @@
             var email = $('#modalAdd-user').find('#email').val();
             var password = $('#modalAdd-user').find('#password').val();
             var phone = $('#modalAdd-user').find('#phone').val();
-            var lokasi = $('#modalAdd-user').find('#lokasi').val();
+            var lokasi = $('#modalAdd-user').find('#lokasi').val();           
             
-        $('#modalAdd-user').modal('hide');
-        $('#preloader').css('display','block');
-        $('#main-content').html();
-        $.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, phone:phone, lokasi:lokasi}, function(data) {
+              $('#modalAdd-user').modal('hide');
+              $('#preloader').css('display','block');
+
+              $('#main-content').html();
+              $.post(base_url+"Admin/Admin/create/", {username: username, fullname: fullname, email: email, password: password, phone:phone, lokasi:lokasi}, function(data) {
                 $('#form-create-user').trigger("reset");
-          $('#preloader').css('display','none');
-          $('#main-content').html(data);
-          dataTable();
-        });
+                $('#preloader').css('display','none');
+                $('#main-content').html(data);
+                dataTable();
+              });
+
+              if (username==''|| password=='') {
+               $('#modalWarning-user').modal();
+            }
       });
 
     function editUser(id) {
@@ -315,3 +349,17 @@
 
     }
 </script>
+
+
+<!-- 
+
+<script type="application/javascript">  
+     /** After windod Load */  
+     $(window).bind("load", function() {  
+       window.setTimeout(function() {  
+         $("#alert").fadeTo(500, 0).slideUp(500, function() {  
+           $(this).remove();  
+         });  
+       }, 500);  
+     });  
+   </script> -->

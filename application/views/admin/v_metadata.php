@@ -18,7 +18,7 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link href="<?php echo base_url('assets/AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css') ?>" rel="stylesheet" type="text/css" />
-
+        <link href="<?php echo base_url('assets/admin/css/magnum_custom.css') ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url('assets/admin/css/style.css') ?>" rel="stylesheet" type="text/css" />
 
         <!-- jQuery 2.1.3 -->

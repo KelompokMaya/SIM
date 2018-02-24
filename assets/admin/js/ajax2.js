@@ -57,3 +57,15 @@ $('#sidebar-user').click(function(event) {
 		dataTable();
 	});
 });
+
+$('#sidebar-pencarian').click(function(event) {
+  $('#main-content').html('');
+  $('#preloader').css('display','block');
+  setCookie("sidebar", "pencarian", 0.5);
+  $.get(base_url+"Admin/Pendok", function(data) {
+    $('#preloader').css('display','none');
+    $('#main-content').html(data);
+    
+    
+  });
+});

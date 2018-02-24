@@ -53,3 +53,4 @@ $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['admin'] = 'Admin/Content';
+$route['teknisi'] = 'Teknisi/Content';

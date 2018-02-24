@@ -24,7 +24,7 @@
         <div class="box-body table-responsive" id="list-table-menu">
             <table id="" class="table table1 table-bordered table-striped">
                 <thead>
-                    <tr style="background:  #3998ad; color: white">
+                    <tr style="background:  #551E1E; color: white">
                         <th>No</th>
                         <th>Nama Aset</th>
                         <th>Lokasi Sekarang</th>

@@ -2,7 +2,7 @@
     
             <table class="table table1 table-bordered table-striped">
                 <thead>
-                    <tr style="background:  #3998ad; color: white">
+                    <tr style="background:  #551E1E; color: white">
                         <th>No</th>
                         <th>Nama</th>
                         <th>Status</th>

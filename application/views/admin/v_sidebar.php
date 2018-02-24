@@ -4,11 +4,17 @@
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
-            <div style="padding-left: 12px;">
+            <div class="bg-user-panel">
+                <img src="<?php echo base_url('assets/images/bg-blur.jpg') ?>" alt="User Image" />
+            </div>
+            <div class="image img_circle">
+                <img src="<?php echo base_url('assets/images/user.jpg') ?>" alt="User Image" />
+            </div>
+            <div class="info">
                 <p style="color: #fff;"><?php echo $currUser; ?></p>
-
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
+            
         </div>
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -16,6 +22,8 @@
             <li class="header">MAIN NAVIGATION</li>
 
             <li id="sidebar-dashboard" class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+
+            <li id="sidebar-pencarian"><a href="#"><i class="fa  fa-search" ></i> Pencarian Dokumen</a></li>
 
             <li id="sidebar-aset"><a href="#"><i class="fa  fa-th-list"></i> Aset</a></li>
 

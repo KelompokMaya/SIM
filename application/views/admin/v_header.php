@@ -1,9 +1,12 @@
 </head>
-<body class="skin-blue">
+<body class="skin-blue ">
     <!-- Site wrapper -->
     <div class="wrapper">
 
-        <header class="main-header">
+        <header class="main-header" style="background: rgb(59, 70, 74) none repeat scroll 0% 0%;">
+            <div class="bg-user-panel-header">
+                <img src="<?php echo base_url('assets/images/bg-blur.jpg') ?>" alt="User Image" />
+            </div>
             <a href="#" class="logo"><b> SIM</b>Barang</a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">

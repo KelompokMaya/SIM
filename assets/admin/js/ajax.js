@@ -66,12 +66,13 @@ $('.sidebar-menu > li').click(function(event) {
 
 
 $('#sidebar-dashboard').click(function(event) {
+	setCookie("sidebar", "dashboard", 0.5);
 	$('#main-content').html('');
 	$('#preloader').css('display','block');
 	$.get(base_url+"Admin/Dashboard", function(data) {
 		$('#preloader').css('display','none');
 		$('#main-content').html(data);
-		setCookie("sidebar", "dashboard", 0.5);
+		
 	});
 });
 

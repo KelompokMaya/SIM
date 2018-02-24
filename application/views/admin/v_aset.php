@@ -172,11 +172,12 @@
           <button class="btn btn-primary btn-flat pull-right" data-toggle="tooltip" onclick="addAset();"><i class="fa fa-plus" id="add"></i> Tambah Aset</button>
           <a href="<?php echo base_url('Admin/Excel/export_excel') ?>" class="btn btn-warning btn-flat pull-right" data-toggle="tooltip" ><i class="fa fa-download " ></i> Export Data</a>
         </div>
-        <!-- /.box-header -->
+        <!-- /.box-header 3998ad -->
         <div class="box-body table-responsive">
             <table class="table table1 table-bordered table-striped">
                 <thead>
-                    <tr style="background:  #3998ad; color: white; text-align: center;">
+                    <tr style="background:  #551E1E; color: white; text-align: center;">
+                      
                         <th>No</th>
                         <th>Nama</th>
                         <th>Status</th>
@@ -375,11 +376,12 @@
 
     function addAset() {
         if($('#editor-wrapper').css('display')=='none'){
-            $('#editor-wrapper').css('display', 'block');
+            $("#editor-wrapper").show('slow');
+            //$('#editor-wrapper').css('display', 'block');
             
         }
         if($('#editor-wrapper2').css('display')=='block'){
-            $('#editor-wrapper2').css('display', 'none');
+          $('#editor-wrapper2').css('display', 'none');
             
         }
         
@@ -438,7 +440,8 @@
             $('#editor-wrapper').css('display', 'none');
             
         }
-      $('#editor-wrapper2').css('display', 'block');
+      //$('#editor-wrapper2').css('display', 'block');
+      $("#editor-wrapper2").show('slow');
       $.get(base_url+"Admin/Aset/select/"+id, function(aset) {
             var aset=jQuery.parseJSON(aset+"");
             
@@ -555,8 +558,10 @@
    $(document).on('click', '#btn-cancel', function(event) {
         event.preventDefault();
         $('#btn-add').removeClass('disabled');  
-        $('#editor-wrapper').css('display', 'none');
-        $('#editor-wrapper2').css('display', 'none');
+        // $('#editor-wrapper').css('display', 'none');
+        // $('#editor-wrapper2').css('display', 'none');
+        $("#editor-wrapper").hide('slow');
+        $("#editor-wrapper2").hide('slow');
         $('#ubah-lokasi').css('display','none');
         $('#ubah-lokasi').trigger("reset");
         

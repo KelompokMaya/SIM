@@ -42,7 +42,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var sidebar=getCookie('sidebar');
-        if(sidebar) $('#sidebar-'+sidebar).click();
+        if(sidebar=='pencarian') $('#sidebar-'+sidebar).click();
+        else if(sidebar) $('#sidebar-'+sidebar).click();
         else $('#sidebar-dashboard').click();
     });
 </script>

@@ -23,7 +23,7 @@ $_CONFIG = array(
 
     'disabled' => false,
     'theme' => "oxygen",
-    'uploadURL' => "http://localhost/balibighugtour/uploads/",
+    'uploadURL' => "http://localhost/sim/uploads/",
     'uploadDir' => '',
 
     'types' => array(

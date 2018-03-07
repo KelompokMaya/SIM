@@ -2,7 +2,7 @@
 <div id="edit-dokumen" class=" col-xs-12" style="display: none;">
     <div class="box box-success">
         <div class="box-header">
-          <h3 class="box-title">Tambah Dokumen</h3>
+          <h3 id="title-edit" class="box-title">Tambah Dokumen</h3>
           <div class="btn-group pull-right">
                 <button id="btn-cancel" class="btn btn-default btn-flat">Batal</button>
                 <button onclick="submit(this);" id="btn-submit" class="btn btn-primary btn-flat">Tambah</button>
@@ -27,11 +27,15 @@
 </div>
 
 <div  class="col-xs-12">
-  <div id="alert" class="alert alert-danger" style="display: none;">
-                    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
-                </div>
+        
     <div class="box">
         <div class="box-header">
+            <div id="alert-tambah" class="alert alert-success" style="display: none;">
+                <strong>Berhasil!</strong> Data Berhasil Disimpan !!
+            </div>
+            <div id="alert-hapus" class="alert alert-danger" style="display: none;">
+                <strong>Berhasil!</strong> Data Berhasil Dihapus !!
+            </div>
             <h3 class="box-title">Data Dokumen</h3>
             <button onclick="Cari();" class="btn btn-danger btn-flat pull-right" type="button"><span> Kembali</span></button>
             <button onclick="addDokumen();" class="btn btn-success btn-flat pull-right" type="button"><span> Tambah Dokumen</span></button>
@@ -46,7 +50,7 @@
                         <th>Judul</th>
                         <th>Tanggal Dibuat</th>
                         <th>Tanggal Disunting</th>
-                        <th>Aksi</th>
+                        <th style="width: 15%"  >Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,8 +63,9 @@
                         <td><?php echo $row->tgl_edit;  ?></td>                      
                         <td style="text-align: center;">
                           <div class="btn-group">
+                            <button class="btn btn-primary btn-flat" data-toggle="tooltip" title="Tambah Langkah Perbaikan" onclick="addLangkahPerbaikan(<?php echo $row->id_dokumen; ?>);"><i class="fa  fa-plus"></i></button>
                             <button class="btn btn-success btn-flat" data-toggle="tooltip" title="Edit" onclick="editDokumen(<?php echo $row->id_dokumen; ?>);"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-flat" data-toggle="tooltip" title="Delete" onclick="deleteDokumen(<?php echo $row->id_dokumen; ?>);"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-danger btn-flat" data-toggle="tooltip" title="Hapus" onclick="deleteDokumen(<?php echo $row->id_dokumen; ?>);"><i class="fa fa-trash"></i></button>
                           </div>
                         </td>
                     </tr>  
@@ -114,8 +119,8 @@
          </div>
          <div class="modal-footer">
             <div class="btn-group">
-               <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
-               <button id="btn-delete" type="button" class="btn btn-danger btn-flat">Yes</button>
+               <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Batal</button>
+               <button id="btn-delete" type="button" class="btn btn-danger btn-flat">Ya</button>
             </div>
          </div>
       </div>
@@ -134,6 +139,7 @@
             $("#edit-dokumen").show('slow');
             $(this).addClass('disabled');
             $('#btn-submit').html('Tambah');
+            $('#title-edit').html('Tambah Dokumen'); 
             //$('#editor-wrapper').css('display', 'block');
             
         }
@@ -165,6 +171,8 @@
             $.post(base_url+"Admin/Dokumen/insert", {judul: judul, deskripsi: deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
+                $("#alert-tambah").css("display","block");
+                $("#alert-tambah").fadeOut(3000);
             }); 
         }
         else if($('#btn-submit').html()=='Edit'){
@@ -180,6 +188,20 @@
 
             }); 
         }
+        else if($('#btn-submit').html()=='Tambah Langkah'){
+            $('#editor-wrapper').css('display', 'none');
+            $('#preloader').css('display','block');
+            var id=$('#editor-langkah').attr('data-link');
+            // var judul=$('#editor-judul').val();
+            // var deskripsi=$('#editor-deskripsi').val();
+            var langkah=CKEDITOR.instances['editor-langkah'].getData();
+            $.post(base_url+"Admin/Dokumen/addLangkah", {id: id, langkah: langkah}, function(data, textStatus, xhr) {
+                $('#preloader').css('display','none');
+                $('#main-content').html(data);
+                $("#alert-tambah").css("display","block");
+                $("#alert-tambah").fadeOut(3000);
+            }); 
+        }
     };
 
     //edit dokumen
@@ -192,12 +214,33 @@
         $.get(base_url+"Admin/Dokumen/select/"+id, function(dokumen) { 
             //$('#preloader').css('display','none');
             $('#edit-dokumen').show('slow');   
-            $('#btn-add').addClass('disabled'); 
+            $('#btn-add').addClass('disabled');
+            $('#title-edit').html('Edit Dokumen'); 
             $('#btn-submit').html('Edit');
             $('#editor-langkah').attr('data-link', dokumen.id_dokumen);
             $('#editor-judul').val(dokumen.judul);
             $('#editor-deskripsi').val(dokumen.deskripsi);
             CKEDITOR.instances['editor-langkah'].setData(dokumen.langkah);
+        }, 'json');
+    }
+
+    //tambah langkah perbaikan dokumen
+    function addLangkahPerbaikan(id) {
+        $('#title-edit').html('Tambah Langkah Perbaikan'); 
+        if($('#edit-dokumen').css('display')=='block'){
+            $("#edit-dokumen").hide('slow');    
+        }
+
+        //$('#preloader').css('display','block');
+        $.get(base_url+"Admin/Dokumen/select/"+id, function(dokumen) { 
+            //$('#preloader').css('display','none');
+            $('#edit-dokumen').show('slow');   
+            $('#btn-add').addClass('disabled'); 
+            $('#btn-submit').html('Tambah Langkah');
+            $('#editor-langkah').attr('data-link', dokumen.id_dokumen);
+            $('#editor-judul').val(dokumen.judul);
+            $('#editor-deskripsi').val(dokumen.deskripsi);
+            CKEDITOR.instances['editor-langkah'].setData('');
         }, 'json');
     }
    
@@ -211,6 +254,8 @@
                 $.get(base_url+"Admin/Dokumen/delete/"+id, function(data) {
                     $('#preloader').css('display','none');
                     $('#main-content').html(data);
+                    $("#alert-hapus").css("display","block");
+                    $("#alert-hapus").fadeOut(3000);
                 });
             });
         });

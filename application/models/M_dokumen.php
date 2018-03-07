@@ -25,6 +25,13 @@ class M_dokumen extends CI_Model {
 		$this->db->update('tb_dokumen', $objek);
 	}
 
+	public function addLangkah($id, $langkah, $tgl_buat) {
+
+		$objek=array('id_dokumen'=>$id, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat);
+		$this->db->insert('tb_langkah_perbaikan', $objek);
+		
+	}
+
 	public function select_all() {
 
 		$this->db->select('*');

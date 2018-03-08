@@ -7,6 +7,8 @@ class Dokumen extends CI_Controller {
 		parent::__construct();
 		$this->load->model('M_dokumen');
 
+
+
 		if (!$this->session->userdata('isLoggedIn')){
 			$this->load->view('admin/v_redirect_login');
 			return;
@@ -68,37 +70,85 @@ class Dokumen extends CI_Controller {
 
 	public function preprocessing($id_dokumen,$deskripsi){
 
-		$file_stopword= base_url().'assets/file/stopword.txt';
-
 		//menghilangkan tanda baca
 		$deskripsi=preg_replace("/[[:punct:]]+/"," ",$deskripsi);
 
 		//agar kecil semua
-		$data['deskripsi']=strtolower($deskripsi);
+		$data=strtolower($deskripsi);
 
 		//menghitung keseluruhan kata dan menjadikan array
-		$kata=str_word_count($deskripsi,1);
+		$kata=str_word_count($data,1);
 
 		//pencocokan kata atau stopwords
+		$file_stopword= base_url().'assets/file/stopword.txt';
 		$stopwords=file($file_stopword, FILE_IGNORE_NEW_LINES);
-		$data['stopword']=array_values(array_diff($kata,$stopwords));
+		$stopword=array_values(array_diff($kata,$stopwords));
 		
 		//hitung tf
-		$data['tf'] = array_values(array_count_values($data['stopword']));
+		$tf = array_values(array_count_values($stopword));
 
 		// // kata yg unik
-		$data['kata_unik'] = array_values(array_unique($data['stopword']));
+		$kata_unik = array_values(array_unique($stopword));
 
+		//Stemming					
+		$jum_kata_unik=count($kata_unik);
 
+		//echo $jum_kata_unik;
+			$i=0;
+			while ( $i< $jum_kata_unik) {
+					$this->load->library('stemmingg');
+					$teksAsli = $kata_unik[$i];
+					//echo "Teks asli : ".$teksAsli.'<br/>';
+					$stemming = $this->stemmingg->stemming($teksAsli);
+					if ($stemming=='') {
+					$term[$i] = $kata_unik[$i];
+					}
+					else{
+					$term[$i] = $stemming;
+					}
+					
+					$i++;
+		 		}
 
+		 	$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);		
 
 		// $objek=array('id_dokumen'=>$id_dokumen, 'id_term'=>$id_term);
 		// $this->db->insert('tb_index', $objek);		
 
 		// $this->index();
-		$this->load->view('admin/v_contoh',$data);
+		//$this->load->view('admin/v_contoh',$data);
 
 
 	}
+
 	
+	public function addIndex($term,$tf,$jum_kata_unik,$id_dokumen){
+
+			
+		for ($i = 0; $i < $jum_kata_unik; $i++)
+        {
+	        
+            $dataIndex= array(
+              'term' => $term[$i],
+               'id_dokumen' => $id_dokumen,);
+
+           $this->db->insert('tb_index', $dataIndex);
+        } 
+
+		$this->addTerm($term,$tf,$jum_kata_unik);	
+		
+	}
+
+	public function addTerm($term,$tf,$jum_kata_unik){
+		for ($i = 0; $i < $jum_kata_unik; $i++)
+        {
+			$dataTerm = array(
+	                'term' => $term[$i],
+	                'tf' => $tf[$i],
+	            );
+			$this->db->insert('tb_term', $dataTerm);
+		}
+	}
+
+
 }

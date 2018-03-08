@@ -34,7 +34,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Total</span>
         <span class="info-box-text">Tiket</span>
-        <span class="info-box-number"><?php echo $deskripsi;?></span>
+        <span class="info-box-number">1</span>
       </div>
 
     </div>

@@ -2,6 +2,9 @@
 
 echo $deskripsi;
 echo '<br/> <br/>';
+
+echo $stemming;
+echo '<br/> <br/>';
 print_r($stopword);
 echo '<br/> <br/>';
 print_r($tf);

@@ -43,4 +43,12 @@ class M_dokumen extends CI_Model {
 		$this->db->where('id_dokumen', $id);
 		$this->db->delete('tb_dokumen');
 	}
+
+
+	public function select_term($term){
+		$this->db->select('term');
+		$this->db->from('tb_term');
+		$this->db->where('term', $term);
+		return $this->db->get();
+	}
 }

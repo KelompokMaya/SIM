@@ -110,7 +110,7 @@ class Dokumen extends CI_Controller {
 					$i++;
 		 		}
 
-		 	$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);		
+		$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);		
 
 		// $objek=array('id_dokumen'=>$id_dokumen, 'id_term'=>$id_term);
 		// $this->db->insert('tb_index', $objek);		
@@ -118,21 +118,17 @@ class Dokumen extends CI_Controller {
 		// $this->index();
 		//$this->load->view('admin/v_contoh',$data);
 
-
 	}
 
 	
 	public function addIndex($term,$tf,$jum_kata_unik,$id_dokumen){
 
-			
-		for ($i = 0; $i < $jum_kata_unik; $i++)
-        {
-	        
-            $dataIndex= array(
-              'term' => $term[$i],
-               'id_dokumen' => $id_dokumen,);
+		$term_unik = array_values(array_unique($term));
+		$jum_kata = count($term_unik);
 
-           $this->db->insert('tb_index', $dataIndex);
+		for ($i = 0; $i < $jum_kata; $i++)
+        {
+	        $this->M_dokumen->addIndex($id_dokumen,$term_unik[$i]);
         } 
 
 		$this->addTerm($term,$tf,$jum_kata_unik);	
@@ -140,14 +136,27 @@ class Dokumen extends CI_Controller {
 	}
 
 	public function addTerm($term,$tf,$jum_kata_unik){
+		
+
 		for ($i = 0; $i < $jum_kata_unik; $i++)
         {
-			$dataTerm = array(
+        	$term_tersimpan=$this->M_dokumen->select_AllTerm();
+        	
+        	if (in_array($term[$i], $term_tersimpan)) {
+        		$this->M_dokumen->countTF($term[$i],$tf[$i]);
+        	} else {
+        		$dataTerm = array(
 	                'term' => $term[$i],
 	                'tf' => $tf[$i],
 	            );
-			$this->db->insert('tb_term', $dataTerm);
+				$this->db->insert('tb_term', $dataTerm);
+        		
+        	}
+        	
+			
 		}
+		$this->index();
+
 	}
 
 

@@ -44,11 +44,44 @@ class M_dokumen extends CI_Model {
 		$this->db->delete('tb_dokumen');
 	}
 
+	//index
+	public function addIndex($id_dokumen,$term){
 
-	public function select_term($term){
+		$dataIndex= array(
+              'term' => $term,
+               'id_dokumen' => $id_dokumen,);
+
+           $this->db->insert('tb_index', $dataIndex);
+	}
+
+
+	//term
+	public function select_AllTerm() {
+
 		$this->db->select('term');
-		$this->db->from('tb_term');
+		$query= $this->db->get('tb_term');
+		$array= $query->result_array(); 
+		$arr = array_map (function($value){
+		    return $value['term'];
+		} , $array);
+		return $arr;
+	}
+	public function select_term($term){
+		$this->db->select('tf');
 		$this->db->where('term', $term);
-		return $this->db->get();
+		$query= $this->db->get('tb_term');
+		return $query->row()->tf;
+	}
+
+	public function countTF($term,$tf){
+		$curr_TF= $this->select_term($term);
+		$new_TF=$curr_TF+$tf;
+
+        $dataTerm = array(
+	          'tf' => $new_TF,
+	    );
+	    $this->db->where('term', $term);
+	    $this->db->update('tb_term', $dataTerm);	
+
 	}
 }

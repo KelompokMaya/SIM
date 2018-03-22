@@ -42,9 +42,43 @@ class M_dokumen extends CI_Model {
 	public function delete($id) {
 		$this->db->where('id_dokumen', $id);
 		$this->db->delete('tb_dokumen');
+
+		$this->deleteIndex($id);
 	}
 
 	//index
+	public function select_AllTermIndex($id_dokumen) {
+
+		$this->db->select('term');
+		$this->db->where('id_dokumen', $id_dokumen);
+		$query= $this->db->get('tb_index');
+		$array= $query->result_array(); 
+		$arr = array_map (function($value){
+		    return $value['term'];
+		} , $array);
+		return $arr;
+
+	}
+	public function select_AllTFIndex($id_dokumen) {
+
+		$this->db->select('tf');
+		$this->db->where('id_dokumen', $id_dokumen);
+		$query= $this->db->get('tb_index');
+		$array= $query->result_array(); 
+		$arr = array_map (function($value){
+		    return $value['tf'];
+		} , $array);
+		return $arr;
+		
+	}
+	public function select_termIndex($id_dokumen,$term){
+		$this->db->select('tf');
+		$this->db->where('id_dokumen', $id_dokumen);
+		$this->db->where('term', $term);
+		$query= $this->db->get('tb_index');
+		return $query->row()->tf;
+	}
+
 	public function addIndex($id_dokumen,$term){
 
 		$dataIndex= array(
@@ -52,6 +86,24 @@ class M_dokumen extends CI_Model {
                'id_dokumen' => $id_dokumen,);
 
            $this->db->insert('tb_index', $dataIndex);
+	}
+	public function countTFIndex($id_dokumen,$term,$tf){
+		$curr_TF= $this->select_termIndex($id_dokumen,$term);
+		$new_TF=$curr_TF+$tf;
+
+        $dataTerm = array(
+	          'tf' => $new_TF,
+	    );
+	    $this->db->where('id_dokumen', $id_dokumen);
+	    $this->db->where('term', $term);
+	    $this->db->update('tb_index', $dataTerm);	
+
+	}
+
+	public function deleteIndex($id_dokumen){
+		$this->db->where('id_dokumen', $id_dokumen);
+		$this->db->delete('tb_index');
+
 	}
 
 
@@ -83,5 +135,24 @@ class M_dokumen extends CI_Model {
 	    $this->db->where('term', $term);
 	    $this->db->update('tb_term', $dataTerm);	
 
+	}
+
+	public function subtractTFTerm($term,$tf){
+
+		$curr_TF= $this->select_term($term);
+
+		if ($curr_TF==1) {
+			$this->db->where('term', $term);
+			$this->db->delete('tb_term');
+		}
+		else{
+			$new_TF=$curr_TF-$tf;
+
+	        $dataTerm = array(
+		          'tf' => $new_TF,
+		    );
+		    $this->db->where('term', $term);
+		    $this->db->update('tb_term', $dataTerm);
+		}
 	}
 }

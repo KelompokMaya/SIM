@@ -63,6 +63,19 @@ class Dokumen extends CI_Controller {
 	}
 
 	public function delete($id){
+		$term_tersimpan_index = $this->M_dokumen->select_AllTermIndex($id);
+		$tf_tersimpan_index = $this->M_dokumen->select_AllTFIndex($id);
+		$term_tersimpan = $this->M_dokumen->select_AllTerm();
+		$jum_term_index=count($term_tersimpan_index);
+
+		for ($i = 0; $i < $jum_term_index; $i++)
+        {
+
+		if (in_array($term_tersimpan_index[$i], $term_tersimpan)) {
+        		$this->M_dokumen->subtractTFTerm($term_tersimpan_index[$i],$tf_tersimpan_index[$i]);
+        	}
+		}
+
 		$this->M_dokumen->delete($id);
 		$this->index();
 
@@ -110,7 +123,16 @@ class Dokumen extends CI_Controller {
 					$i++;
 		 		}
 
-		$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);		
+		 	//jika term kosong
+		 	if ($jum_kata_unik==0) {
+		 		$this->M_dokumen->delete($id_dokumen);
+				$this->index();
+		 	} else {
+		 		$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);	
+		 	}
+		 	
+
+			
 
 		// $objek=array('id_dokumen'=>$id_dokumen, 'id_term'=>$id_term);
 		// $this->db->insert('tb_index', $objek);		
@@ -123,12 +145,26 @@ class Dokumen extends CI_Controller {
 	
 	public function addIndex($term,$tf,$jum_kata_unik,$id_dokumen){
 
-		$term_unik = array_values(array_unique($term));
-		$jum_kata = count($term_unik);
+		//$term_unik = array_values(array_unique($term));
+		//$jum_kata = count($term_unik);
 
-		for ($i = 0; $i < $jum_kata; $i++)
+		for ($i = 0; $i < $jum_kata_unik; $i++)
         {
-	        $this->M_dokumen->addIndex($id_dokumen,$term_unik[$i]);
+        	$term_tersimpan_index=$this->M_dokumen->select_AllTermIndex($id_dokumen);
+
+        	if (in_array($term[$i], $term_tersimpan_index)) {
+        		$this->M_dokumen->countTFIndex($id_dokumen,$term[$i],$tf[$i]);
+        	} else {
+        		$dataTerm = array(
+        			'id_dokumen'=>$id_dokumen,
+	                'term' => $term[$i],
+	                'tf' => $tf[$i],
+	            );
+				$this->db->insert('tb_index', $dataTerm);
+        		
+        	}
+
+	        //$this->M_dokumen->addIndex($id_dokumen,$term[$i]);
         } 
 
 		$this->addTerm($term,$tf,$jum_kata_unik);	

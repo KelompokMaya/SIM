@@ -3,6 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_dokumen extends CI_Model {
 
+	public function jmlDokumen(){
+		$query = $this->db->query('SELECT COUNT(id_dokumen) AS num FROM tb_dokumen');
+		return $query->row()->num;
+
+	}
+	public function jmlTerm(){
+		$query = $this->db->query('SELECT COUNT(id_term) AS num FROM tb_term');
+		return $query->row()->num;
+
+	}
+
 	public function select($id) {
 		$this->db->select('id_dokumen, judul, deskripsi, langkah');
 		$this->db->from('tb_dokumen');
@@ -10,9 +21,9 @@ class M_dokumen extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function insert($judul, $deskripsi, $langkah,$tgl_buat) {
+	public function insert($judul, $deskripsi, $langkah,$tgl_buat,$panjang_dokumen) {
 
-		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat);
+		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat, 'panjang_dokumen'=>$panjang_dokumen);
 		$this->db->insert('tb_dokumen', $objek);
 		
 	}
@@ -154,5 +165,46 @@ class M_dokumen extends CI_Model {
 		    $this->db->where('term', $term);
 		    $this->db->update('tb_term', $dataTerm);
 		}
+	}
+
+	//bm25
+	public function select_ALLidDokumen(){
+		$this->db->select('id_dokumen');
+		$query= $this->db->get('tb_dokumen');
+		$array= $query->result_array(); 
+		$arr = array_map (function($value){
+		    return $value['id_dokumen'];
+		} , $array);
+		return $arr;
+	}
+
+	public function select_panjangDokumen($id_dokumen){
+		$this->db->select('panjang_dokumen');
+		$this->db->where('id_dokumen', $id_dokumen);
+		$query= $this->db->get('tb_dokumen');
+		return $query->row()->panjang_dokumen;
+	}
+
+	public function select_df($term){
+		$query = $this->db->query("SELECT COUNT(id) AS num  FROM tb_index WHERE term='$term'");
+		return $query->row()->num;
+
+	}
+
+	public function cekterm($term,$id_dokumen){
+
+		$query = $this->db->query("SELECT COUNT(id) AS num  FROM tb_index WHERE id_dokumen='$id_dokumen' AND term='$term'");
+		$result = $query->row()->num;
+
+	
+		if($result>0){
+			return true; // True jika ada
+		}else{
+			return false; // jika tidak ada FALSE
+		}
+	}
+	public function ALLpanjangDok(){
+		$query = $this->db->query('SELECT SUM(panjang_dokumen) AS num FROM tb_dokumen');
+		return $query->row()->num;
 	}
 }

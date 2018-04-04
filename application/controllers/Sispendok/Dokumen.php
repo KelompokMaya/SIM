@@ -6,8 +6,7 @@ class Dokumen extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('M_dokumen');
-
-
+	
 
 		if (!$this->session->userdata('isLoggedIn')){
 			$this->load->view('admin/v_redirect_login');
@@ -16,7 +15,9 @@ class Dokumen extends CI_Controller {
 	}
 	
 	public function index(){
+		
 		$data['dokumen']=$this->M_dokumen->select_all();
+
 		$this->load->view('admin/v_dokumen',$data);
 
 	}
@@ -33,8 +34,18 @@ class Dokumen extends CI_Controller {
 		$langkah=$this->input->post('langkah');
 		$tgl_buat=date("Y-m-d");
 
+		//menghilangkan tanda baca
+		$deskripsi=preg_replace("/[[:punct:]]+/"," ",$deskripsi);
 
-		$this->M_dokumen->insert($judul, $deskripsi, $langkah, $tgl_buat);
+		//agar kecil semua
+		$data=strtolower($deskripsi);
+
+		//menghitung keseluruhan kata 
+		$kata=str_word_count($data,1);
+		$panjang_dokumen=count($kata);
+
+
+		$this->M_dokumen->insert($judul, $deskripsi, $langkah, $tgl_buat,$panjang_dokumen);
 		$id_dokumen = $this->db->insert_id();
 
 		$this->preprocessing($id_dokumen,$deskripsi);
@@ -114,7 +125,7 @@ class Dokumen extends CI_Controller {
 
 		//menghitung keseluruhan kata dan menjadikan array
 		$kata=str_word_count($data,1);
-
+		
 		//pencocokan kata atau stopwords
 		$file_stopword= base_url().'assets/file/stopword.txt';
 		$stopwords=file($file_stopword, FILE_IGNORE_NEW_LINES);

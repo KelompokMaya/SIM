@@ -168,7 +168,7 @@
             var judul=$('#editor-judul').val();
             var deskripsi=$('#editor-deskripsi').val();
             var langkah=CKEDITOR.instances['editor-langkah'].getData()
-            $.post(base_url+"Admin/Dokumen/insert", {judul: judul, deskripsi: deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
+            $.post(base_url+"Sispendok/Dokumen/insert", {judul: judul, deskripsi: deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
                 $("#alert-tambah").css("display","block");
@@ -182,7 +182,7 @@
             var judul=$('#editor-judul').val();
             var deskripsi=$('#editor-deskripsi').val();
             var langkah=CKEDITOR.instances['editor-langkah'].getData();
-            $.post(base_url+"Admin/Dokumen/update", {id: id, judul: judul, deskripsi:deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
+            $.post(base_url+"Sispendok/Dokumen/update", {id: id, judul: judul, deskripsi:deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
 
@@ -195,7 +195,7 @@
             // var judul=$('#editor-judul').val();
             // var deskripsi=$('#editor-deskripsi').val();
             var langkah=CKEDITOR.instances['editor-langkah'].getData();
-            $.post(base_url+"Admin/Dokumen/addLangkah", {id: id, langkah: langkah}, function(data, textStatus, xhr) {
+            $.post(base_url+"Sispendok/Dokumen/addLangkah", {id: id, langkah: langkah}, function(data, textStatus, xhr) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
                 $("#alert-tambah").css("display","block");
@@ -211,7 +211,7 @@
         }
 
         //$('#preloader').css('display','block');
-        $.get(base_url+"Admin/Dokumen/select/"+id, function(dokumen) { 
+        $.get(base_url+"Sispendok/Dokumen/select/"+id, function(dokumen) { 
             //$('#preloader').css('display','none');
             $('#edit-dokumen').show('slow');   
             $('#btn-add').addClass('disabled');
@@ -232,7 +232,7 @@
         }
 
         //$('#preloader').css('display','block');
-        $.get(base_url+"Admin/Dokumen/select/"+id, function(dokumen) { 
+        $.get(base_url+"Sispendok/Dokumen/select/"+id, function(dokumen) { 
             //$('#preloader').css('display','none');
             $('#edit-dokumen').show('slow');   
             $('#btn-add').addClass('disabled'); 
@@ -251,7 +251,7 @@
             $('#modal-delete').modal('hide').on('hidden.bs.modal', function() {
                 $('#main-content').html('');
                 $('#preloader').css('display','block');
-                $.get(base_url+"Admin/Dokumen/delete/"+id, function(data) {
+                $.get(base_url+"Sispendok/Dokumen/delete/"+id, function(data) {
                     $('#preloader').css('display','none');
                     $('#main-content').html(data);
                     $("#alert-hapus").css("display","block");
@@ -274,7 +274,7 @@
     //ke page pencrian
     function Cari(){
       //$('#preloader').css('display','block');
-      $.get(base_url+"Admin/Pendok", function(data) {
+      $.get(base_url+"Sispendok/Pendok", function(data) {
         //$('#preloader').css('display','none');
         $('#main-content').html(data);  
     });

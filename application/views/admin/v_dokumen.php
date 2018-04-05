@@ -57,7 +57,7 @@
                     <?php $i=1; ?>
                     <?php foreach ($dokumen->result() as $row): ?>
                     <tr >
-                        <td style="text-align: center"><?php echo $i;  ?></td>
+                        <td style="text-align: center"><?php echo $i;$i++;  ?></td>
                         <td><?php echo $row->judul;  ?></td>
                         <td><?php echo $row->tgl_buat;  ?></td>
                         <td><?php echo $row->tgl_edit;  ?></td>                      

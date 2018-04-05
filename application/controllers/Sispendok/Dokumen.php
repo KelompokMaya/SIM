@@ -139,6 +139,7 @@ class Dokumen extends CI_Controller {
 
 		//Stemming					
 		$jum_kata_unik=count($kata_unik);
+		
 
 		//echo $jum_kata_unik;
 			$i=0;
@@ -160,7 +161,7 @@ class Dokumen extends CI_Controller {
 		 	//jika term kosong
 		 	if ($jum_kata_unik==0) {
 		 		$this->M_dokumen->delete($id_dokumen);
-				$this->index();
+				
 		 	} else {
 		 		$this->addIndex($term,$tf,$jum_kata_unik,$id_dokumen);	
 		 	}

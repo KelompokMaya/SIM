@@ -71,46 +71,7 @@
     </div>
 </div>
 <div id="bagian_hasil_cari" class=" col-xs-12" style="display: none;">
-    <div class="box">
-            
-            <div class="box-body">
-              
-              <div class="box-header with-border">
-                <h3 class="box-title" style="text-align: center;">Hasil Pencarian : 23 Dokumen Ditemukan</h3>
-              </div>
-
-                  <div class="box-body no-padding">
-                    <div class="mailbox-read-info">
-                      <a href="url"><h3>MENAMBAH VIRTUAL HARDISK DENGAN MENGGUNAKAN LVM MODE</h3></a>
-                       <h5><i class="fa fa-calendar">&nbsp 15 Feb. 2016</i> &nbsp <i class="fa fa-user"></i>&nbsp <b>kadek aryana</b>
-
-                        <span class="mailbox-read-time pull-right">Bobot : 12,55</span></h5>
-                    </div>
-
-                  </div>
-                  <div class="box-body no-padding">
-                    <div class="mailbox-read-info">
-                      <a href="url"><h3>Mendelete File hasil Backup ketika HDD sudah hampir penuh</h3></a>
-                       <h5><i class="fa fa-calendar">&nbsp 15 Feb. 2016</i> &nbsp <i class="fa fa-user"></i>&nbsp <b>kadek aryana</b>
-
-                        <span class="mailbox-read-time pull-right">Bobot : 12,55</span></h5>
-                    </div>
-
-                  </div>
-                  <div class="box-body no-padding">
-                    <div class="mailbox-read-info">
-                      <a href="url"><h3>tutorial partisi di linux dan mengubah dari usb 3.0 ke 2.0</h3></a>
-                       <h5><i class="fa fa-calendar">&nbsp 15 Feb. 2016</i> &nbsp <i class="fa fa-user"></i>&nbsp <b>kadek aryana</b>
-
-                        <span class="mailbox-read-time pull-right">Bobot : 12,55</span></h5>
-                    </div>
-
-                  </div>
-
-          
-            </div>
-         
-    </div>
+    
 </div>
 
 
@@ -147,7 +108,10 @@
             
             var query = $('#pencarian').find('#cari').val();
             $.post(base_url+"Sispendok/Pendok/cari/", {query: query}, function(data) {
-                $('#main-content').html(data);
+
+               $("#bagian_hasil_cari").show('slow');
+                $('#bagian_hasil_cari').html(data);
+                //$('#main-content').html(data);
                 //dataTable();
                 //console.log(data);
             }); 

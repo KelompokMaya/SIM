@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 
 // echo $deskripsi;
 // echo '<br/> <br/>';
@@ -20,6 +20,25 @@
 // echo '<br/> <br/>';
 print_r($term);
  echo '<br/> <br/>';
-echo $bm2;
 
-?>
+?> -->
+
+ <?php
+ if ($term==0) {
+ 	echo 'data tidak ditemukan';
+ }
+ else{
+ 	$i=0;
+  foreach ($term as $row) {
+
+  	if ($i<4) {
+  		echo $row['id_dokumen'];
+	    echo $row['bobot'];
+	    echo '<br/> <br/>';
+  	}
+
+    
+    $i++;
+}
+}
+ ?>

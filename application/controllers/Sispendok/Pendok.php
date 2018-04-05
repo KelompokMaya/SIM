@@ -44,6 +44,9 @@ class Pendok extends CI_Controller {
 
 		//Stemming					
 		$jum_kata=count($stopword);
+		if ($jum_kata==0) {
+			$term='zxcd';
+		}
 
 		//echo $jum_kata_unik;
 			$i=0;
@@ -70,6 +73,7 @@ class Pendok extends CI_Controller {
 	}
 
 	public function bm25($term,$jum_kata){
+		$cek_pencarian_kosong=0;
 		$b=0.75; //parameter b
 		$k1=1.2; //parameter k1
 		
@@ -87,6 +91,7 @@ class Pendok extends CI_Controller {
 
 						if ($cek== false) {
 							$BM25_hasil=$BM25_hasil+0;
+							$cek_pencarian_kosong++;
 							$j++;
 						}
 						if ($cek== true){
@@ -96,18 +101,35 @@ class Pendok extends CI_Controller {
 							$avdl=($this->M_dokumen->ALLpanjangDok())/$jum_dokumen;
 
 				            $BM25_1=((($k1+1)*$tf)/($k1*(1-$b+$b*($D/$avdl))+$tf));
-				            $BM25_2=log10(($jum_dokumen-($df+0.5))/($df+0.5));
+				            $BM25_2=log10($jum_dokumen/$df);
 				            $BM25_hasil=$BM25_hasil+$BM25_1*$BM25_2;
 				            $j++;
 			        	}
 			 	}
-			 	$BM25_2=($jum_dokumen-($df+0.5))/($df+0.5);
-			 	$BM25_hasilx[$i]=$BM25_hasil;
+			 	//$BM25_2=($jum_dokumen-($df+0.5))/($df+0.5);
+			 	//$BM25_hasilx[$id_dokumen[$i]]=$BM25_hasil;
+			 	$BM25_hasilx[$i] = array(
+        			'bobot' => $BM25_hasil,
+        			'id_dokumen'=>$id_dokumen[$i],
+	                
+	            );
 			 	$i++;
 		 	}
 
-		 $data['term']=$BM25_hasilx;
-		 $data['bm2']=$BM25_2;
+
+		 if (($jum_dokumen*$jum_kata)==$cek_pencarian_kosong) {
+		 	 $data['term']=0;
+		 } else{
+		 	//$BM25_hasilxl=asort($BM25_hasilx);
+		 	 arsort($BM25_hasilx); 
+
+			
+
+		 	 $data['term']=$BM25_hasilx;
+		 }
+
+		
+		 //$data['bm2']=$BM25_2;
 		 $this->load->view('admin/v_contoh',$data);
 
 	}

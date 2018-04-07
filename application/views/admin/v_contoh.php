@@ -1,4 +1,4 @@
-<!-- <?php 
+ <?php 
 
 // echo $deskripsi;
 // echo '<br/> <br/>';
@@ -20,10 +20,10 @@
 // echo '<br/> <br/>';
 print_r($term);
  echo '<br/> <br/>';
+ //echo $jum_dokumen;
+?> 
 
-?> -->
-
- <?php
+  <?php
  if ($term==0) {
  	echo 'data tidak ditemukan';
  }
@@ -35,10 +35,11 @@ print_r($term);
   		echo $row['id_dokumen'];
 	    echo $row['bobot'];
 	    echo '<br/> <br/>';
+	    echo $row['judul'];
   	}
 
     
     $i++;
 }
 }
- ?>
+ ?> 

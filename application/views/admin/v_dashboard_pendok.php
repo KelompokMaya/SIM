@@ -68,10 +68,18 @@
               <!-- /input-group -->
             </div>
             <!-- /.box-body -->
+
     </div>
 </div>
 <div id="bagian_hasil_cari" class=" col-xs-12" style="display: none;">
-    
+  <div class="box">
+    <div class="box-body">
+        <div  id="hasil_cari" ></div>
+        <div class="overlay ovr_xx " id="pengumuman-loading" >
+            <div class='load-bar' id='materialPreloader'><div class='load-bar-container'><div style='background:#159756' class='load-bar-base base1'><div style='background:#da4733' class='color red'></div><div style='background:#3b78e7' class='color blue'></div><div style='background:#fdba2c' class='color yellow'></div><div style='background:#159756' class='color green'></div></div></div> <div class='load-bar-container'><div style='background:#159756' class='load-bar-base base2'><div style='background:#da4733' class='color red'></div><div style='background:#3b78e7' class='color blue'></div><div style='background:#fdba2c' class='color yellow'></div> <div style='background:#159756' class='color green'></div> </div> </div> </div>
+        </div>
+    </div>
+  </div>      
 </div>
 
 
@@ -102,15 +110,16 @@
     function Cari(){
         //$("#bagian_hasil_cari").show('slow');
         $('#logo-cari').hide('slow');
-
+        $("#bagian_hasil_cari").show('slow');
+        $('#pengumuman-loading').fadeIn('slow');
         // $('#preloader').css('display','block');
         //    $('#editor-wrapper').css('display', 'none');
-            
+            //$('#pengumuman-loading').fadeIn('slow');
             var query = $('#pencarian').find('#cari').val();
             $.post(base_url+"Sispendok/Pendok/cari/", {query: query}, function(data) {
-
-               $("#bagian_hasil_cari").show('slow');
-                $('#bagian_hasil_cari').html(data);
+              $('#pengumuman-loading').fadeOut('slow');
+                
+                $('#hasil_cari').html(data);
                 //$('#main-content').html(data);
                 //dataTable();
                 //console.log(data);

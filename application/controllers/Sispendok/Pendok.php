@@ -35,8 +35,7 @@ class Pendok extends CI_Controller {
 		$query=strtolower($query);
 
 		//menghitung keseluruhan kata dan menjadikan array
-		$kata=str_word_count($query,1);
-
+		$kata=explode (" ",$query);
 		//pencocokan kata atau stopwords
 		$file_stopword= base_url().'assets/file/stopword.txt';
 		$stopwords=file($file_stopword, FILE_IGNORE_NEW_LINES);
@@ -103,16 +102,21 @@ class Pendok extends CI_Controller {
 				            $BM25_1=((($k1+1)*$tf)/($k1*(1-$b+$b*($D/$avdl))+$tf));
 				            $BM25_2=log10($jum_dokumen/$df);
 				            $BM25_hasil=$BM25_hasil+$BM25_1*$BM25_2;
+
+
 				            $j++;
 			        	}
 			 	}
 			 	//$BM25_2=($jum_dokumen-($df+0.5))/($df+0.5);
 			 	//$BM25_hasilx[$id_dokumen[$i]]=$BM25_hasil;
-			 	$BM25_hasilx[$i] = array(
-        			'bobot' => $BM25_hasil,
-        			'id_dokumen'=>$id_dokumen[$i],
-	                
+
+			 	$dokumen=$this->M_dokumen->select($id_dokumen[$i])->row_array(); 
+
+			 	$bobot = array(
+        			'bobot' => $BM25_hasil,         
 	            );
+			 	$BM25_hasilx[$i]= array_merge($bobot,$dokumen);
+
 			 	$i++;
 		 	}
 
@@ -120,17 +124,22 @@ class Pendok extends CI_Controller {
 		 if (($jum_dokumen*$jum_kata)==$cek_pencarian_kosong) {
 		 	 $data['term']=0;
 		 } else{
-		 	//$BM25_hasilxl=asort($BM25_hasilx);
-		 	 arsort($BM25_hasilx); 
+		 	 arsort($BM25_hasilx);
 
-			
+			  
+			// for ($x = 0; $x <= 10; $x++) {
+			//     echo "The number is: $x <br>";
+			// } 
+
+
 
 		 	 $data['term']=$BM25_hasilx;
+		 	 //$data['jum_dokumen']=$jum_dokumen;
 		 }
 
 		
 		 //$data['bm2']=$BM25_2;
-		 $this->load->view('admin/v_contoh',$data);
+		 $this->load->view('admin/hasil_cari',$data);
 
 	}
 

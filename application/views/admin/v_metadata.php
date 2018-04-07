@@ -20,6 +20,8 @@
         <link href="<?php echo base_url('assets/AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css') ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url('assets/admin/css/magnum_custom.css') ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url('assets/admin/css/style.css') ?>" rel="stylesheet" type="text/css" />
+        <!-- preloader kim -->
+        <link href="<?php echo base_url('assets/admin/css/preloaderKIM.css') ?>" rel="stylesheet" type="text/css" />
 
         <!-- jQuery 2.1.3 -->
         <script src="<?php echo base_url('assets/AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js'); ?>"></script>

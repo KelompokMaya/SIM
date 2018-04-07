@@ -15,7 +15,7 @@ class M_dokumen extends CI_Model {
 	}
 
 	public function select($id) {
-		$this->db->select('id_dokumen, judul, deskripsi, langkah');
+		$this->db->select('id_dokumen, judul, deskripsi, langkah,tgl_buat');
 		$this->db->from('tb_dokumen');
 		$this->db->where('id_dokumen', $id);
 		return $this->db->get();

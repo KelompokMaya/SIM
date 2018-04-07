@@ -123,8 +123,8 @@ class Dokumen extends CI_Controller {
 		//agar kecil semua
 		$data=strtolower($deskripsi);
 
-		//menghitung keseluruhan kata dan menjadikan array
-		$kata=str_word_count($data,1);
+		// menjadikan array
+		$kata=explode (" ",$data);
 		
 		//pencocokan kata atau stopwords
 		$file_stopword= base_url().'assets/file/stopword.txt';

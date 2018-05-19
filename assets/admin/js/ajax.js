@@ -99,4 +99,15 @@ $('#sidebar-history').click(function(event) {
 	});
 });
 
+$('#sidebar-perbaikan').click(function(event) {
+	$('#main-content').html('');
+	$('#preloader').css('display','block');
+	$.get(base_url+"Admin/Perbaikan", function(data) {
+		$('#preloader').css('display','none');
+		$('#main-content').html(data);
+		setCookie("sidebar", "perbaikan", 0.5);
+		dataTable();
+	});
+});
+
 

@@ -129,6 +129,14 @@
             // }
       }
 
+    function Hasil(){
+      //$('#preloader').css('display','block');
+      $.get(base_url+"Sispendok/Hasil", function(data) {
+        //$('#preloader').css('display','none'); 
+      });
+
+     }
+
 </script>
 
  

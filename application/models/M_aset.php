@@ -17,6 +17,16 @@ class M_aset extends CI_Model {
 		return $this->db->get();*/
 	}
 
+	public function select_aset($id_aset){
+		return $this->db->query("select *, 
+		
+		(select nama_kampus from tb_kampus where id_kampus=kampus_id) as kampus,
+		(select nama_fakultas from tb_fakultas where id_fakultas=fakultas_id) as fakultas, 
+		(select nama_jurusan from tb_jurusan where id_jurusan=jurusan_id) as jurusan,
+		(select nama_lokasi from tb_lokasi where id_lokasi=lokasi_id) as lokasi
+		from tb_aset where id_aset='".$id_aset."' "); 
+	}
+
 	public function currLokasi($id){
 		$this->db->select('*');
 		$this->db->from('tb_aset');

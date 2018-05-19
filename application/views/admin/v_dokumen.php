@@ -167,7 +167,7 @@
             $('#preloader').css('display','block');
             var judul=$('#editor-judul').val();
             var deskripsi=$('#editor-deskripsi').val();
-            var langkah=CKEDITOR.instances['editor-langkah'].getData()
+            var langkah=CKEDITOR.instances['editor-langkah'].getData();
             $.post(base_url+"Sispendok/Dokumen/insert", {judul: judul, deskripsi: deskripsi, langkah: langkah}, function(data, textStatus, xhr) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);

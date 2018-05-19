@@ -28,7 +28,7 @@
                         <th>No</th>
                         <th>Nama Aset</th>
                         <th>Lokasi Sekarang</th>
-                        <th style="text-align: center;">Aksi</th>
+                        <th style="text-align: center; width: 22%">Aksi</th>
                                               
                     </tr>
                 </thead>

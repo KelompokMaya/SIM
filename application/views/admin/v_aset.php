@@ -119,11 +119,12 @@
                         </div>
                         <div class="form-group">
                           <label>Status</label>
-                          <select name="status" id="edit-status" class="form-control " >
-                              <option value="aktif" >Aktif</option>
-                              <option value="tidak aktif" >Tidak Aktif</option>
-                              <option value="backup" >Backup</option>
-                              <option value="Rusak" >Rusak</option>
+                          <select  name="status" id="edit-status"  class="form-control " >
+                            <option  id="cur-status" ></option>
+                              <option value="aktif" >aktif</option>
+                              <option value="tidak aktif" >tidak aktif</option>
+                              <option value="backup" >backup</option>
+                              <option value="Rusak" >rusak</option>
                           </select>  
                         </div>
                          <div class="form-group">
@@ -134,6 +135,8 @@
                           <label>Tanggal dipasang</label>
                           <input name="tgldipasang" id="edit-tgldipasang" type="date" class="form-control"  placeholder="Enter ...">
                         </div>
+                        
+
                         
                 </div>
                 <div class="col-xs-6">
@@ -451,7 +454,8 @@
            $('#edit-id').val(aset.id_aset);
             $('#edit-nama').val(aset.nama);
             $('#edit-manufaktur').val(aset.manufaktur);
-            $('#edit-status').val(aset.status);
+            $('#cur-status').html(aset.status); 
+            $('#cur-status').val(aset.status);
             $('#edit-noseri').val(aset.noseri);
             $('#edit-tipe').val(aset.tipe);
             $('#edit-model').val(aset.model);

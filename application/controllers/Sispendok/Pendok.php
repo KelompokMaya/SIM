@@ -18,7 +18,7 @@ class Pendok extends CI_Controller {
 	public function index() {
 		$data['jml_teknisi']=$this->M_dashboard->jmlUser();
 		$data['jml_dokumen']=$this->M_dokumen->jmlDokumen();
-		$data['jml_term']=$this->M_dokumen->jmlTerm();
+		$data['jml_term']= count($this->M_dokumen->jmlTerm());
 		$data['dokumen']=$this->M_dokumen->select_all();
 		$data['user']=$this->M_admin->select_all();
 
@@ -110,7 +110,7 @@ class Pendok extends CI_Controller {
 			 	//$BM25_2=($jum_dokumen-($df+0.5))/($df+0.5);
 			 	//$BM25_hasilx[$id_dokumen[$i]]=$BM25_hasil;
 
-			 	$dokumen=$this->M_dokumen->select($id_dokumen[$i])->row_array(); 
+			 	$dokumen=$this->M_dokumen->selectDokumen($id_dokumen[$i])->row_array(); 
 
 			 	$bobot = array(
         			'bobot' => $BM25_hasil,         

@@ -18,12 +18,12 @@
 // echo '<br/> <br/>';
 // print_r($tf_tersimpan_index);
 // echo '<br/> <br/>';
-print_r($term);
- echo '<br/> <br/>';
+//print_r($term);
+ echo $x;
  //echo $jum_dokumen;
 ?> 
 
-  <?php
+ <!--  <?php
  if ($term==0) {
  	echo 'data tidak ditemukan';
  }
@@ -42,4 +42,4 @@ print_r($term);
     $i++;
 }
 }
- ?> 
+ ?>  -->

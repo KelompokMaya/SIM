@@ -17,6 +17,7 @@ class Hasil extends CI_Controller {
 	public function view($id) {
 		$data['currUser']=$this->session->userdata('fullname');
 		$data['dokumen']=$this->M_dokumen->select($id);
+		$data['solusi_tambahan']=$this->M_dokumen->selectsolusitambahan($id);
 
 		$this->load->view('admin/v_metadata');
 		$this->load->view('admin/v_header');

@@ -12,12 +12,21 @@
                     $i=0;
                     foreach ($term as $row) {
 
-                      if ($i<6) { ?>
+                      if ($i<6) { 
+                        if($row['bobot']!=0) { ?>
+
 
                           <div class="box-body no-padding">
                             <div class="mailbox-read-info">
                               <a target="_blank"  href="<?php echo base_url().'Sispendok/Hasil/view/'.$row['id_dokumen']; ?>"  ><h3><?php echo $row['judul']; ?></h3></a>
-                               <h5><i class="fa fa-calendar">&nbsp <?php echo $row['tgl_buat']; ?></i> &nbsp <i class="fa fa-user"></i>&nbsp <b>kadek aryana</b>
+                                <h5 style="text-align: justify;"><?php
+
+                                $deskripsi=implode(" ", array_slice(explode(" ", $row['deskripsi']), 0, 50));
+                                echo $deskripsi.'[..]'; ?>
+                                 
+                                </h5>
+                                <br>
+                               <h5><i class="fa fa-calendar">&nbsp <?php echo $row['tgl_buat']; ?></i> &nbsp <i class="fa fa-user"></i>&nbsp <b><?php echo $row['fullname']; ?></b>
 
                                 <span class="mailbox-read-time pull-right">Bobot : <?php echo $row['bobot']; ?></span></h5>
                             </div>
@@ -25,7 +34,7 @@
                           </div>
 
                       <?php
-
+                        }
                         
                       }
 

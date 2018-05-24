@@ -9,29 +9,46 @@ class M_dokumen extends CI_Model {
 
 	}
 	public function jmlTerm(){
-		$query = $this->db->query('SELECT COUNT(id_term) AS num FROM tb_term');
-		return $query->row()->num;
+		$query = $this->db->query('SELECT term FROM tb_index GROUP BY term');
+		if($query->num_rows() > 0){
+            foreach($query->result() as $data){
+                $hasil[] = $data;
+            }
+           
+        }
+
+		 return $hasil;
+
 
 	}
 
 	public function select($id) {
-		$this->db->select('id_dokumen, judul, deskripsi, langkah,tgl_buat');
+		$this->db->select('id_dokumen, judul, deskripsi, langkah,tgl_buat,teknisi_id');
 		$this->db->from('tb_dokumen');
 		$this->db->where('id_dokumen', $id);
 		return $this->db->get();
 	}
 
-	public function insert($judul, $deskripsi, $langkah,$tgl_buat,$panjang_dokumen) {
+	public function selectDokumen($id) {
+		$this->db->select('tb_dokumen.*,tb_user.fullname');
+		$this->db->from('tb_dokumen');
+		$this->db->join('tb_user', 'tb_user.id = tb_dokumen.teknisi_id','left');
+		$this->db->where('id_dokumen', $id);
+		return $this->db->get();
+	}
 
-		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat, 'panjang_dokumen'=>$panjang_dokumen);
+	public function insert($judul, $deskripsi, $langkah,$tgl_buat,$panjang_dokumen) {
+		$currUserid=$this->session->userdata('id');
+
+		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat, 'panjang_dokumen'=>$panjang_dokumen,'teknisi_id'=>$currUserid);
 		$this->db->insert('tb_dokumen', $objek);
 		
 	}
 
-	public function update($id, $judul, $deskripsi, $langkah, $tgl_edit) {
+	public function update($id, $judul, $deskripsi, $langkah, $tgl_edit,$panjang_dokumen) {
 		
 
-		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_edit'=>$tgl_edit);
+		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah,'panjang_dokumen'=>$panjang_dokumen, 'tgl_edit'=>$tgl_edit);
 		$this->db->where('id_dokumen', $id);
 		$this->db->update('tb_dokumen', $objek);
 	}
@@ -39,8 +56,14 @@ class M_dokumen extends CI_Model {
 	public function addLangkah($id, $langkah, $tgl_buat) {
 
 		$objek=array('id_dokumen'=>$id, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat);
-		$this->db->insert('tb_langkah_perbaikan', $objek);
+		$this->db->insert('tb_solusi_tambahan', $objek);
 		
+	}
+	public function selectsolusitambahan($id) {
+		$this->db->select('*');
+		$this->db->from('tb_solusi_tambahan');
+		$this->db->where('id_dokumen', $id);
+		return $this->db->get();
 	}
 
 	public function select_all() {

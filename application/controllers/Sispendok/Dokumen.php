@@ -34,11 +34,16 @@ class Dokumen extends CI_Controller {
 		$langkah=$this->input->post('langkah');
 		$tgl_buat=date("Y-m-d");
 
-		//menghilangkan tanda baca
-		$deskripsi=preg_replace("/[[:punct:]]+/"," ",$deskripsi);
+		$docToProccess= $langkah.' '.$deskripsi;
 
+		//menghilangkan tanda baca
+		$docToProccess=str_replace("\n"," ",$docToProccess);
+		$docToProccess=strip_tags($docToProccess);
+		$docToProccess=preg_replace("/[[:punct:]]+/"," ",$docToProccess);
+
+		
 		//agar kecil semua
-		$data=strtolower($deskripsi);
+		$data=strtolower($docToProccess);
 
 		//menghitung keseluruhan kata 
 		$kata=str_word_count($data,1);
@@ -48,9 +53,10 @@ class Dokumen extends CI_Controller {
 		$this->M_dokumen->insert($judul, $deskripsi, $langkah, $tgl_buat,$panjang_dokumen);
 		$id_dokumen = $this->db->insert_id();
 
-		$this->preprocessing($id_dokumen,$deskripsi);
+		$this->preprocessing($id_dokumen,$docToProccess);
 		$this->index();
 
+		//$this->load->view('admin/v_contoh',$data);
 		
 	}
 
@@ -64,20 +70,38 @@ class Dokumen extends CI_Controller {
 		$deskripsi= $this->input->post('deskripsi');
 		$langkah=$this->input->post('langkah');
 		$tgl_edit = date("Y-m-d");
-		$this->M_dokumen->update($id, $judul, $deskripsi, $langkah, $tgl_edit);
+		
+		//membuat index baru
+		$docToProccess= $deskripsi.' '.$langkah;
+
+		//menghilangkan tanda baca
+		$docToProccess=str_replace("\n"," ",$docToProccess);
+		$docToProccess=strip_tags($docToProccess);
+		$docToProccess=preg_replace("/[[:punct:]]+/"," ",$docToProccess);
+		
+		//agar kecil semua
+		$data=strtolower($docToProccess);
+
+		//menghitung keseluruhan kata 
+		$kata=str_word_count($data,1);
+		$panjang_dokumen=count($kata);
+
+		$this->M_dokumen->update($id, $judul, $deskripsi, $langkah, $tgl_edit, $panjang_dokumen);
 		$this->M_dokumen->deleteIndex($id);
 
-		//membuat index baru
-		$this->preprocessing($id,$deskripsi);
-		$new_index= $this->M_dokumen->select_AllTermIndex($id);
-		$new_TFindex=$this->M_dokumen->select_AllTFIndex($id);
-		$jum_term_index=count($curr_index);
 		
-		//hapus term
-		for ($i = 0; $i < $jum_term_index; $i++)
-        {
-			$this->M_dokumen->subtractTFTerm($curr_index[$i],$curr_TFindex[$i]);
-		}
+		$this->preprocessing($id,$docToProccess);
+
+		//  hpus
+		// $new_index= $this->M_dokumen->select_AllTermIndex($id);
+		// $new_TFindex=$this->M_dokumen->select_AllTFIndex($id);
+		// $jum_term_index=count($curr_index);
+		
+		// //hapus term
+		// for ($i = 0; $i < $jum_term_index; $i++)
+  //       {
+		// 	$this->M_dokumen->subtractTFTerm($curr_index[$i],$curr_TFindex[$i]);
+		// }
 
 
 
@@ -117,8 +141,12 @@ class Dokumen extends CI_Controller {
 
 	public function preprocessing($id_dokumen,$deskripsi){
 
-		//menghilangkan tanda baca
-		$deskripsi=preg_replace("/[[:punct:]]+/"," ",$deskripsi);
+		// //menghilangkan tanda baca
+		// $deskripsi=str_replace("\r\n","",$deskripsi);
+		// $deskripsi=strip_tags($deskripsi);
+		// $deskripsi=preg_replace("/[[:punct:]]+/"," ",$deskripsi);
+
+
 
 		//agar kecil semua
 		$data=strtolower($deskripsi);
@@ -202,33 +230,34 @@ class Dokumen extends CI_Controller {
 	        //$this->M_dokumen->addIndex($id_dokumen,$term[$i]);
         } 
 
-		$this->addTerm($term,$tf,$jum_kata_unik);	
+        //  hpus
+		//$this->addTerm($term,$tf,$jum_kata_unik);	
 		
 	}
 
-	public function addTerm($term,$tf,$jum_kata_unik){
+	// public function addTerm($term,$tf,$jum_kata_unik){
 		
 
-		for ($i = 0; $i < $jum_kata_unik; $i++)
-        {
-        	$term_tersimpan=$this->M_dokumen->select_AllTerm();
+	// 	for ($i = 0; $i < $jum_kata_unik; $i++)
+ //        {
+ //        	$term_tersimpan=$this->M_dokumen->select_AllTerm();
         	
-        	if (in_array($term[$i], $term_tersimpan)) {
-        		$this->M_dokumen->countTF($term[$i],$tf[$i]);
-        	} else {
-        		$dataTerm = array(
-	                'term' => $term[$i],
-	                'tf' => $tf[$i],
-	            );
-				$this->db->insert('tb_term', $dataTerm);
+ //        	if (in_array($term[$i], $term_tersimpan)) {
+ //        		$this->M_dokumen->countTF($term[$i],$tf[$i]);
+ //        	} else {
+ //        		$dataTerm = array(
+	//                 'term' => $term[$i],
+	//                 'tf' => $tf[$i],
+	//             );
+	// 			$this->db->insert('tb_term', $dataTerm);
         		
-        	}
+ //        	}
         	
 			
-		}
-		//$this->index();
+	// 	}
+	// 	//$this->index();
 
-	}
+	// }
 
 
 }

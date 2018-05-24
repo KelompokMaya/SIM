@@ -37,7 +37,7 @@
                         <div class="info-box-content">
                           <span class="info-box-text"><b>Total</b></span>
                           <span class="info-box-text">Term</span>
-                          <span class="info-box-number"><?php echo $jml_term;?></span>
+                          <span class="info-box-number"><?php print_r($jml_term); ?></span>
                         </div>
 
                       </div>

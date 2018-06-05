@@ -15,6 +15,7 @@ class Hasil extends CI_Controller {
 	}
 
 	public function view($id) {
+		$data['id_dokumen']=$id;
 		$data['currUser']=$this->session->userdata('fullname');
 		$data['dokumen']=$this->M_dokumen->select($id);
 		$data['solusi_tambahan']=$this->M_dokumen->selectsolusitambahan($id);
@@ -24,6 +25,21 @@ class Hasil extends CI_Controller {
 	    $this->load->view('admin/v_detailDokumen',$data);
 		$this->load->view('admin/v_footer');
 		
+	}
+	public function print($id_dokumen){
+		$dokumen['data']= $this->M_dokumen->select($id_dokumen);
+		$dokumen['cek']=0;
+		
+		$this->load->view('admin/v_cetak',$dokumen);
+
+	}
+	public function printSL($id_dokumen,$id_solusi){
+		$dokumen['data']= $this->M_dokumen->select($id_dokumen);
+		$dokumen['solusi']= $this->M_dokumen->selectSolusi($id_solusi);
+		$dokumen['cek']=1;
+		
+		$this->load->view('admin/v_cetak',$dokumen);
+
 	}
 
 

@@ -1,7 +1,9 @@
    
               <div class="box-header with-border">
-                <h3 class="box-title" style="text-align: center;">Hasil Pencarian </h3>
+                <h3 class="box-title" style="text-align: center;">Hasil Pencarian dalam waktu : <?php echo round($waktu, 4).' detik'; ?> </h3>
+                
               </div>
+              <br>
                <?php
                    if ($term==0) {
                     ?>

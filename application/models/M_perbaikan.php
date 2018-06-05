@@ -15,12 +15,38 @@ class M_perbaikan extends CI_Model {
 		from tb_listperbaikan  order by id_perbaikan desc '); 
 	}
 
-	public function create($id_aset, $tgl_perbaikan, $status){
+	public function create($id_aset, $tgl_perbaikan,$id_teknisi, $status){
 		$data = array(
 			'aset_id' => $id_aset,
 			'tgl_perbaikan' => $tgl_perbaikan,
+			'teknisi_id'=> $id_teknisi,
 			'status' => $status
 		);
 		$this->db->insert('tb_listperbaikan', $data);
+	}
+
+	public function update_status($id_aset, $status){
+		$data = array(
+			'status' => $status
+		);
+		$this->db->where('id_aset',$id_aset);
+		$this->db->update('tb_aset', $data);
+	}
+
+	public function perbaikanSelesai($id, $tgl_selesai, $status,$catatan){
+		$data = array(
+			'tgl_selesai' => $tgl_selesai,
+			'status' => $status,
+			'catatan' => $catatan
+		);
+		$this->db->where('id_perbaikan',$id);
+		$this->db->update('tb_listperbaikan', $data);
+	}
+
+	public function select($id){
+		$this->db->select('catatan');
+		$this->db->from('tb_listperbaikan');
+		$this->db->where('id_perbaikan',$id);
+		return $this->db->get();
 	}
 }

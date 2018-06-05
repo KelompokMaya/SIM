@@ -33,15 +33,28 @@
                         <td><?php echo $row->tipe_aset; ?></td>
                         <td><?php echo $row->tgl_perbaikan; ?></td>
                         <td><?php echo  $row->tgl_selesai; ?></td>
-                         <td style="text-align: center;"> <a class="btn btn-warning btn-flat btn-xs "><?php echo  $row->status; ?></a></td>
+                         <td style="text-align: center;"> 
+                          <?php if ($row->status=='perbaikan') {
+                           echo '<a class="btn btn-warning btn-flat btn-xs ">';
+                          } else{
+                            echo '<a class="btn btn-success btn-flat btn-xs ">';
+                          } ?>
+                          <?php echo  $row->status; ?></a></td>
                         <td style="text-align: center;">
-                                <button onclick="lokasiAset(<?php echo $row->aset_id; ?>);" class="btn btn-info btn-flat" type="button" data-toggle="tooltip">
+                                <button onclick="lokasiAset(<?php echo $row->aset_id; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
                                 <i class="fa fa-search"></i></button>
                         </td>
                         <td style=" width: 100px;text-align: center;">
                             <div class="btn-group">
-                                <button onclick="deleteAset(<?php echo $row->aset_id; ?>);" class="btn btn-success btn-flat" data-toggle="tooltip" title="Perbaikan selesai">
+                            <?php if ($row->status=='perbaikan') { ?>
+                                <button onclick="perbaikanSelesai(<?php echo $row->id_perbaikan; ?>);" class="btn btn-success btn-flat" data-toggle="tooltip" title="Perbaikan selesai">
                                 <i class="fa fa-check"></i></button>
+                            <?php } else{ ?>
+                                <button onclick="lihatCatatan(<?php echo $row->id_perbaikan; ?>);" class="btn btn-info btn-flat" data-toggle="tooltip" title="lihat Catatan">
+                                <i class="fa fa-file-text-o"></i></button>
+                            
+                            <?php } ?>
+                                
                             </div>
                         </td>
                     </tr>
@@ -79,9 +92,13 @@
                 <label>Aset</label>
                 <select name="asetPerbaikan" class="form-control select2" style="width: 100%;" id="selectaset" onChange="selectaset()">
                   <?php
-                  foreach ($aset->result() as $option): ?>
+                  foreach ($aset->result() as $option): 
+                    if($option->status!='perbaikan') {
+                      ?>
+                    }
+                    <option > </option>
                     <option value="<?php echo $option->id_aset; ?>" > <?php echo $option->nama; ?></option>    
-                  <?php endforeach; ?>
+                  <?php } endforeach; ?>
                 </select>
               </div>
               <div id="detailAset">
@@ -181,6 +198,48 @@
       </div>
    </div>
 </div>
+<!--modal warning menu!-->
+<div id="modalLihatCatatan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Catatan Perbaikan</h4>
+         </div>
+         <div  class="modal-body">
+           <textarea id="catatanxx" class="form-control "  disabled></textarea>
+          
+         </div>
+         <div class="modal-footer">
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">tutup</button>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>
+<!--modal warning menu!-->
+<div id="modalTambahCatatan" class="modal fade"  role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Tambah Catatan Perbaikan</h4>
+         </div>
+         <div  class="modal-body">
+          <input  id="id_catatan" type="hidden" >
+           <textarea id="catatan" class="form-control "  ></textarea>
+          
+         </div>
+         <div class="modal-footer">
+          <div class="btn-group">
+            <button id="btn-tambah-catatan" type="button" class="btn btn-success btn-flat " data-dismiss="modal">Simpan</button>
+            <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">tutup</button>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>
 
 
 <script type="text/javascript">
@@ -192,6 +251,9 @@
   });
     
      $('#modalWarning-user').appendTo('body');
+     $('#modalLihatCatatan').appendTo('body');
+     $('#modalTambahCatatan').appendTo('body');
+    
 
     function addPerbaikan() {
         
@@ -229,21 +291,47 @@
               $('#curr_fakultas').val(lokasi.nama_fakultas);
               $('#curr_jurusan').val(lokasi.nama_jurusan);
               $('#curr_lokasi').val(lokasi.nama_lokasi);
-                $('#btn-ubah-lokasi-aset').click(function(event) {
-                        $('#ubah-lokasi').css('display','block');
+              //   $('#btn-ubah-lokasi-aset').click(function(event) {
+              //           $('#ubah-lokasi').css('display','block');
 
                         
                         
-                }); 
+              //   }); 
               
               
-              //console.log(lokasi.nama);
+              // //console.log(lokasi.nama);
             });
 
 
     }
+    function lihatCatatan(id) {
+      
+            $('#modalLihatCatatan').modal();
+            $.get(base_url+"Admin/Perbaikan/lihatCatatan/"+id, function(catatan) {
+            var catatan=jQuery.parseJSON(catatan+"");
+              $('#catatanxx').val(catatan.catatan);
+            });
 
 
+    }
+     function perbaikanSelesai(id) {           
+            $('#modalTambahCatatan').modal();
+            $('#id_catatan').val(id);
+
+    }
+
+    $('#btn-tambah-catatan').click(function(event) {
+                  $('#preloader').css('display','block');
+                  var id = $('#id_catatan').val();
+                  var catatan = $('#catatan').val();
+                  $.post(base_url+"Admin/Perbaikan/perbaikanSelesai/", {id: id,catatan:catatan }, function(data) {
+                      $('#preloader').css('display','none');
+                      $('#main-content').html(data);
+                      dataTable();
+                      //console.log(data);
+                  });   
+                        
+               }); 
    
     
    

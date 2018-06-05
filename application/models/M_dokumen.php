@@ -9,7 +9,7 @@ class M_dokumen extends CI_Model {
 
 	}
 	public function jmlTerm(){
-		$query = $this->db->query('SELECT term FROM tb_index GROUP BY term');
+		$query = $this->db->query('SELECT term FROM tb_index ');
 		if($query->num_rows() > 0){
             foreach($query->result() as $data){
                 $hasil[] = $data;
@@ -63,6 +63,13 @@ class M_dokumen extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('tb_solusi_tambahan');
 		$this->db->where('id_dokumen', $id);
+		return $this->db->get();
+	}
+
+	public function selectSolusi($id) {
+		$this->db->select('langkah');
+		$this->db->from('tb_solusi_tambahan');
+		$this->db->where('id', $id);
 		return $this->db->get();
 	}
 

@@ -118,7 +118,7 @@
                     <h4 style="text-align: justify;"><?php echo $row->langkah;  ?></h4>
                     <br>
                     <div class="btn-group pull-right">
-                        <button id="btn-submit" class="btn btn-primary btn-flat">Print</button>
+                        <a href="<?php echo base_url('Sispendok/Hasil/print/').$id_dokumen; ?>"  class="btn btn-primary btn-flat">Print</a>
                     </div>
                     <br> <br>
                   </div>
@@ -129,10 +129,11 @@
                   $tab='tab'.$i; ?>
                   <div class="tab-pane" id="<?php echo $tab; ?>">
                     <h4 style="text-align: justify;"><?php echo $row2->langkah;  ?></h4>
-                  </div>
+                  <br>
                   <div class="btn-group pull-right">
-                        <button id="btn-submit" class="btn btn-primary btn-flat">Print</button>
+                        <a href="<?php echo base_url('Sispendok/Hasil/printSL/').$id_dokumen."/".$row2->id; ?>"  class="btn btn-primary btn-flat">Print</a>
                     </div>
+                  </div>
                     <?php 
                     $i++;
 

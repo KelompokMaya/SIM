@@ -32,59 +32,31 @@ class Perbaikan extends CI_Controller {
 	public function create(){
 		$id_aset = $this->input->post('id_aset');
 		$tgl_perbaikan = date("Y/m/d");
+		$id_teknisi=$this->session->userdata('id');
 		$status='perbaikan';
 	
-	    $this->M_perbaikan->create($id_aset, $tgl_perbaikan, $status);
+	    $this->M_perbaikan->create($id_aset, $tgl_perbaikan,$id_teknisi, $status);
+	    $this->M_perbaikan->update_status($id_aset, $status);
+
 		$this->index();
 	}
 	
-	public function update(){
-		$id = $this->input->post('id');
-		$nama = $this->input->post('nama');
-		$manufaktur = $this->input->post('manufaktur');
-		$status = $this->input->post('status');
-		/*$fakultas_id = $this->input->post('fakultas_id');
-		$jurusan_id = $this->input->post('jurusan_id');
-		$lokasi_id = $this->input->post('lokasi_id');
-		*/$noseri = $this->input->post('noseri');
-		$tipe = $this->input->post('tipe');
-		$model = $this->input->post('model');
-		$noinventory = $this->input->post('noinventory');
-		$tgldipasang = $this->input->post('tgldipasang');
-		$trakhirdiperbaiki = $this->input->post('trakhirdiperbaiki');
-		
-		
-		$this->M_aset->update($id,$nama, $manufaktur, $status, /*$fakultas_id, $jurusan_id, $lokasi_id,*/ $noseri, $tipe, $model,$noinventory,$tgldipasang, $trakhirdiperbaiki);
-		$this->index();
-	}
-	public function updateLokasi(){
-		$id = $this->input->post('id');
-		$nama_aset = $this->input->post('nama');
-		$curr_kampus = $this->input->post('curr_kampus');
-		$curr_fakultas = $this->input->post('curr_fakultas');
-		$curr_jurusan = $this->input->post('curr_jurusan');
-		$curr_lokasi= $this->input->post('curr_lokasi');
-		$kampus_id = $this->input->post('kampus_id');
-		$fakultas_id = $this->input->post('fakultas_id');
-		$jurusan_id = $this->input->post('jurusan_id');
-		$lokasi_id = $this->input->post('lokasi_id');
-		$tanggal_pindah = $this->input->post('tanggal_pindah');
-		
-		
-		
-		$this->M_aset->updateLokasi($id,$nama_aset,$curr_kampus,$curr_fakultas,$curr_jurusan,$curr_lokasi,$kampus_id,$fakultas_id, $jurusan_id, $lokasi_id,$tanggal_pindah);
+	public function perbaikanSelesai(){
+		$id_aset = $this->input->post('id');
+		$catatan = $this->input->post('catatan');
+		$tgl_selesai = date("Y/m/d");
+		$status='selesai';
+		$status2='aktif';
+	
+	    $this->M_perbaikan->perbaikanSelesai($id_aset, $tgl_selesai, $status,$catatan);
+	    $this->M_perbaikan->update_status($id_aset,$status2);
+
 		$this->index();
 	}
 
-	public function delete($id){
-		$this->db->where('id_aset', $id);
-		$this->db->delete('tb_aset');
-		$this->index();
-	}
-
-	public function currLokasi($id){
-		$lokasi=$this->M_aset->currLokasi($id)->row();
-		echo json_encode($lokasi);
+	public function lihatCatatan($id){
+		$catatan=$this->M_perbaikan->select($id)->row();
+		echo json_encode($catatan);
 	}
 }
 	

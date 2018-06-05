@@ -25,6 +25,7 @@ class Pendok extends CI_Controller {
 		$this->load->view('admin/v_dashboard_pendok', $data);
 	}
 	public function cari(){
+		$start = microtime(TRUE);
 		$query = $this->input->post('query');
 
 		//$this->load->view('admin/v_contoh',$data);
@@ -65,13 +66,13 @@ class Pendok extends CI_Controller {
 		 		}
 
 
-		 $this->bm25($term,$jum_kata);
+		 $this->bm25($term,$jum_kata,$start);
 		 // $data['term']=$term;
 		 // $this->load->view('admin/v_contoh',$data);
 
 	}
 
-	public function bm25($term,$jum_kata){
+	public function bm25($term,$jum_kata,$start){
 		$cek_pencarian_kosong=0;
 		$b=0.75; //parameter b
 		$k1=1.2; //parameter k1
@@ -139,6 +140,8 @@ class Pendok extends CI_Controller {
 
 		
 		 //$data['bm2']=$BM25_2;
+		 $finish = microtime(TRUE);
+		 $data['waktu']=$finish-$start;
 		 $this->load->view('admin/hasil_cari',$data);
 
 	}

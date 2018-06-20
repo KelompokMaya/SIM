@@ -29,7 +29,7 @@
 
             <li id="sidebar-lokasi"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-map"></i> Lokasi Aset</a></li>
 
-            <li id="sidebar-user"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-user"></i> User</a></li>
+            <li id="sidebar-user"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-user"></i> Teknisi</a></li>
 
             <li id="sidebar-history"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-history "></i> History Aset</a></li>
 
@@ -68,7 +68,7 @@
 
     <div class="row"> <?php foreach ($dokumen->result() as $row): ?>
 <!-- echo $curr_visitor;-->
-<div class=" col-xs-12">
+<div class=" col-xs-12" style="overflow-y:auto; overflow-x:scroll; height: 550px;">
         <div class="box box-primary">
             <div class="box-body">
               <div class="box-header with-border">
@@ -78,71 +78,44 @@
               <br>
               <div class="col-xs-12 form-group">
                      <div class="col-sm-2 control-label" style="text-align:right;">
-                       <h4>Judul :</h4>                                   
+                       <h4><b>Judul :</b></h4>                                   
                      </div>
                      <div class="col-sm-10 control-label" style="text-align:left;">
                        <h4><?php echo $row->judul;  ?></h4>                                   
                      </div>
                      <div class="col-sm-2 control-label" style="text-align:right;">
-                       <h4>Deskripsi :</h4>                                   
+                       <h4><b>Tanggal dibuat :</b></h4>                                   
+                     </div>
+                     <div class="col-sm-10 control-label" style="text-align:left;">
+                       <h4><?php echo $row->tgl_buat;  ?></h4>                                   
+                     </div>
+                     <div class="col-sm-2 control-label" style="text-align:right;">
+                       <h4><b>Tanggal diedit :</b></h4>                                   
+                     </div>
+                     <div class="col-sm-10 control-label" style="text-align:left;">
+                       <h4><?php echo $row->tgl_edit;  ?></h4>                                   
+                     </div>
+                     <div class="col-sm-2 control-label" style="text-align:right;">
+                       <h4><b>Deskripsi :</b></h4>                                   
                      </div>
                      <div class="col-sm-10 control-label" style="text-align: justify;">
-                       <h4><?php echo $row->deskripsi;  ?></h4>                                   
+                       <h4  ><?php echo $row->deskripsi;  ?></h4>                                   
                      </div>
+                      <div class="col-sm-2 control-label" style="text-align:right;">
+                        <h4><b> Solusi :</b></h4>
+                    </div>
+                    <div  class="col-sm-10 control-label" style="text-align: justify;">
+                       <h4 style="line-height: 150%"><?php echo $row->langkah;  ?></h4>                                   
+                     </div>
+                     <br>
+                    <div class="btn-group pull-right">
+                        <a href="<?php echo base_url('Sispendok/Hasil/print/').$id_dokumen; ?>"  class="btn btn-primary btn-flat">Print</a>
+                    </div>
                      
                   </div>
 
             </div>
-            <div class="box-body">
-             <div class="col-sm-2 control-label" style="text-align:right;">
-                <h4> Solusi :</h4>
-            </div>
-             
-          <!-- Custom Tabs -->
-            <div class="col-sm-10 control-label" style="text-align:left;">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab<?php echo'1';  ?>" data-toggle="tab">Solusi 1</a></li>
-                   <?php 
-                 $i=2;
-                 foreach ($solusi_tambahan->result() as $row2) {
-                  $tab='tab'.$i; ?>
-                       <li><a href="#tab<?php echo $i;  ?>" data-toggle="tab">Solusi <?php echo $i;  ?></a></li>
-                    <?php 
-                    $i++;
-
-                  } ?>
-                  
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab1">
-                    <h4 style="text-align: justify;"><?php echo $row->langkah;  ?></h4>
-                    <br>
-                    <div class="btn-group pull-right">
-                        <a href="<?php echo base_url('Sispendok/Hasil/print/').$id_dokumen; ?>"  class="btn btn-primary btn-flat">Print</a>
-                    </div>
-                    <br> <br>
-                  </div>
-                  <!-- /.tab-pane -->
-                 <?php 
-                 $i=2;
-                 foreach ($solusi_tambahan->result() as $row2) {
-                  $tab='tab'.$i; ?>
-                  <div class="tab-pane" id="<?php echo $tab; ?>">
-                    <h4 style="text-align: justify;"><?php echo $row2->langkah;  ?></h4>
-                  <br>
-                  <div class="btn-group pull-right">
-                        <a href="<?php echo base_url('Sispendok/Hasil/printSL/').$id_dokumen."/".$row2->id; ?>"  class="btn btn-primary btn-flat">Print</a>
-                    </div>
-                  </div>
-                    <?php 
-                    $i++;
-
-                  } ?>
-                </div>
-            <!-- /.tab-content -->
-            </div>
-          <!-- nav-tabs-custom -->
-        </div>
+           
       </div>
 </div>
 

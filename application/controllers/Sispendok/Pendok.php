@@ -18,7 +18,7 @@ class Pendok extends CI_Controller {
 	public function index() {
 		$data['jml_teknisi']=$this->M_dashboard->jmlUser();
 		$data['jml_dokumen']=$this->M_dokumen->jmlDokumen();
-		$data['jml_term']= count($this->M_dokumen->jmlTerm());
+		$data['jml_term']= $this->M_dokumen->jmlTerm();
 		$data['dokumen']=$this->M_dokumen->select_all();
 		$data['user']=$this->M_admin->select_all();
 

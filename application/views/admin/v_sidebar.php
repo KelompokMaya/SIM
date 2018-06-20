@@ -32,7 +32,7 @@
 
             <li id="sidebar-lokasi"><a href="#"><i class="fa fa-map"></i> Lokasi Aset</a></li>
 
-            <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> User</a></li>
+            <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> Teknisi</a></li>
 
             <li id="sidebar-history"><a href="#"><i class="fa fa-history "></i> History Aset</a></li>
 

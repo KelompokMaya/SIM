@@ -9,21 +9,21 @@ class M_dokumen extends CI_Model {
 
 	}
 	public function jmlTerm(){
-		$query = $this->db->query('SELECT term FROM tb_index ');
-		if($query->num_rows() > 0){
-            foreach($query->result() as $data){
-                $hasil[] = $data;
-            }
+		$query = $this->db->query('SELECT SUM(tf) AS tf FROM tb_index ');
+		// if($query->num_rows() > 0){
+  //           foreach($query->result() as $data){
+  //               $hasil[] = $data;
+  //           }
            
-        }
+  //       }
 
-		 return $hasil;
+		 return $query->row()->tf;
 
 
 	}
 
 	public function select($id) {
-		$this->db->select('id_dokumen, judul, deskripsi, langkah,tgl_buat,teknisi_id');
+		$this->db->select('id_dokumen, judul, deskripsi, langkah,tgl_buat,tgl_edit,teknisi_id');
 		$this->db->from('tb_dokumen');
 		$this->db->where('id_dokumen', $id);
 		return $this->db->get();

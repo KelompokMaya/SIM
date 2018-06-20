@@ -1,5 +1,5 @@
 <!-- echo $curr_visitor;-->
-<div class="col-md-3 col-sm-6 col-xs-12">
+<div class="col-md-6 col-sm-6 col-xs-12">
   <div class="info-box">
     <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
       <div class="info-box-content">
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-red"><i class="fa fa-cubes"></i></span>
 
@@ -27,27 +27,27 @@
   <!-- fix for small devices only -->
   <div class="clearfix visible-sm-block"></div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-yellow"><i class="fa fa-calendar-o"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total</span>
-        <span class="info-box-text">Tiket</span>
-        <span class="info-box-number">1</span>
+        <span class="info-box-text">Perbaikan</span>
+        <span class="info-box-number"><?php echo $total_perbaikan;?></span>
       </div>
 
     </div>
   </div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-green"><i class="fa fa-calendar-check-o"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total</span>
-        <span class="info-box-text">Tiket Selesai</span>
-        <span class="info-box-number"></span>
+        <span class="info-box-text">Perbaikan Selesai</span>
+        <span class="info-box-number"><?php echo $perbaikan_selesai;?></span>
       </div>
     </div>
   </div>

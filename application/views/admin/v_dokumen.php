@@ -47,10 +47,10 @@
                 <thead>
                     <tr style="background:  #551E1E; color: white; text-align: center;">
                         <th style="width: 5% ">No</th>
-                        <th>Judul</th>
+                        <th style="width: 55%">Judul</th>
                         <th>Tanggal Dibuat</th>
                         <th>Tanggal Disunting</th>
-                        <th style="width: 15%"  >Aksi</th>
+                        <th style="width: 12%"  >Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@
                         <td><?php echo $row->tgl_edit;  ?></td>                      
                         <td style="text-align: center;">
                           <div class="btn-group">
-                            <button class="btn btn-primary btn-flat" data-toggle="tooltip" title="Tambah Langkah Perbaikan" onclick="addLangkahPerbaikan(<?php echo $row->id_dokumen; ?>);"><i class="fa  fa-plus"></i></button>
+                            <!-- <button class="btn btn-primary btn-flat" data-toggle="tooltip" title="Tambah Langkah Perbaikan" onclick="addLangkahPerbaikan(<?php echo $row->id_dokumen; ?>);"><i class="fa  fa-plus"></i></button> -->
                             <button class="btn btn-success btn-flat" data-toggle="tooltip" title="Edit" onclick="editDokumen(<?php echo $row->id_dokumen; ?>);"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-flat" data-toggle="tooltip" title="Hapus" onclick="deleteDokumen(<?php echo $row->id_dokumen; ?>);"><i class="fa fa-trash"></i></button>
                           </div>

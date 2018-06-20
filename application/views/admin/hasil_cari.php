@@ -14,7 +14,7 @@
                     $i=0;
                     foreach ($term as $row) {
 
-                      if ($i<6) { 
+                      if ($i<10) { 
                         if($row['bobot']!=0) { ?>
 
 

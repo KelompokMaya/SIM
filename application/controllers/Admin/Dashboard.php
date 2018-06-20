@@ -17,8 +17,9 @@ class Dashboard extends CI_Controller {
 	public function index(){
 		$data['jml_user']=$this->M_dashboard->jmlUser();
 		$data['jml_aset']=$this->M_dashboard->jmlAset();
-		$data['grafik']=$this->M_dashboard->grafik();
-
+		//$data['grafik']=$this->M_dashboard->grafik();
+		$data['total_perbaikan']=$this->M_dashboard->jmlTiketSelesai();
+		$data['perbaikan_selesai']=$this->M_dashboard->jmlTiket();
 		$this->load->view('admin/v_dashboard',$data);
 	}
 

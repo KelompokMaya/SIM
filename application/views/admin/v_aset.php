@@ -174,7 +174,7 @@
 <div id="table-wrapper" class="col-xs-12">
     <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Table Article</h3>
+          
           <button class="btn btn-primary btn-flat pull-right" data-toggle="tooltip" onclick="addAset();"><i class="fa fa-plus" id="add"></i> Tambah Aset</button>
           <a href="<?php echo base_url('Admin/Excel/export_excel') ?>" class="btn btn-warning btn-flat pull-right" data-toggle="tooltip" ><i class="fa fa-download " ></i> Export Data</a>
         </div>

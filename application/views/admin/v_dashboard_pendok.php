@@ -61,7 +61,7 @@
               <div class="input-group margin"  >
                 <input name="cari" id="cari" type="text" class="form-control" style="height: 40px" >
                     <span class="input-group-btn">
-                      <button onclick="Cari();" type="button" class="btn btn-info btn-flat" style="height: 40px; width: 80px; font-size: 17px">Cari </button>
+                      <button onclick="Cari();" id="btcari" type="button" class="btn btn-info btn-flat" style="height: 40px; width: 80px; font-size: 17px">Cari </button>
                     </span>
               </div>
             
@@ -107,6 +107,12 @@
     });
       }
 
+    $("#cari").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#btcari").click();
+    }
+});
+
     function Cari(){
         //$("#bagian_hasil_cari").show('slow');
         $('#logo-cari').hide('slow');
@@ -116,7 +122,7 @@
         //    $('#editor-wrapper').css('display', 'none');
             //$('#pengumuman-loading').fadeIn('slow');
             var query = $('#pencarian').find('#cari').val();
-            $.post(base_url+"Sispendok/Pendok/cari/", {query: query}, function(data) {
+            $.post(base_url+"Sispendok/Pendok/cari2/", {query: query}, function(data) {
               $('#pengumuman-loading').fadeOut('slow');
                 
                 $('#hasil_cari').html(data);

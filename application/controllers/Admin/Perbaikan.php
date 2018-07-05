@@ -31,25 +31,27 @@ class Perbaikan extends CI_Controller {
 
 	public function create(){
 		$id_aset = $this->input->post('id_aset');
+		$catatan = $this->input->post('catatan');
 		$tgl_perbaikan = date("Y/m/d");
-		$id_teknisi=$this->session->userdata('id');
+		$id_teknisi=$this->session->userdata('id_user');
 		$status='perbaikan';
 	
-	    $this->M_perbaikan->create($id_aset, $tgl_perbaikan,$id_teknisi, $status);
+	    $this->M_perbaikan->create($id_aset, $tgl_perbaikan,$id_teknisi, $status,$catatan);
 	    $this->M_perbaikan->update_status($id_aset, $status);
 
 		$this->index();
 	}
 	
 	public function perbaikanSelesai(){
-		$id_aset = $this->input->post('id');
-		$catatan = $this->input->post('catatan');
+		$id_perbaikan = $this->input->post('id');
 		$tgl_selesai = date("Y/m/d");
 		$status='selesai';
-		$status2='aktif';
+		$status2='Aktif';
 	
-	    $this->M_perbaikan->perbaikanSelesai($id_aset, $tgl_selesai, $status,$catatan);
-	    $this->M_perbaikan->update_status($id_aset,$status2);
+	    $this->M_perbaikan->perbaikanSelesai($id_perbaikan, $tgl_selesai, $status);
+
+	    $id_aset=$this->M_perbaikan->select_idAset($id_perbaikan);
+		$this->M_perbaikan->update_status($id_aset, $status2);
 
 		$this->index();
 	}

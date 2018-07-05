@@ -124,15 +124,15 @@ class Dokumen extends CI_Controller {
 		$term_tersimpan_index = $this->M_dokumen->select_AllTermIndex($id);
 		$tf_tersimpan_index = $this->M_dokumen->select_AllTFIndex($id);
 		
-		$jum_term_index=count($term_tersimpan_index);
+		// $jum_term_index=count($term_tersimpan_index);
 
-		for ($i = 0; $i < $jum_term_index; $i++)
-        {
-        $term_tersimpan = $this->M_dokumen->select_AllTerm();
-		if (in_array($term_tersimpan_index[$i], $term_tersimpan)) {
-        		$this->M_dokumen->subtractTFTerm($term_tersimpan_index[$i],$tf_tersimpan_index[$i]);
-        	}
-		}
+		// for ($i = 0; $i < $jum_term_index; $i++)
+  //       {
+  //       $term_tersimpan = $this->M_dokumen->select_AllTerm();
+		// if (in_array($term_tersimpan_index[$i], $term_tersimpan)) {
+  //       		$this->M_dokumen->subtractTFTerm($term_tersimpan_index[$i],$tf_tersimpan_index[$i]);
+  //       	}
+		// }
 
 		$this->M_dokumen->delete($id);
 		$this->index();

@@ -24,16 +24,23 @@
             <li id="sidebar-dashboard"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
             <li id="sidebar-pencarian"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa  fa-search" ></i> Pencarian Dokumen</a></li>
-
-            <li id="sidebar-aset"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa  fa-th-list"></i> Aset</a></li>
+            <?php if ($this->session->userdata('hak_akses')=='Admin') {
+               echo '<li id="sidebar-aset"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa  fa-th-list"></i> Aset</a></li>'; 
+            }  ?>
+            
+            <li id="sidebar-lokasi"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-wrench"></i> History Perbaikan</a></li>
 
             <li id="sidebar-lokasi"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-map"></i> Lokasi Aset</a></li>
 
-            <li id="sidebar-user"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-user"></i> Teknisi</a></li>
+             <?php if ($this->session->userdata('hak_akses')=='Admin') {
+               echo '<li id="sidebar-user"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-user"></i> Teknisi</a></li>'; 
+            } ?>
+            
 
             <li id="sidebar-history"><a href="<?php echo base_url()."Login/auth"; ?>"><i class="fa fa-history "></i> History Aset</a></li>
 
-            
+           
+        
 
 
         </ul>

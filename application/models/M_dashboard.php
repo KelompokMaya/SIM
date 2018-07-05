@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_dashboard extends CI_Model {
 
 	public function jmlUser(){
-		$query = $this->db->query('SELECT COUNT(id) AS num FROM tb_user');
+		$query = $this->db->query('SELECT COUNT(id_user) AS num FROM tb_user WHERE hak_akses="Teknisi"');
 		return $query->row()->num;
 
 	}
@@ -14,12 +14,12 @@ class M_dashboard extends CI_Model {
 
 	}
 	public function jmlTiketSelesai(){
-		$query = $this->db->query('SELECT COUNT(id_perbaikan) AS num  FROM tb_listperbaikan WHERE status="selesai"');
+		$query = $this->db->query('SELECT COUNT(id_perbaikan) AS num  FROM tb_historyperbaikan WHERE status="selesai"');
 		return $query->row()->num;
 
 	}
 	public function jmlTiket(){
-		$query = $this->db->query('SELECT COUNT(id_perbaikan) AS num  FROM tb_listperbaikan');
+		$query = $this->db->query('SELECT COUNT(id_perbaikan) AS num  FROM tb_historyperbaikan');
 		return $query->row()->num;
 
 	}

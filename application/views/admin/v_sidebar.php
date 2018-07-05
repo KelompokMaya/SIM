@@ -25,14 +25,20 @@
 
             <li id="sidebar-pencarian"><a href="#"><i class="fa  fa-search" ></i> Pencarian Dokumen</a></li>
 
-            <li id="sidebar-aset"><a href="#"><i class="fa  fa-th-list"></i> Aset</a></li>
+            <?php if ($this->session->userdata('hak_akses')=='Admin') {
+               echo '<li id="sidebar-aset"><a href="#"><i class="fa  fa-th-list"></i> Aset</a></li>'; 
+            }  ?>
+            
 
-            <li id="sidebar-perbaikan"><a href="#"><i class="fa fa-wrench"></i> List Perbaikan</a></li>
+            <li id="sidebar-perbaikan"><a href="#"><i class="fa fa-wrench"></i> History Perbaikan Aset</a></li>
 
-
+          
             <li id="sidebar-lokasi"><a href="#"><i class="fa fa-map"></i> Lokasi Aset</a></li>
 
-            <li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> Teknisi</a></li>
+              <?php if ($this->session->userdata('hak_akses')=='Admin') {
+               echo '<li id="sidebar-user"><a href="#"><i class="fa fa-user"></i> Teknisi</a></li>'; 
+            } ?>
+            
 
             <li id="sidebar-history"><a href="#"><i class="fa fa-history "></i> History Aset</a></li>
 

@@ -8,6 +8,7 @@ class Pendok extends CI_Controller {
 		$this->load->model('M_admin');
 		$this->load->model('M_dokumen');
 		$this->load->model('M_dashboard');
+		$this->load->model('M_perbaikan');
 		
 		if (!$this->session->userdata('isLoggedIn')){
 			$this->load->view('admin/v_redirect_login');
@@ -24,9 +25,40 @@ class Pendok extends CI_Controller {
 
 		$this->load->view('admin/v_dashboard_pendok', $data);
 	}
-	public function cari(){
-		$start = microtime(TRUE);
+
+	public function cari2(){
 		$query = $this->input->post('query');
+		$solusi = 10;
+		$id_perbaikan=0;
+		$this->cari($query,$solusi,$id_perbaikan);
+	}
+
+	public function LihatSolusi($id_perbaikan){
+		//$id_perbaikan = $this->input->post('id_perbaikan');
+		$catatan=$this->M_perbaikan->select($id_perbaikan);
+		foreach ($catatan->result() as $id) {
+				$catatanx = $id->catatan;
+				$dokumen_id = $id->dokumen_id;
+			}
+		if ($dokumen_id==0) {
+			$solusi = 1;
+		$this->cari($catatanx,$solusi,$id_perbaikan);
+		} else{
+			$data['solusi'] = 0;
+			$data['term']=$this->M_dokumen->selectDokumen($dokumen_id)->row_array();
+			$this->load->view('admin/hasil_solusi',$data);
+
+		}
+		
+			
+
+	}
+
+
+
+	public function cari($query,$solusi,$id_perbaikan){
+		$start = microtime(TRUE);
+		// $query = $this->input->post('query');
 
 		//$this->load->view('admin/v_contoh',$data);
 		//menghilangkan tanda baca
@@ -66,13 +98,13 @@ class Pendok extends CI_Controller {
 		 		}
 
 
-		 $this->bm25($term,$jum_kata,$start);
+		 $this->bm25($term,$jum_kata,$start,$solusi,$id_perbaikan);
 		 // $data['term']=$term;
 		 // $this->load->view('admin/v_contoh',$data);
 
 	}
 
-	public function bm25($term,$jum_kata,$start){
+	public function bm25($term,$jum_kata,$start,$solusi,$id_perbaikan){
 		$cek_pencarian_kosong=0;
 		$b=0.75; //parameter b
 		$k1=1.2; //parameter k1
@@ -138,11 +170,27 @@ class Pendok extends CI_Controller {
 		 	 //$data['jum_dokumen']=$jum_dokumen;
 		 }
 
-		
 		 //$data['bm2']=$BM25_2;
 		 $finish = microtime(TRUE);
 		 $data['waktu']=$finish-$start;
-		 $this->load->view('admin/hasil_cari',$data);
+		 $data['solusi']=$solusi;
+
+		 if ($solusi=1) {
+		 	$i=0;
+		 	 foreach ($BM25_hasilx as $row) {
+		 	 	$id_dokumen[$i] = $row['id_dokumen'];
+		 	 	$i++;
+
+		 	 }
+		 	 $this->M_perbaikan->update_dokumen($id_perbaikan, $id_dokumen[0]);
+		 	 $this->load->view('admin/hasil_solusi',$data);
+		 	
+		 } else{
+		 	$this->load->view('admin/hasil_cari',$data);
+		 }
+		
+		 
+		 
 
 	}
 

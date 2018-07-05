@@ -5,19 +5,20 @@ class M_admin extends CI_Model {
 
 	public function getAdminLogin($user,$pass)
 	{
-		$this->db->select('id,fullname,username');
+		$this->db->select('id_user,fullname,username,hak_akses');
 		$this->db->where('username',$user);
 		$this->db->where('password',$pass);
 		return $this->db->get('tb_user');
 	} 
 	public function select_all(){
 		$this->db->select('*');
+		$this->db->where('hak_akses','Teknisi');
 		//$this->db->where('aktif', 'ya');
 		return $this->db->get('tb_user');
 	}
 	public function select($id){
 		$this->db->select('*');
-		$this->db->where('id',$id);
+		$this->db->where('id_user',$id);
 		return $this->db->get('tb_user');
 	}
 
@@ -30,7 +31,8 @@ class M_admin extends CI_Model {
 			'email' => $email,
 			'phone' => $phone,
 			'lokasi'=> $lokasi,
-			'aktif'=> $aktif
+			'aktif'=> $aktif,
+			'hak_akses'=> 'Teknisi'
 		);
 		$this->db->insert('tb_user', $data);
 		//return ($this->db->affected_rows() != 1) ? 'failed' : 'success';
@@ -45,7 +47,7 @@ class M_admin extends CI_Model {
 			'aktif'=> $aktif
 
 		);
-		$this->db->where('id',$id);
+		$this->db->where('id_user',$id);
 		$this->db->update('tb_user',$data);
 
 	}

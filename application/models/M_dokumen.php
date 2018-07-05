@@ -32,13 +32,13 @@ class M_dokumen extends CI_Model {
 	public function selectDokumen($id) {
 		$this->db->select('tb_dokumen.*,tb_user.fullname');
 		$this->db->from('tb_dokumen');
-		$this->db->join('tb_user', 'tb_user.id = tb_dokumen.teknisi_id','left');
+		$this->db->join('tb_user', 'tb_user.id_user = tb_dokumen.teknisi_id','left');
 		$this->db->where('id_dokumen', $id);
 		return $this->db->get();
 	}
 
 	public function insert($judul, $deskripsi, $langkah,$tgl_buat,$panjang_dokumen) {
-		$currUserid=$this->session->userdata('id');
+		$currUserid=$this->session->userdata('id_user');
 
 		$objek=array('judul'=>$judul, 'deskripsi'=>$deskripsi, 'langkah'=>$langkah, 'tgl_buat'=>$tgl_buat, 'panjang_dokumen'=>$panjang_dokumen,'teknisi_id'=>$currUserid);
 		$this->db->insert('tb_dokumen', $objek);

@@ -5,7 +5,7 @@
         <div class="box-header">
          
           <button class="btn btn-primary btn-flat pull-right" data-toggle="tooltip" onclick="addPerbaikan();"><i class="fa fa-plus" id="add"></i> Tambah Perbaikan</button>
-          <a href="<?php echo base_url('Admin/Excel/export_excel') ?>" class="btn btn-warning btn-flat pull-right" data-toggle="tooltip" ><i class="fa fa-download " ></i> Export Data</a>
+          
         </div>
         <!-- /.box-header 3998ad -->
         <div class="box-body table-responsive">
@@ -35,13 +35,13 @@
                         <td><?php echo  $row->tgl_selesai; ?></td>
                          <td style="text-align: center;"> 
                           <?php if ($row->status=='perbaikan') {
-                           echo '<a class="btn btn-warning btn-flat btn-xs ">';
+                           echo '<a class="btn btn-danger btn-flat btn-xs ">';
                           } else{
                             echo '<a class="btn btn-success btn-flat btn-xs ">';
                           } ?>
                           <?php echo  $row->status; ?></a></td>
                         <td style="text-align: center;">
-                                <button onclick="lokasiAset(<?php echo $row->aset_id; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip">
+                                <button onclick="lokasiAset(<?php echo $row->aset_id; ?>);" class="btn btn-warning btn-flat" type="button" data-toggle="tooltip">
                                 <i class="fa fa-search"></i></button>
                         </td>
                         <td style=" width: 100px;text-align: center;">
@@ -49,9 +49,13 @@
                             <?php if ($row->status=='perbaikan') { ?>
                                 <button onclick="perbaikanSelesai(<?php echo $row->id_perbaikan; ?>);" class="btn btn-success btn-flat" data-toggle="tooltip" title="Perbaikan selesai">
                                 <i class="fa fa-check"></i></button>
+                                <button onclick="lihatSolusi(<?php echo $row->id_perbaikan; ?>);" class="btn btn-primary btn-flat" data-toggle="tooltip" title="lihat Solusi">
+                                <i class="fa  fa-wrench"></i></button>
                             <?php } else{ ?>
                                 <button onclick="lihatCatatan(<?php echo $row->id_perbaikan; ?>);" class="btn btn-info btn-flat" data-toggle="tooltip" title="lihat Catatan">
                                 <i class="fa fa-file-text-o"></i></button>
+                                 <button onclick="lihatSolusi(<?php echo $row->id_perbaikan; ?>);" class="btn btn-primary btn-flat" data-toggle="tooltip" title="lihat Solusi">
+                                <i class="fa  fa-wrench"></i></button>
                             
                             <?php } ?>
                                 
@@ -104,6 +108,8 @@
               <div id="detailAset">
           
              </div>
+             <label>Catatan</label>
+             <textarea id="catatan" class="form-control " ></textarea>
          </div>
          <div class="modal-footer">
             <div class="btn-group">
@@ -224,16 +230,21 @@
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Tambah Catatan Perbaikan</h4>
+            <h4 class="modal-title" id="myModalLabel">Solusi Perbaikan</h4>
          </div>
          <div  class="modal-body">
-          <input  id="id_catatan" type="hidden" >
-           <textarea id="catatan" class="form-control "  ></textarea>
+           <div id="preloader2" style="display: none;">
+              <div class="box" style="height: 80px;">
+                  <div class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                  </div>
+              </div>
+          </div>
+           <div  id="hasil_cari" style="display: none" ></div>
           
          </div>
          <div class="modal-footer">
           <div class="btn-group">
-            <button id="btn-tambah-catatan" type="button" class="btn btn-success btn-flat " data-dismiss="modal">Simpan</button>
             <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">tutup</button>
           </div>
         </div>
@@ -265,9 +276,10 @@
            $('#preloader').css('display','block');
             
             var id_aset = document.getElementById("selectaset").value;
+            var catatan = document.getElementById("catatan").value;
           
            
-            $.post(base_url+"Admin/Perbaikan/create/", {id_aset: id_aset }, function(data) {
+            $.post(base_url+"Admin/Perbaikan/create/", {id_aset: id_aset,catatan:catatan }, function(data) {
                 $('#preloader').css('display','none');
                 $('#main-content').html(data);
                 dataTable();
@@ -314,26 +326,47 @@
 
 
     }
-     function perbaikanSelesai(id) {           
+    function lihatSolusi(id_perbaikan) {
+            $('#hasil_cari').css('display','none');
             $('#modalTambahCatatan').modal();
-            $('#id_catatan').val(id);
+            $('#preloader2').css('display','block');
+            $.post(base_url+"Sispendok/Pendok/LihatSolusi/"+id_perbaikan, function(data) {
+             $('#hasil_cari').css('display','block');
+             $('#preloader2').css('display','none');
+            $('#hasil_cari').html(data);
+            });
+
 
     }
+    //  function perbaikanSelesai(id) {           
+    //         $('#modalTambahCatatan').modal();
+    //         $('#id_catatan').val(id);
 
-    $('#btn-tambah-catatan').click(function(event) {
-                  $('#preloader').css('display','block');
-                  var id = $('#id_catatan').val();
-                  var catatan = $('#catatan').val();
-                  $.post(base_url+"Admin/Perbaikan/perbaikanSelesai/", {id: id,catatan:catatan }, function(data) {
+    // }
+
+    // $('#btn-tambah-catatan').click(function(event) {
+    //               $('#preloader').css('display','block');
+    //               var id = $('#id_catatan').val();
+    //               var catatan = $('#catatan').val();
+    //               $.post(base_url+"Admin/Perbaikan/perbaikanSelesai/", {id: id,catatan:catatan }, function(data) {
+    //                   $('#preloader').css('display','none');
+    //                   $('#main-content').html(data);
+    //                   dataTable();
+    //                   //console.log(data);
+    //               });   
+                        
+    //            }); 
+   
+    function perbaikanSelesai(id) {           
+           $('#preloader').css('display','block');
+                  $.post(base_url+"Admin/Perbaikan/perbaikanSelesai/", {id: id }, function(data) {
                       $('#preloader').css('display','none');
                       $('#main-content').html(data);
                       dataTable();
                       //console.log(data);
                   });   
-                        
-               }); 
-   
-    
+
+    }
    
 
 
